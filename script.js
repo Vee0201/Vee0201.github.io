@@ -131,4 +131,52 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Last-updated dates, queried live from GitHub's commit history.
+  // Falls back to whatever static text is already in the markup if the API call fails or is rate-limited.
+  const GITHUB_REPO = 'Vee0201/Vee0201.github.io';
+
+  function formatMonthYear(dateString) {
+    const d = new Date(dateString);
+    return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  async function latestCommitDate(paths) {
+    let latest = null;
+    for (const path of paths) {
+      try {
+        const url = path
+          ? `https://api.github.com/repos/${GITHUB_REPO}/commits?path=${encodeURIComponent(path)}&per_page=1`
+          : `https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`;
+        const res = await fetch(url);
+        if (!res.ok) continue;
+        const data = await res.json();
+        const dateStr = data && data[0] && data[0].commit && data[0].commit.committer && data[0].commit.committer.date;
+        if (dateStr) {
+          const d = new Date(dateStr);
+          if (!latest || d > latest) latest = d;
+        }
+      } catch (e) {
+        // Network/API failure: silently keep whatever we already have.
+      }
+    }
+    return latest;
+  }
+
+  (async () => {
+    const cvLastUpdatedEl = document.getElementById('cv-last-updated');
+    const footerLastUpdatedEl = document.getElementById('footer-last-updated');
+
+    // CV panel: most recent commit touching either CV PDF.
+    const cvDate = await latestCommitDate(['Assets/CV-1page.pdf', 'Assets/CV-2page.pdf']);
+    if (cvLastUpdatedEl && cvDate) {
+      cvLastUpdatedEl.textContent = `Last updated ${formatMonthYear(cvDate)}`;
+    }
+
+    // Footer: most recent commit anywhere in the repo (site content or CV pdfs).
+    const repoDate = await latestCommitDate(['']);
+    if (footerLastUpdatedEl && repoDate) {
+      footerLastUpdatedEl.textContent = `Last updated ${formatMonthYear(repoDate)}`;
+    }
+  })();
 });
