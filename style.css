@@ -22,11 +22,35 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   padding: 40px 20px 0 20px;
+}
+
+a, button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blueprint-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Navigation Container */
@@ -37,12 +61,21 @@ body {
   gap: 16px;
   max-width: 1100px;
   margin: 0 auto 40px auto;
-  flex-wrap: wrap;
+  position: sticky;
+  top: 12px;
+  z-index: 100;
 }
 
 .navbar {
   display: flex;
   gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.navbar::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-tab {
@@ -54,6 +87,8 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
@@ -73,6 +108,8 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.3s ease;
 }
 
@@ -225,6 +262,22 @@ body {
 
 .grid-container.hidden {
   display: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-container:not(.hidden),
+.grid-container:not(.hidden) .card:not(.hidden) {
+  animation: fadeInUp 0.35s ease both;
 }
 
 /* Cards */
@@ -504,5 +557,32 @@ body {
   .footer-top {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 20px 14px 0 14px;
+  }
+  .nav-container {
+    justify-content: flex-start;
+    top: 8px;
+  }
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    justify-content: center;
+  }
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
