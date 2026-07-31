@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
+  <title>Portfolio Placeholder</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,133 +11,159 @@
 </head>
 <body>
 
-  <!-- Navigation Container -->
+  <!-- Navigation Container (Right Aligned) -->
   <div class="nav-container">
     <nav class="navbar">
       <button class="nav-tab active" data-filter="all">Home</button>
       <button class="nav-tab" data-filter="research">Research</button>
+      <button class="nav-tab" data-filter="projects">Projects</button>
       <button class="nav-tab" data-filter="experience">Experience</button>
+      <button class="nav-tab" data-filter="skills">Skills</button>
     </nav>
     <button id="contact-btn" class="contact-tab">Get In Touch</button>
   </div>
 
-  <!-- Project Grid -->
+  <!-- Main Content Grid -->
   <main class="grid-container">
 
-    <!-- Card 1: Research -->
+    <!-- Research Category Card -->
     <article class="card" data-category="research">
       <div class="card-media">
-        <img src="assets/cfd-preview.png" alt="Drag Reduction System">
+        <img src="assets/cfd-preview.png" alt="Research Project Preview">
       </div>
       <div class="card-body">
-        <span class="sub-header">DHIO RESEARCH</span>
-        <h2 class="card-title">Drag Reduction System</h2>
+        <span class="sub-header">[ORGANIZATION / LAB NAME]</span>
+        <h2 class="card-title">[Research Project Title]</h2>
         <p class="card-description">
-          A transient moving-mesh CFD study of a drag reduction system, resolving the flow as a slotted element opens to shed downforce.
+          [Brief summary of research methodology, technical challenge resolved, and primary engineering outcomes.]
         </p>
         <div class="tags">
-          <span class="pill">Moving mesh</span>
-          <span class="pill">Transient CFD</span>
+          <span class="pill">Topic 1</span>
+          <span class="pill">Topic 2</span>
         </div>
       </div>
     </article>
 
-    <!-- Card 2: Experience -->
+    <!-- Projects Category Card -->
+    <article class="card" data-category="projects">
+      <div class="card-media text-banner">
+        <span class="banner-text">PROJECT A</span>
+      </div>
+      <div class="card-body">
+        <span class="sub-header">[TEAM / INITIATIVE NAME]</span>
+        <h2 class="card-title">[Project Title A]</h2>
+        <p class="card-description">
+          [Overview of design architecture, system specifications, hardware or software implementation details.]
+        </p>
+        <div class="tags">
+          <span class="pill">Technology 1</span>
+          <span class="pill">Technology 2</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Experience Category Card -->
     <article class="card" data-category="experience">
       <div class="card-media text-banner">
-        <span class="banner-text">FADEC</span>
+        <span class="banner-text">ROLE A</span>
       </div>
       <div class="card-body">
-        <span class="sub-header">LAT AEROSPACE · GTE TEAM</span>
-        <h2 class="card-title">FADEC & Turbojet Sim</h2>
+        <span class="sub-header">[COMPANY / ORGANIZATION]</span>
+        <h2 class="card-title">[Engineering Role Title]</h2>
         <p class="card-description">
-          A modular FADEC for turbojet engines on an STM32 platform, a C++ software-in-the-loop engine simulator, and a hybrid UAV powertrain.
+          [Key responsibilities, team leadership, system integration, or engineering metrics achieved during tenure.]
         </p>
         <div class="tags">
-          <span class="pill">STM32</span>
-          <span class="pill">C++ SITL</span>
+          <span class="pill">Skill 1</span>
+          <span class="pill">Skill 2</span>
         </div>
       </div>
     </article>
 
-    <!-- Card 3: Research -->
-    <article class="card" data-category="research">
-      <div class="card-media text-banner">
-        <span class="banner-text">Raman</span>
-      </div>
-      <div class="card-body">
-        <span class="sub-header">DST NIDHI PRAYAS</span>
-        <h2 class="card-title">Raman Spectrophotometer</h2>
-        <p class="card-description">
-          A high-precision Czerny-Turner Raman spectrophotometer for non-destructive detection of organic biosignatures.
-        </p>
-        <div class="tags">
-          <span class="pill">Optics</span>
-          <span class="pill">Spectroscopy</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Card 4: Experience -->
-    <article class="card" data-category="experience">
-      <div class="card-media text-banner">
-        <span class="banner-text">ATV</span>
-      </div>
-      <div class="card-body">
-        <span class="sub-header">ASME · BAJA SAE</span>
-        <h2 class="card-title">Modular ATV Monocoque</h2>
-        <p class="card-description">
-          A high-torsional-stiffness monocoque chassis for an all-terrain vehicle, with anti-Ackermann steering and a stress-checked geartrain.
-        </p>
-        <div class="tags">
-          <span class="pill">Structures</span>
-          <span class="pill">FEA</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Card 5: Experience -->
-    <article class="card" data-category="experience">
+    <!-- Skills Category Card -->
+    <article class="card" data-category="skills">
       <div class="card-media text-banner flex-column">
-        <span class="banner-text">5-DOF</span>
-        <span class="banner-subtext">Manipulator</span>
+        <span class="banner-text">SKILLS</span>
+        <span class="banner-subtext">CORE COMPETENCIES</span>
       </div>
       <div class="card-body">
-        <span class="sub-header">IEEE RASSE 2025</span>
-        <h2 class="card-title">5-DOF Manipulator</h2>
+        <span class="sub-header">[DOMAIN / TECHNICAL CATEGORY]</span>
+        <h2 class="card-title">[Technical Proficiency Area]</h2>
         <p class="card-description">
-          A five degree-of-freedom robotic arm with a hot-swappable end-effector interface for tasks from micro-sampling to warehouse automation.
+          [Summary of software tools, hardware interfaces, analytical methods, or laboratory techniques utilized.]
         </p>
         <div class="tags">
-          <span class="pill">Robotics</span>
-          <span class="pill">Kinematics</span>
+          <span class="pill">Tool A</span>
+          <span class="pill">Tool B</span>
+          <span class="pill">Tool C</span>
         </div>
       </div>
     </article>
 
   </main>
 
-  <!-- Contact Pane Overlay -->
+  <!-- Contact Modal -->
   <div id="contact-modal" class="modal">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
       <h2>Get In Touch</h2>
       <div class="contact-links">
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="contact-item">
+        <a href="mailto:personal@domain.com" class="contact-item">
+          <span class="contact-label">Personal Email</span>
+          <span class="contact-value">personal@domain.com</span>
+        </a>
+        <a href="mailto:student@university.edu" class="contact-item">
+          <span class="contact-label">University Email</span>
+          <span class="contact-value">student@university.edu</span>
+        </a>
+        <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" class="contact-item">
           <span class="contact-label">LinkedIn</span>
-          <span class="contact-value">linkedin.com/in/yourprofile</span>
-        </a>
-        <a href="mailto:personal@example.com" class="contact-item">
-          <span class="contact-label">Personal Mail</span>
-          <span class="contact-value">personal@example.com</span>
-        </a>
-        <a href="mailto:university@edu.com" class="contact-item">
-          <span class="contact-label">University Mail</span>
-          <span class="contact-value">university@edu.com</span>
+          <span class="contact-value">linkedin.com/in/username</span>
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-bio">
+          <h3 class="footer-heading">[Headline Title]</h3>
+          <p class="footer-text">
+            [Brief statement regarding technical focus, academic background, open collaborations, or professional interests.]
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col-title">EXPLORE</span>
+          <ul class="footer-links">
+            <li><a href="#" data-footer-filter="all">Home</a></li>
+            <li><a href="#" data-footer-filter="research">Research</a></li>
+            <li><a href="#" data-footer-filter="projects">Projects</a></li>
+            <li><a href="#" data-footer-filter="experience">Experience</a></li>
+            <li><a href="#" data-footer-filter="skills">Skills</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col-title">CONNECT</span>
+          <ul class="footer-links">
+            <li><a href="mailto:personal@domain.com">Personal Email</a></li>
+            <li><a href="mailto:student@university.edu">University Email</a></li>
+            <li><a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <span class="copyright">&copy; [YEAR] [Your Name]</span>
+        <span class="tagline">[Built with care · Location/Institution]</span>
+      </div>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
