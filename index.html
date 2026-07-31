@@ -1,194 +1,301 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.nav-tab[data-filter]');
-  const heroSection = document.getElementById('hero-section');
-  const gridSection = document.getElementById('grid-section');
-  const cards = document.querySelectorAll('.card');
-  const footerLinks = document.querySelectorAll('[data-footer-filter]');
-  const actionTargets = document.querySelectorAll('[data-nav-target]');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Placeholder</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
 
-  function navigateToTab(targetFilter) {
-    // Active state update
-    tabs.forEach(tab => {
-      if (tab.getAttribute('data-filter') === targetFilter) {
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-      } else {
-        tab.classList.remove('active');
-        tab.setAttribute('aria-selected', 'false');
-      }
-    });
+  <!-- Site Header (nav + divider, frozen together on scroll) -->
+  <header class="site-header">
+    <div class="nav-container">
+      <nav class="navbar" role="tablist" aria-label="Site sections">
+        <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
+        <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
+        <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
+        <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
+        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
+        <button class="nav-tab" id="cv-btn" type="button">CV</button>
+      </nav>
+      <button id="contact-btn" class="contact-tab">Get In Touch</button>
+    </div>
 
-    // Toggle view between Hero and Grid
-    if (targetFilter === 'home') {
-      heroSection.classList.remove('hidden');
-      gridSection.classList.add('hidden');
-    } else {
-      heroSection.classList.add('hidden');
-      gridSection.classList.remove('hidden');
+    <hr class="top-divider">
+  </header>
 
-      // Filter cards
-      cards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (category === targetFilter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    }
-  }
+  <main class="main-content">
+    
+    <!-- Home Ribbons (Visible on Home Tab) -->
+    <section id="hero-section" class="ribbons-wrapper">
 
-  // Navbar clicks
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const filter = tab.getAttribute('data-filter');
-      navigateToTab(filter);
-    });
-  });
+      <!-- Ribbon 1: Name & Hero Shot -->
+      <div class="ribbon ribbon-a ribbon-hero">
+        <div class="ribbon-inner hero-ribbon-inner">
+          <div class="hero-text">
+            <span class="hero-sub-header">[DEPARTMENT / SPECIALIZATION]</span>
+            <h1 class="hero-title">[Your Name].</h1>
+            <p class="hero-bio">
+              [Summary of engineering focus, academic specialization, analytical methods, and primary technical interests.]
+            </p>
+            <ul class="hero-meta">
+              <li>• [Degree Program]</li>
+              <li>• [Class of Year]</li>
+              <li>• [Location/Institution]</li>
+            </ul>
+            <div class="hero-actions">
+              <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
+              <button class="btn btn-outline" id="hero-cv-btn" type="button">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Download CV
+              </button>
+              <a href="mailto:personal@domain.com" class="btn btn-outline">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email me
+              </a>
+            </div>
+          </div>
 
-  // Action button clicks (e.g. "View research ->")
-  actionTargets.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.getAttribute('data-nav-target');
-      navigateToTab(target);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
+          <div class="hero-image-wrapper">
+            <img src="Assets/profile.jpg" alt="Profile Photo" class="hero-image">
+            <div class="hero-badge">[YOUR NAME]</div>
+          </div>
+        </div>
+      </div>
 
-  // Footer navigation link clicks
-  footerLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const filter = link.getAttribute('data-footer-filter');
-      navigateToTab(filter);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
+      <!-- Ribbon 2: Current / Upcoming -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">RIGHT NOW</span>
+          <h2 class="ribbon-title">Current / Upcoming</h2>
+          <ul class="ribbon-list">
+            <li>
+              <span class="ribbon-list-label">[Status]</span>
+              <span class="ribbon-list-text">[Brief description of ongoing project, research, or upcoming milestone.]</span>
+            </li>
+            <li>
+              <span class="ribbon-list-label">[Status]</span>
+              <span class="ribbon-list-text">[Brief description of a second current activity or commitment.]</span>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-  // Generic modal setup: pass trigger button(s), the modal element, and its close button
-  function setupModal(triggers, modal) {
-    if (!modal) return;
-    const closeBtn = modal.querySelector('.close-btn');
-    if (!closeBtn) return;
+      <!-- Ribbon 3: Selected Work -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">HIGHLIGHTS</span>
+          <h2 class="ribbon-title">Selected Work</h2>
+          <div class="ribbon-card-row">
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+          </div>
+          <button class="btn btn-outline ribbon-cta" data-nav-target="projects">See all projects &rarr;</button>
+        </div>
+      </div>
 
-    const openModal = () => {
-      modal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    };
-    const closeModal = () => {
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
-    };
+      <!-- Ribbon 4: Beyond the Lab -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">OFF THE CLOCK</span>
+          <h2 class="ribbon-title">Beyond the Lab</h2>
+          <p class="ribbon-text">
+            [A more personal paragraph about hobbies, interests, or pursuits outside of academic and technical work.]
+          </p>
+        </div>
+      </div>
 
-    triggers.forEach(trigger => {
-      if (trigger) trigger.addEventListener('click', openModal);
-    });
-    closeBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && modal.classList.contains('show')) {
-        closeModal();
-      }
-    });
-  }
+    </section>
 
-  // Contact Modal
-  setupModal(
-    [document.getElementById('contact-btn')],
-    document.getElementById('contact-modal')
-  );
 
-  // CV Modal (opened from the nav tab or the hero "Download CV" button)
-  setupModal(
-    [document.getElementById('cv-btn'), document.getElementById('hero-cv-btn')],
-    document.getElementById('cv-modal')
-  );
+    <!-- Project Grid (Visible on Research, Projects, Experience, Skills) -->
+    <section id="grid-section" class="grid-container hidden">
 
-  // CV tab switching (swap the embedded PDF, download link, flavor text, and last-updated date)
-  const cvTabs = document.querySelectorAll('.cv-tab');
-  const cvEmbed = document.getElementById('cv-embed');
-  const cvDownloadLink = document.getElementById('cv-download-link');
-  const cvFlavorEl = document.getElementById('cv-flavor');
-  const cvLastUpdatedEl = document.getElementById('cv-last-updated');
+      <!-- Research Card -->
+      <article class="card" data-category="research">
+        <div class="card-media">
+          <img src="assets/cfd-preview.png" alt="Research Preview">
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[LAB / ORGANIZATION]</span>
+          <h2 class="card-title">[Research Project Title]</h2>
+          <p class="card-description">
+            [Brief summary of research methodology, technical challenge resolved, and primary engineering outcomes.]
+          </p>
+          <div class="tags">
+            <span class="pill">Topic 1</span>
+            <span class="pill">Topic 2</span>
+          </div>
+        </div>
+      </article>
 
-  // Populated once the GitHub API calls below resolve; keyed by PDF path.
-  const cvDates = {};
+      <!-- Projects Card -->
+      <article class="card" data-category="projects">
+        <div class="card-media text-banner">
+          <span class="banner-text">PROJECT A</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[TEAM NAME]</span>
+          <h2 class="card-title">[Project Title A]</h2>
+          <p class="card-description">
+            [Overview of design architecture, system specifications, hardware or software implementation details.]
+          </p>
+          <div class="tags">
+            <span class="pill">Technology 1</span>
+            <span class="pill">Technology 2</span>
+          </div>
+        </div>
+      </article>
 
-  function renderCvLastUpdated(src) {
-    if (!cvLastUpdatedEl) return;
-    const d = cvDates[src];
-    if (d) {
-      cvLastUpdatedEl.textContent = `• Last updated ${formatMonthYear(d)}`;
-    }
-  }
+      <!-- Experience Card -->
+      <article class="card" data-category="experience">
+        <div class="card-media text-banner">
+          <span class="banner-text">ROLE A</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[COMPANY NAME]</span>
+          <h2 class="card-title">[Engineering Role Title]</h2>
+          <p class="card-description">
+            [Key responsibilities, team leadership, system integration, or engineering metrics achieved.]
+          </p>
+          <div class="tags">
+            <span class="pill">Skill 1</span>
+            <span class="pill">Skill 2</span>
+          </div>
+        </div>
+      </article>
 
-  cvTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      cvTabs.forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
+      <!-- Skills Card -->
+      <article class="card" data-category="skills">
+        <div class="card-media text-banner flex-column">
+          <span class="banner-text">SKILLS</span>
+          <span class="banner-subtext">COMPETENCIES</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[TECHNICAL DOMAIN]</span>
+          <h2 class="card-title">[Technical Area]</h2>
+          <p class="card-description">
+            [Summary of software tools, hardware interfaces, analytical methods, or laboratory techniques utilized.]
+          </p>
+          <div class="tags">
+            <span class="pill">Tool A</span>
+            <span class="pill">Tool B</span>
+          </div>
+        </div>
+      </article>
 
-      const src = tab.getAttribute('data-cv-src');
-      const name = tab.getAttribute('data-cv-name');
-      const flavor = tab.getAttribute('data-cv-flavor');
+    </section>
 
-      if (cvEmbed) cvEmbed.setAttribute('src', src);
-      if (cvDownloadLink) {
-        cvDownloadLink.setAttribute('href', src);
-        cvDownloadLink.setAttribute('download', name);
-      }
-      if (cvFlavorEl && flavor) cvFlavorEl.textContent = flavor;
-      renderCvLastUpdated(src);
-    });
-  });
+  </main>
 
-  // Last-updated dates, queried live from GitHub's commit history.
-  // Falls back to whatever static text is already in the markup if the API call fails or is rate-limited.
-  const GITHUB_REPO = 'Vee0201/Vee0201.github.io';
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" role="button" tabindex="0" aria-label="Close contact dialog">&times;</span>
+      <h2>Get In Touch</h2>
+      <div class="contact-links">
+        <a href="mailto:personal@domain.com" class="contact-item">
+          <span class="contact-label">Personal Email</span>
+          <span class="contact-value">personal@domain.com</span>
+        </a>
+        <a href="mailto:student@university.edu" class="contact-item">
+          <span class="contact-label">University Email</span>
+          <span class="contact-value">student@university.edu</span>
+        </a>
+        <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/username</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
-  function formatMonthYear(dateString) {
-    const d = new Date(dateString);
-    return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-  }
+  <!-- CV Modal -->
+  <div id="cv-modal" class="modal">
+    <div class="modal-content cv-modal-content">
+      <span class="close-btn" role="button" tabindex="0" aria-label="Close CV dialog">&times;</span>
+      <h2>My CV</h2>
+      <div class="cv-tabs" role="tablist" aria-label="CV versions">
+        <button class="cv-tab active" type="button" data-cv-src="Assets/CV-1page.pdf" data-cv-name="CV-1page.pdf" data-cv-flavor="Concise overview" aria-selected="true">1-Page</button>
+        <button class="cv-tab" type="button" data-cv-src="Assets/CV-2page.pdf" data-cv-name="CV-2page.pdf" data-cv-flavor="Full detail" aria-selected="false">2-Page</button>
+        <span class="cv-flavor" id="cv-flavor">Concise overview</span>
+      </div>
+      <div class="cv-viewer-wrapper">
+        <embed id="cv-embed" class="cv-embed" src="Assets/CV-1page.pdf" type="application/pdf">
+      </div>
+      <div class="cv-footer-row">
+        <span class="cv-last-updated" id="cv-last-updated">• Last updated August 2026</span>
+        <a id="cv-download-link" href="Assets/CV-1page.pdf" download="CV-1page.pdf" class="btn btn-outline cv-download-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download PDF
+        </a>
+      </div>
+    </div>
+  </div>
 
-  async function latestCommitDate(path) {
-    try {
-      const url = path
-        ? `https://api.github.com/repos/${GITHUB_REPO}/commits?path=${encodeURIComponent(path)}&per_page=1`
-        : `https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`;
-      const res = await fetch(url);
-      if (!res.ok) return null;
-      const data = await res.json();
-      const dateStr = data && data[0] && data[0].commit && data[0].commit.committer && data[0].commit.committer.date;
-      return dateStr ? new Date(dateStr) : null;
-    } catch (e) {
-      // Network/API failure: caller keeps whatever fallback text is already showing.
-      return null;
-    }
-  }
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-bio">
+          <h3 class="footer-heading">[Headline Title]</h3>
+          <p class="footer-text">
+            [Brief statement regarding technical focus, academic background, open collaborations, or professional interests.]
+          </p>
+        </div>
 
-  (async () => {
-    const footerLastUpdatedEl = document.getElementById('footer-last-updated');
+        <div class="footer-col">
+          <span class="footer-col-title">EXPLORE</span>
+          <ul class="footer-links">
+            <li><a href="#" data-footer-filter="home">Home</a></li>
+            <li><a href="#" data-footer-filter="research">Research</a></li>
+            <li><a href="#" data-footer-filter="projects">Projects</a></li>
+            <li><a href="#" data-footer-filter="experience">Experience</a></li>
+            <li><a href="#" data-footer-filter="skills">Skills</a></li>
+          </ul>
+        </div>
 
-    // CV panel: one date per PDF, fetched independently so the text can switch with the active tab.
-    const cvPaths = ['Assets/CV-1page.pdf', 'Assets/CV-2page.pdf'];
-    const results = await Promise.all(cvPaths.map(p => latestCommitDate(p)));
-    cvPaths.forEach((p, i) => { if (results[i]) cvDates[p] = results[i]; });
+        <div class="footer-col">
+          <span class="footer-col-title">CONNECT</span>
+          <ul class="footer-links">
+            <li><a href="mailto:personal@domain.com">Personal Email</a></li>
+            <li><a href="mailto:student@university.edu">University Email</a></li>
+            <li><a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
 
-    const activeTab = document.querySelector('.cv-tab.active');
-    if (activeTab) renderCvLastUpdated(activeTab.getAttribute('data-cv-src'));
+      <div class="footer-divider"></div>
 
-    // Footer: most recent commit anywhere in the repo (site content or CV pdfs).
-    const repoDate = await latestCommitDate('');
-    if (footerLastUpdatedEl && repoDate) {
-      footerLastUpdatedEl.textContent = `Last updated ${formatMonthYear(repoDate)}`;
-    }
-  })();
-});
+      <div class="footer-bottom">
+        <span class="copyright">&copy; [YEAR] [Your Name]</span>
+        <span class="tagline">[Built with care · Location/Institution]</span>
+        <span class="tagline" id="footer-last-updated">Last updated August 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
