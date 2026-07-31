@@ -35,13 +35,8 @@ html {
 
 body {
   background-color: var(--bg-color);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
   color: var(--text-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  padding: 40px 0 0 0;
   overflow-x: hidden;
 }
 
@@ -66,6 +61,14 @@ a, button {
 }
 
 /* Navigation Container */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-color);
+  padding-top: 20px;
+}
+
 .nav-container {
   display: flex;
   justify-content: flex-end;
@@ -74,9 +77,6 @@ a, button {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
-  position: sticky;
-  top: 12px;
-  z-index: 100;
 }
 
 .navbar {
@@ -177,6 +177,10 @@ a, button {
   background-size: 32px 32px;
 }
 
+.ribbon-hero {
+  background-image: none;
+}
+
 .ribbon-a {
   background-color: var(--bg-color);
 }
@@ -206,13 +210,15 @@ a, button {
 }
 
 .corner-mark-tl {
-  top: 20px;
+  top: 0;
   left: 20px;
+  transform: translateY(-50%);
 }
 
 .corner-mark-br {
-  bottom: 20px;
+  bottom: 0;
   right: 20px;
+  transform: translateY(50%);
 }
 
 .ribbon-inner {
@@ -324,7 +330,7 @@ a, button {
 
 .hero-title {
   font-family: 'Archivo', sans-serif;
-  font-size: 3.25rem;
+  font-size: 4.25rem;
   color: var(--text-heading);
   font-weight: 600;
   line-height: 1.1;
@@ -745,22 +751,18 @@ a, button {
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 20px 0 0 0;
+  .site-header {
+    padding-top: 14px;
   }
   .nav-container,
   .top-divider {
     padding: 0 14px;
   }
-  .nav-container {
-    justify-content: flex-end;
-    top: 8px;
-  }
   .ribbon {
     padding: 48px 14px;
   }
   .hero-title {
-    font-size: 2.25rem;
+    font-size: 2.75rem;
   }
   .hero-actions {
     flex-direction: column;
