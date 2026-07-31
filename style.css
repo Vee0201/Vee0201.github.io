@@ -175,10 +175,7 @@ a, button {
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
   background-size: 32px 32px;
-}
-
-.ribbon-hero {
-  background-image: none;
+  background-attachment: fixed;
 }
 
 .ribbon-a {
@@ -211,13 +208,13 @@ a, button {
 
 .corner-mark-tl {
   top: 0;
-  left: 20px;
+  left: 56px;
   transform: translateY(-50%);
 }
 
 .corner-mark-br {
   bottom: 0;
-  right: 20px;
+  right: 56px;
   transform: translateY(50%);
 }
 
@@ -441,6 +438,11 @@ a, button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
 }
 
 .grid-container.hidden {
@@ -659,10 +661,6 @@ a, button {
 /* Footer */
 .site-footer {
   background-color: var(--footer-bg);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
   border-top: 1px solid var(--card-border);
   padding: 60px 20px 40px 20px;
 }
