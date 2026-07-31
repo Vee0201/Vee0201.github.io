@@ -189,8 +189,8 @@ a, button {
 
 .corner-mark {
   position: absolute;
-  width: 110px;
-  height: 110px;
+  width: 66px;
+  height: 66px;
   pointer-events: none;
   background-repeat: no-repeat;
   background-image:
@@ -203,36 +203,36 @@ a, button {
   background-size:
     26px 6px,
     6px 26px,
-    66px 2px,
     44px 2px,
-    2px 66px,
-    2px 44px;
+    22px 2px,
+    2px 44px,
+    2px 22px;
 }
 
-/* Core point at (44px, 44px). Toward-content rays run 66px, away-from-content rays stay 44px. */
+/* Core point at (22px, 22px). Toward-content rays run 44px, away-from-content rays stay 22px. */
 .corner-mark-tl {
-  top: -44px;
-  left: 60px;
+  top: -22px;
+  left: 118px;
+  background-position:
+    9px 19px,
+    19px 9px,
+    22px 21px,
+    0px 21px,
+    21px 22px,
+    21px 0px;
+}
+
+/* Core point at (44px, 44px), mirrored. */
+.corner-mark-br {
+  bottom: -22px;
+  right: 118px;
   background-position:
     31px 41px,
     41px 31px,
-    44px 43px,
     0px 43px,
-    43px 44px,
-    43px 0px;
-}
-
-/* Core point at (66px, 66px), mirrored. */
-.corner-mark-br {
-  bottom: -44px;
-  right: 60px;
-  background-position:
-    53px 63px,
-    63px 53px,
-    0px 65px,
-    66px 65px,
-    65px 0px,
-    65px 66px;
+    44px 43px,
+    43px 0px,
+    43px 44px;
 }
 
 .ribbon-inner {
@@ -309,9 +309,14 @@ a, button {
 .mini-card {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-left: 3px solid var(--safety-orange);
+  border-left: 3px solid transparent;
   border-radius: 12px;
   padding: 20px;
+  transition: border-left-color 0.2s ease;
+}
+
+.mini-card:hover {
+  border-left-color: var(--safety-orange);
 }
 
 .mini-card-title {
@@ -677,8 +682,8 @@ a, button {
 
 /* CV Modal */
 .cv-modal-content {
-  max-width: 720px;
-  width: 92%;
+  max-width: 980px;
+  width: 95%;
   display: flex;
   flex-direction: column;
 }
@@ -710,7 +715,7 @@ a, button {
 
 .cv-viewer-wrapper {
   width: 100%;
-  height: min(65vh, 640px);
+  height: min(75vh, 820px);
   border: 1px solid var(--card-border);
   border-radius: 8px;
   overflow: hidden;
@@ -730,6 +735,12 @@ a, button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+.cv-last-updated {
+  margin-top: 16px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
 }
 
 /* Footer */
