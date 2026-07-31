@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.nav-tab');
+  const tabs = document.querySelectorAll('.nav-tab[data-filter]');
   const heroSection = document.getElementById('hero-section');
   const gridSection = document.getElementById('grid-section');
   const cards = document.querySelectorAll('.card');
@@ -65,32 +65,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Contact Modal
-  const contactBtn = document.getElementById('contact-btn');
-  const contactModal = document.getElementById('contact-modal');
-  const closeBtn = document.querySelector('.close-btn');
+  // Generic modal setup: pass trigger button(s), the modal element, and its close button
+  function setupModal(triggers, modal) {
+    if (!modal) return;
+    const closeBtn = modal.querySelector('.close-btn');
+    if (!closeBtn) return;
 
-  if (contactBtn && contactModal && closeBtn) {
     const openModal = () => {
-      contactModal.classList.add('show');
+      modal.classList.add('show');
       document.body.style.overflow = 'hidden';
     };
     const closeModal = () => {
-      contactModal.classList.remove('show');
+      modal.classList.remove('show');
       document.body.style.overflow = '';
     };
 
-    contactBtn.addEventListener('click', openModal);
+    triggers.forEach(trigger => {
+      if (trigger) trigger.addEventListener('click', openModal);
+    });
     closeBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (event) => {
-      if (event.target === contactModal) {
+      if (event.target === modal) {
         closeModal();
       }
     });
     window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && contactModal.classList.contains('show')) {
+      if (event.key === 'Escape' && modal.classList.contains('show')) {
         closeModal();
       }
     });
   }
+
+  // Contact Modal
+  setupModal(
+    [document.getElementById('contact-btn')],
+    document.getElementById('contact-modal')
+  );
+
+  // CV Modal (opened from the nav tab or the hero "Download CV" button)
+  setupModal(
+    [document.getElementById('cv-btn'), document.getElementById('hero-cv-btn')],
+    document.getElementById('cv-modal')
+  );
 });
