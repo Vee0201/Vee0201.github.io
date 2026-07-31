@@ -1,301 +1,877 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Placeholder</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-</head>
-<body>
+:root {
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --card-border: #cbd5e1;
+  --card-hover-border: #94a3b8;
+  
+  --text-main: #475569;
+  --text-heading: #0f172a;
+  --text-muted: #64748b;
+  
+  --blueprint-blue: #1d4ed8;
+  --blueprint-dark: #1e40af;
+  --blueprint-bg: #eff6ff;
+  --blueprint-border: #bfdbfe;
 
-  <!-- Site Header (nav + divider, frozen together on scroll) -->
-  <header class="site-header">
-    <div class="nav-container">
-      <nav class="navbar" role="tablist" aria-label="Site sections">
-        <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
-        <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
-        <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
-        <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
-        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
-        <button class="nav-tab" id="cv-btn" type="button">CV</button>
-      </nav>
-      <button id="contact-btn" class="contact-tab">Get In Touch</button>
-    </div>
+  --safety-orange: #ff6600;
+  --safety-orange-dark: #cc5200;
+  --safety-orange-bg: #fff2e8;
+  --safety-orange-border: #ffcda3;
+  
+  --footer-bg: #e2e8f0;
+  --grid-line: rgba(29, 64, 175, 0.06);
+}
 
-    <hr class="top-divider">
-  </header>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  <main class="main-content">
-    
-    <!-- Home Ribbons (Visible on Home Tab) -->
-    <section id="hero-section" class="ribbons-wrapper">
+html {
+  scroll-behavior: smooth;
+  font-size: 120%;
+}
 
-      <!-- Ribbon 1: Name & Hero Shot -->
-      <div class="ribbon ribbon-a ribbon-hero">
-        <div class="ribbon-inner hero-ribbon-inner">
-          <div class="hero-text">
-            <span class="hero-sub-header">[DEPARTMENT / SPECIALIZATION]</span>
-            <h1 class="hero-title">[Your Name].</h1>
-            <p class="hero-bio">
-              [Summary of engineering focus, academic specialization, analytical methods, and primary technical interests.]
-            </p>
-            <ul class="hero-meta">
-              <li>• [Degree Program]</li>
-              <li>• [Class of Year]</li>
-              <li>• [Location/Institution]</li>
-            </ul>
-            <div class="hero-actions">
-              <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
-              <button class="btn btn-outline" id="hero-cv-btn" type="button">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                Download CV
-              </button>
-              <a href="mailto:personal@domain.com" class="btn btn-outline">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                Email me
-              </a>
-            </div>
-          </div>
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
 
-          <div class="hero-image-wrapper">
-            <img src="Assets/profile.jpg" alt="Profile Photo" class="hero-image">
-            <div class="hero-badge">[YOUR NAME]</div>
-          </div>
-        </div>
-      </div>
+a, button {
+  font-family: inherit;
+}
 
-      <!-- Ribbon 2: Current / Upcoming -->
-      <div class="ribbon ribbon-b">
-        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
-        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">RIGHT NOW</span>
-          <h2 class="ribbon-title">Current / Upcoming</h2>
-          <ul class="ribbon-list">
-            <li>
-              <span class="ribbon-list-label">[Status]</span>
-              <span class="ribbon-list-text">[Brief description of ongoing project, research, or upcoming milestone.]</span>
-            </li>
-            <li>
-              <span class="ribbon-list-label">[Status]</span>
-              <span class="ribbon-list-text">[Brief description of a second current activity or commitment.]</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+:focus-visible {
+  outline: 2px solid var(--blueprint-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
-      <!-- Ribbon 3: Selected Work -->
-      <div class="ribbon ribbon-a">
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">HIGHLIGHTS</span>
-          <h2 class="ribbon-title">Selected Work</h2>
-          <div class="ribbon-card-row">
-            <div class="mini-card">
-              <span class="sub-header">[LAB / TEAM]</span>
-              <h3 class="mini-card-title">[Project Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
-            </div>
-            <div class="mini-card">
-              <span class="sub-header">[LAB / TEAM]</span>
-              <h3 class="mini-card-title">[Project Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
-            </div>
-            <div class="mini-card">
-              <span class="sub-header">[LAB / TEAM]</span>
-              <h3 class="mini-card-title">[Project Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
-            </div>
-          </div>
-          <button class="btn btn-outline ribbon-cta" data-nav-target="projects">See all projects &rarr;</button>
-        </div>
-      </div>
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
-      <!-- Ribbon 4: Beyond the Lab -->
-      <div class="ribbon ribbon-b">
-        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
-        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">OFF THE CLOCK</span>
-          <h2 class="ribbon-title">Beyond the Lab</h2>
-          <p class="ribbon-text">
-            [A more personal paragraph about hobbies, interests, or pursuits outside of academic and technical work.]
-          </p>
-        </div>
-      </div>
+/* Navigation Container */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-color);
+  padding-top: 20px;
+}
 
-    </section>
+.nav-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+.navbar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  justify-content: flex-end;
+}
 
-    <!-- Project Grid (Visible on Research, Projects, Experience, Skills) -->
-    <section id="grid-section" class="grid-container hidden">
+.navbar::-webkit-scrollbar {
+  display: none;
+}
 
-      <!-- Research Card -->
-      <article class="card" data-category="research">
-        <div class="card-media">
-          <img src="assets/cfd-preview.png" alt="Research Preview">
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[LAB / ORGANIZATION]</span>
-          <h2 class="card-title">[Research Project Title]</h2>
-          <p class="card-description">
-            [Brief summary of research methodology, technical challenge resolved, and primary engineering outcomes.]
-          </p>
-          <div class="tags">
-            <span class="pill">Topic 1</span>
-            <span class="pill">Topic 2</span>
-          </div>
-        </div>
-      </article>
+.nav-tab {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
 
-      <!-- Projects Card -->
-      <article class="card" data-category="projects">
-        <div class="card-media text-banner">
-          <span class="banner-text">PROJECT A</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[TEAM NAME]</span>
-          <h2 class="card-title">[Project Title A]</h2>
-          <p class="card-description">
-            [Overview of design architecture, system specifications, hardware or software implementation details.]
-          </p>
-          <div class="tags">
-            <span class="pill">Technology 1</span>
-            <span class="pill">Technology 2</span>
-          </div>
-        </div>
-      </article>
+.nav-tab-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
 
-      <!-- Experience Card -->
-      <article class="card" data-category="experience">
-        <div class="card-media text-banner">
-          <span class="banner-text">ROLE A</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[COMPANY NAME]</span>
-          <h2 class="card-title">[Engineering Role Title]</h2>
-          <p class="card-description">
-            [Key responsibilities, team leadership, system integration, or engineering metrics achieved.]
-          </p>
-          <div class="tags">
-            <span class="pill">Skill 1</span>
-            <span class="pill">Skill 2</span>
-          </div>
-        </div>
-      </article>
+/* Divider between nav ribbon and main content */
+.top-divider {
+  border: none;
+  border-top: 1px solid var(--card-border);
+  width: calc(100% - 40px);
+  max-width: 1100px;
+  margin: 24px auto 40px auto;
+}
 
-      <!-- Skills Card -->
-      <article class="card" data-category="skills">
-        <div class="card-media text-banner flex-column">
-          <span class="banner-text">SKILLS</span>
-          <span class="banner-subtext">COMPETENCIES</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[TECHNICAL DOMAIN]</span>
-          <h2 class="card-title">[Technical Area]</h2>
-          <p class="card-description">
-            [Summary of software tools, hardware interfaces, analytical methods, or laboratory techniques utilized.]
-          </p>
-          <div class="tags">
-            <span class="pill">Tool A</span>
-            <span class="pill">Tool B</span>
-          </div>
-        </div>
-      </article>
+.nav-tab:hover,
+.nav-tab.active {
+  background: var(--blueprint-bg);
+  border-color: var(--blueprint-blue);
+  color: var(--blueprint-blue);
+}
 
-    </section>
+.contact-tab {
+  background: var(--blueprint-blue);
+  border: 1px solid var(--blueprint-blue);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
 
-  </main>
+.contact-tab:hover {
+  background: var(--blueprint-dark);
+  border-color: var(--blueprint-dark);
+  box-shadow: 0 0 12px rgba(29, 78, 216, 0.35);
+}
 
-  <!-- Contact Modal -->
-  <div id="contact-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" role="button" tabindex="0" aria-label="Close contact dialog">&times;</span>
-      <h2>Get In Touch</h2>
-      <div class="contact-links">
-        <a href="mailto:personal@domain.com" class="contact-item">
-          <span class="contact-label">Personal Email</span>
-          <span class="contact-value">personal@domain.com</span>
-        </a>
-        <a href="mailto:student@university.edu" class="contact-item">
-          <span class="contact-label">University Email</span>
-          <span class="contact-value">student@university.edu</span>
-        </a>
-        <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" class="contact-item">
-          <span class="contact-label">LinkedIn</span>
-          <span class="contact-value">linkedin.com/in/username</span>
-        </a>
-      </div>
-    </div>
-  </div>
+.main-content {
+  max-width: 1100px;
+  margin: 0 auto 80px auto;
+  padding: 0 20px;
+}
 
-  <!-- CV Modal -->
-  <div id="cv-modal" class="modal">
-    <div class="modal-content cv-modal-content">
-      <span class="close-btn" role="button" tabindex="0" aria-label="Close CV dialog">&times;</span>
-      <h2>My CV</h2>
-      <div class="cv-tabs" role="tablist" aria-label="CV versions">
-        <button class="cv-tab active" type="button" data-cv-src="Assets/CV-1page.pdf" data-cv-name="CV-1page.pdf" data-cv-flavor="Concise overview" aria-selected="true">1-Page</button>
-        <button class="cv-tab" type="button" data-cv-src="Assets/CV-2page.pdf" data-cv-name="CV-2page.pdf" data-cv-flavor="Full detail" aria-selected="false">2-Page</button>
-        <span class="cv-flavor" id="cv-flavor">Concise overview</span>
-      </div>
-      <div class="cv-viewer-wrapper">
-        <embed id="cv-embed" class="cv-embed" src="Assets/CV-1page.pdf" type="application/pdf">
-      </div>
-      <div class="cv-footer-row">
-        <span class="cv-last-updated" id="cv-last-updated">• Last updated August 2026</span>
-        <a id="cv-download-link" href="Assets/CV-1page.pdf" download="CV-1page.pdf" class="btn btn-outline cv-download-btn">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          Download PDF
-        </a>
-      </div>
-    </div>
-  </div>
+/* Ribbon Sections (Home) */
+.ribbons-wrapper {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-top">
-        <div class="footer-bio">
-          <h3 class="footer-heading">[Headline Title]</h3>
-          <p class="footer-text">
-            [Brief statement regarding technical focus, academic background, open collaborations, or professional interests.]
-          </p>
-        </div>
+.ribbons-wrapper.hidden {
+  display: none;
+}
 
-        <div class="footer-col">
-          <span class="footer-col-title">EXPLORE</span>
-          <ul class="footer-links">
-            <li><a href="#" data-footer-filter="home">Home</a></li>
-            <li><a href="#" data-footer-filter="research">Research</a></li>
-            <li><a href="#" data-footer-filter="projects">Projects</a></li>
-            <li><a href="#" data-footer-filter="experience">Experience</a></li>
-            <li><a href="#" data-footer-filter="skills">Skills</a></li>
-          </ul>
-        </div>
+.ribbon {
+  width: 100%;
+  padding: 64px 20px;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+}
 
-        <div class="footer-col">
-          <span class="footer-col-title">CONNECT</span>
-          <ul class="footer-links">
-            <li><a href="mailto:personal@domain.com">Personal Email</a></li>
-            <li><a href="mailto:student@university.edu">University Email</a></li>
-            <li><a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-          </ul>
-        </div>
-      </div>
+.ribbon-a {
+  background-color: var(--bg-color);
+}
 
-      <div class="footer-divider"></div>
+.ribbon-b {
+  background-color: var(--blueprint-bg);
+  position: relative;
+}
 
-      <div class="footer-bottom">
-        <span class="copyright">&copy; [YEAR] [Your Name]</span>
-        <span class="tagline">[Built with care · Location/Institution]</span>
-        <span class="tagline" id="footer-last-updated">Last updated August 2026</span>
-      </div>
-    </div>
-  </footer>
+.corner-mark {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange));
+  background-size:
+    26px 6px,
+    6px 26px,
+    44px 2px,
+    22px 2px,
+    2px 44px,
+    2px 22px;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+/* Core point at (22px, 22px). Toward-content rays run 44px, away-from-content rays stay 22px. */
+.corner-mark-tl {
+  top: -22px;
+  left: 118px;
+  background-position:
+    9px 19px,
+    19px 9px,
+    22px 21px,
+    0px 21px,
+    21px 22px,
+    21px 0px;
+}
+
+/* Core point at (44px, 44px), mirrored. */
+.corner-mark-br {
+  bottom: -22px;
+  right: 118px;
+  background-position:
+    31px 41px,
+    41px 31px,
+    0px 43px,
+    44px 43px,
+    43px 0px,
+    43px 44px;
+}
+
+.ribbon-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-ribbon-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.ribbon-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--blueprint-blue);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.ribbon-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.9rem;
+  color: var(--text-heading);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.ribbon-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  max-width: 700px;
+}
+
+.ribbon-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ribbon-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ribbon-list-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--blueprint-blue);
+  text-transform: uppercase;
+}
+
+.ribbon-list-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+.ribbon-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.mini-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid transparent;
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-left-color 0.2s ease;
+}
+
+.mini-card:hover {
+  border-left-color: var(--safety-orange);
+}
+
+.mini-card-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.05rem;
+  color: var(--text-heading);
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.mini-card-description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+.ribbon-cta {
+  margin-top: 4px;
+}
+
+.hero-sub-header {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--blueprint-blue);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: 4.25rem;
+  color: var(--text-heading);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-bio {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  margin-bottom: 24px;
+}
+
+.hero-meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-solid {
+  background-color: var(--blueprint-blue);
+  color: #ffffff;
+  border: 1px solid var(--blueprint-blue);
+}
+
+.btn-solid:hover {
+  background-color: var(--blueprint-dark);
+}
+
+.btn-outline {
+  background-color: var(--card-bg);
+  color: var(--text-heading);
+  border: 1px solid var(--card-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--blueprint-blue);
+  color: var(--blueprint-blue);
+  background-color: var(--blueprint-bg);
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Hero Image & Overlay Badge */
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+  background-color: #e2e8f0;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Grid Section */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+}
+
+.grid-container.hidden {
+  display: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ribbons-wrapper:not(.hidden),
+.grid-container:not(.hidden) .card:not(.hidden) {
+  animation: fadeInUp 0.35s ease both;
+}
+
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-hover-border);
+}
+
+.card.hidden {
+  display: none;
+}
+
+.card-media {
+  height: 200px;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--card-border);
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-banner {
+  font-family: 'Archivo', sans-serif;
+  color: var(--blueprint-blue);
+  background-color: var(--blueprint-bg);
+}
+
+.banner-text {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.banner-subtext {
+  font-size: 0.75rem;
+  color: var(--blueprint-dark);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sub-header {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--blueprint-blue);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.25rem;
+  color: var(--text-heading);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.card-description {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background-color: var(--safety-orange-bg);
+  border: 1px solid var(--safety-orange-border);
+  color: var(--safety-orange-dark);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* Contact Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 420px;
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: var(--blueprint-blue);
+}
+
+.modal-content h2 {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-heading);
+  margin-bottom: 24px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  background: var(--blueprint-bg);
+  border: 1px solid var(--blueprint-border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-item:hover {
+  border-color: var(--blueprint-blue);
+  transform: translateX(4px);
+}
+
+.contact-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--blueprint-blue);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.contact-value {
+  font-size: 0.9rem;
+  color: var(--text-heading);
+}
+
+/* CV Modal */
+.cv-modal-content {
+  max-width: 1100px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.cv-tab {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.cv-tab:hover,
+.cv-tab.active {
+  background: var(--blueprint-bg);
+  border-color: var(--blueprint-blue);
+  color: var(--blueprint-blue);
+}
+
+.cv-flavor {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.cv-viewer-wrapper {
+  width: 100%;
+  height: min(50vh, 480px);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: var(--footer-bg);
+}
+
+.cv-embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.cv-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cv-last-updated {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.cv-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--footer-bg);
+  border-top: 1px solid var(--card-border);
+  padding: 60px 20px 40px 20px;
+}
+
+.footer-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-heading {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-heading);
+  margin-bottom: 12px;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  max-width: 400px;
+}
+
+.footer-col-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: var(--text-heading);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--blueprint-blue);
+}
+
+.footer-divider {
+  height: 1px;
+  background-color: var(--card-border);
+  margin-bottom: 24px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 868px) {
+  .hero-ribbon-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .hero-image-wrapper {
+    max-width: 180px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    padding-top: 14px;
+  }
+  .nav-container,
+  .top-divider {
+    padding: 0 14px;
+  }
+  .ribbon {
+    padding: 48px 14px;
+  }
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    justify-content: center;
+  }
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
