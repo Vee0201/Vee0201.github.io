@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Navigation Container (Right Aligned) -->
+  <!-- Navigation Container -->
   <div class="nav-container">
     <nav class="navbar">
-      <button class="nav-tab active" data-filter="all">Home</button>
+      <button class="nav-tab active" data-filter="home">Home</button>
       <button class="nav-tab" data-filter="research">Research</button>
       <button class="nav-tab" data-filter="projects">Projects</button>
       <button class="nav-tab" data-filter="experience">Experience</button>
@@ -23,82 +23,117 @@
     <button id="contact-btn" class="contact-tab">Get In Touch</button>
   </div>
 
-  <!-- Main Content Grid -->
-  <main class="grid-container">
-
-    <!-- Research Category Card -->
-    <article class="card" data-category="research">
-      <div class="card-media">
-        <img src="assets/cfd-preview.png" alt="Research Project Preview">
-      </div>
-      <div class="card-body">
-        <span class="sub-header">[ORGANIZATION / LAB NAME]</span>
-        <h2 class="card-title">[Research Project Title]</h2>
-        <p class="card-description">
-          [Brief summary of research methodology, technical challenge resolved, and primary engineering outcomes.]
+  <main class="main-content">
+    
+    <!-- Hero Section (Visible on Home Tab) -->
+    <section id="hero-section" class="hero-container">
+      <div class="hero-text">
+        <span class="hero-sub-header">[DEPARTMENT / SPECIALIZATION]</span>
+        <h1 class="hero-title">[Your Name].</h1>
+        <p class="hero-bio">
+          [Summary of engineering focus, academic specialization, analytical methods, and primary technical interests.]
         </p>
-        <div class="tags">
-          <span class="pill">Topic 1</span>
-          <span class="pill">Topic 2</span>
+        <ul class="hero-meta">
+          <li>• [Degree Program]</li>
+          <li>• [Class of Year]</li>
+          <li>• [Location/Institution]</li>
+        </ul>
+        <div class="hero-actions">
+          <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
+          <a href="#" class="btn btn-outline">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download CV
+          </a>
+          <a href="mailto:personal@domain.com" class="btn btn-outline">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email me
+          </a>
         </div>
       </div>
-    </article>
 
-    <!-- Projects Category Card -->
-    <article class="card" data-category="projects">
-      <div class="card-media text-banner">
-        <span class="banner-text">PROJECT A</span>
+      <div class="hero-image-wrapper">
+        <img src="assets/profile.jpg" alt="Profile Photo" class="hero-image">
+        <div class="hero-badge">[YOUR NAME]</div>
       </div>
-      <div class="card-body">
-        <span class="sub-header">[TEAM / INITIATIVE NAME]</span>
-        <h2 class="card-title">[Project Title A]</h2>
-        <p class="card-description">
-          [Overview of design architecture, system specifications, hardware or software implementation details.]
-        </p>
-        <div class="tags">
-          <span class="pill">Technology 1</span>
-          <span class="pill">Technology 2</span>
-        </div>
-      </div>
-    </article>
+    </section>
 
-    <!-- Experience Category Card -->
-    <article class="card" data-category="experience">
-      <div class="card-media text-banner">
-        <span class="banner-text">ROLE A</span>
-      </div>
-      <div class="card-body">
-        <span class="sub-header">[COMPANY / ORGANIZATION]</span>
-        <h2 class="card-title">[Engineering Role Title]</h2>
-        <p class="card-description">
-          [Key responsibilities, team leadership, system integration, or engineering metrics achieved during tenure.]
-        </p>
-        <div class="tags">
-          <span class="pill">Skill 1</span>
-          <span class="pill">Skill 2</span>
-        </div>
-      </div>
-    </article>
+    <!-- Project Grid (Visible on Research, Projects, Experience, Skills) -->
+    <section id="grid-section" class="grid-container hidden">
 
-    <!-- Skills Category Card -->
-    <article class="card" data-category="skills">
-      <div class="card-media text-banner flex-column">
-        <span class="banner-text">SKILLS</span>
-        <span class="banner-subtext">CORE COMPETENCIES</span>
-      </div>
-      <div class="card-body">
-        <span class="sub-header">[DOMAIN / TECHNICAL CATEGORY]</span>
-        <h2 class="card-title">[Technical Proficiency Area]</h2>
-        <p class="card-description">
-          [Summary of software tools, hardware interfaces, analytical methods, or laboratory techniques utilized.]
-        </p>
-        <div class="tags">
-          <span class="pill">Tool A</span>
-          <span class="pill">Tool B</span>
-          <span class="pill">Tool C</span>
+      <!-- Research Card -->
+      <article class="card" data-category="research">
+        <div class="card-media">
+          <img src="assets/cfd-preview.png" alt="Research Preview">
         </div>
-      </div>
-    </article>
+        <div class="card-body">
+          <span class="sub-header">[LAB / ORGANIZATION]</span>
+          <h2 class="card-title">[Research Project Title]</h2>
+          <p class="card-description">
+            [Brief summary of research methodology, technical challenge resolved, and primary engineering outcomes.]
+          </p>
+          <div class="tags">
+            <span class="pill">Topic 1</span>
+            <span class="pill">Topic 2</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Projects Card -->
+      <article class="card" data-category="projects">
+        <div class="card-media text-banner">
+          <span class="banner-text">PROJECT A</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[TEAM NAME]</span>
+          <h2 class="card-title">[Project Title A]</h2>
+          <p class="card-description">
+            [Overview of design architecture, system specifications, hardware or software implementation details.]
+          </p>
+          <div class="tags">
+            <span class="pill">Technology 1</span>
+            <span class="pill">Technology 2</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Experience Card -->
+      <article class="card" data-category="experience">
+        <div class="card-media text-banner">
+          <span class="banner-text">ROLE A</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[COMPANY NAME]</span>
+          <h2 class="card-title">[Engineering Role Title]</h2>
+          <p class="card-description">
+            [Key responsibilities, team leadership, system integration, or engineering metrics achieved.]
+          </p>
+          <div class="tags">
+            <span class="pill">Skill 1</span>
+            <span class="pill">Skill 2</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Skills Card -->
+      <article class="card" data-category="skills">
+        <div class="card-media text-banner flex-column">
+          <span class="banner-text">SKILLS</span>
+          <span class="banner-subtext">COMPETENCIES</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[TECHNICAL DOMAIN]</span>
+          <h2 class="card-title">[Technical Area]</h2>
+          <p class="card-description">
+            [Summary of software tools, hardware interfaces, analytical methods, or laboratory techniques utilized.]
+          </p>
+          <div class="tags">
+            <span class="pill">Tool A</span>
+            <span class="pill">Tool B</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
 
   </main>
 
@@ -138,7 +173,7 @@
         <div class="footer-col">
           <span class="footer-col-title">EXPLORE</span>
           <ul class="footer-links">
-            <li><a href="#" data-footer-filter="all">Home</a></li>
+            <li><a href="#" data-footer-filter="home">Home</a></li>
             <li><a href="#" data-footer-filter="research">Research</a></li>
             <li><a href="#" data-footer-filter="projects">Projects</a></li>
             <li><a href="#" data-footer-filter="experience">Experience</a></li>
