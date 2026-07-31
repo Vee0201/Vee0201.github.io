@@ -13,12 +13,12 @@
 
   <!-- Navigation Container -->
   <div class="nav-container">
-    <nav class="navbar">
-      <button class="nav-tab active" data-filter="home">Home</button>
-      <button class="nav-tab" data-filter="research">Research</button>
-      <button class="nav-tab" data-filter="projects">Projects</button>
-      <button class="nav-tab" data-filter="experience">Experience</button>
-      <button class="nav-tab" data-filter="skills">Skills</button>
+    <nav class="navbar" role="tablist" aria-label="Site sections">
+      <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
+      <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
+      <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
+      <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
+      <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
     </nav>
     <button id="contact-btn" class="contact-tab">Get In Touch</button>
   </div>
@@ -140,7 +140,7 @@
   <!-- Contact Modal -->
   <div id="contact-modal" class="modal">
     <div class="modal-content">
-      <span class="close-btn">&times;</span>
+      <span class="close-btn" role="button" tabindex="0" aria-label="Close contact dialog">&times;</span>
       <h2>Get In Touch</h2>
       <div class="contact-links">
         <a href="mailto:personal@domain.com" class="contact-item">
