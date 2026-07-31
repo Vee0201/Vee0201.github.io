@@ -12,8 +12,14 @@
   --blueprint-dark: #1e40af;
   --blueprint-bg: #eff6ff;
   --blueprint-border: #bfdbfe;
+
+  --safety-orange: #ff6600;
+  --safety-orange-dark: #cc5200;
+  --safety-orange-bg: #fff2e8;
+  --safety-orange-border: #ffcda3;
   
   --footer-bg: #f1f5f9;
+  --grid-line: rgba(29, 64, 175, 0.06);
 }
 
 * {
@@ -29,6 +35,10 @@ html {
 
 body {
   background-color: var(--bg-color);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
   color: var(--text-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   padding: 40px 0 0 0;
@@ -161,6 +171,10 @@ a, button {
 .ribbon {
   width: 100%;
   padding: 64px 20px;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 .ribbon-a {
@@ -187,7 +201,7 @@ a, button {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: var(--blueprint-blue);
+  color: var(--safety-orange-dark);
   text-transform: uppercase;
   display: block;
   margin-bottom: 12px;
@@ -225,7 +239,7 @@ a, button {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--blueprint-dark);
+  color: var(--safety-orange-dark);
   text-transform: uppercase;
 }
 
@@ -245,6 +259,7 @@ a, button {
 .mini-card {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
+  border-left: 3px solid var(--safety-orange);
   border-radius: 12px;
   padding: 20px;
 }
@@ -271,7 +286,7 @@ a, button {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: var(--blueprint-blue);
+  color: var(--safety-orange-dark);
   text-transform: uppercase;
   display: block;
   margin-bottom: 12px;
@@ -482,7 +497,7 @@ a, button {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 1.5px;
-  color: var(--blueprint-blue);
+  color: var(--safety-orange-dark);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -510,9 +525,9 @@ a, button {
 }
 
 .pill {
-  background-color: var(--blueprint-bg);
-  border: 1px solid var(--blueprint-border);
-  color: var(--blueprint-dark);
+  background-color: var(--safety-orange-bg);
+  border: 1px solid var(--safety-orange-border);
+  color: var(--safety-orange-dark);
   font-size: 0.75rem;
   font-weight: 500;
   padding: 4px 12px;
@@ -595,7 +610,7 @@ a, button {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--blueprint-blue);
+  color: var(--safety-orange-dark);
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -608,6 +623,10 @@ a, button {
 /* Footer */
 .site-footer {
   background-color: var(--footer-bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
   border-top: 1px solid var(--card-border);
   padding: 60px 20px 40px 20px;
 }
