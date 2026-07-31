@@ -30,7 +30,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 108%;
+  font-size: 120%;
 }
 
 body {
@@ -183,6 +183,36 @@ a, button {
 
 .ribbon-b {
   background-color: var(--blueprint-bg);
+  position: relative;
+}
+
+.corner-mark {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange));
+  background-position: center, center, center, center;
+  background-size:
+    26px 6px,
+    6px 26px,
+    44px 2px,
+    2px 44px;
+}
+
+.corner-mark-tl {
+  top: 20px;
+  left: 20px;
+}
+
+.corner-mark-br {
+  bottom: 20px;
+  right: 20px;
 }
 
 .ribbon-inner {
@@ -201,7 +231,7 @@ a, button {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: var(--safety-orange-dark);
+  color: var(--blueprint-blue);
   text-transform: uppercase;
   display: block;
   margin-bottom: 12px;
@@ -239,7 +269,7 @@ a, button {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--safety-orange-dark);
+  color: var(--blueprint-blue);
   text-transform: uppercase;
 }
 
@@ -286,7 +316,7 @@ a, button {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: var(--safety-orange-dark);
+  color: var(--blueprint-blue);
   text-transform: uppercase;
   display: block;
   margin-bottom: 12px;
@@ -497,7 +527,7 @@ a, button {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 1.5px;
-  color: var(--safety-orange-dark);
+  color: var(--blueprint-blue);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -610,7 +640,7 @@ a, button {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--safety-orange-dark);
+  color: var(--blueprint-blue);
   font-weight: 600;
   margin-bottom: 4px;
 }
