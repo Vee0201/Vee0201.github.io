@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     tabs.forEach(tab => {
       if (tab.getAttribute('data-filter') === targetFilter) {
         tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
       } else {
         tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
       }
     });
 
@@ -69,11 +71,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.querySelector('.close-btn');
 
   if (contactBtn && contactModal && closeBtn) {
-    contactBtn.addEventListener('click', () => contactModal.classList.add('show'));
-    closeBtn.addEventListener('click', () => contactModal.classList.remove('show'));
+    const openModal = () => {
+      contactModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeModal = () => {
+      contactModal.classList.remove('show');
+      document.body.style.overflow = '';
+    };
+
+    contactBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (event) => {
       if (event.target === contactModal) {
-        contactModal.classList.remove('show');
+        closeModal();
+      }
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && contactModal.classList.contains('show')) {
+        closeModal();
       }
     });
   }
