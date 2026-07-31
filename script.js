@@ -107,4 +107,28 @@ document.addEventListener('DOMContentLoaded', () => {
     [document.getElementById('cv-btn'), document.getElementById('hero-cv-btn')],
     document.getElementById('cv-modal')
   );
+
+  // CV tab switching (swap the embedded PDF + download link)
+  const cvTabs = document.querySelectorAll('.cv-tab');
+  const cvEmbed = document.getElementById('cv-embed');
+  const cvDownloadLink = document.getElementById('cv-download-link');
+
+  cvTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      cvTabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const src = tab.getAttribute('data-cv-src');
+      const name = tab.getAttribute('data-cv-name');
+      if (cvEmbed) cvEmbed.setAttribute('src', src);
+      if (cvDownloadLink) {
+        cvDownloadLink.setAttribute('href', src);
+        cvDownloadLink.setAttribute('download', name);
+      }
+    });
+  });
 });
