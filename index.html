@@ -11,20 +11,22 @@
 </head>
 <body>
 
-  <!-- Navigation Container -->
-  <div class="nav-container">
-    <nav class="navbar" role="tablist" aria-label="Site sections">
-      <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
-      <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
-      <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
-      <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
-      <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
-      <button class="nav-tab" id="cv-btn" type="button">CV</button>
-    </nav>
-    <button id="contact-btn" class="contact-tab">Get In Touch</button>
-  </div>
+  <!-- Site Header (nav + divider, frozen together on scroll) -->
+  <header class="site-header">
+    <div class="nav-container">
+      <nav class="navbar" role="tablist" aria-label="Site sections">
+        <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
+        <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
+        <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
+        <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
+        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
+        <button class="nav-tab" id="cv-btn" type="button">CV</button>
+      </nav>
+      <button id="contact-btn" class="contact-tab">Get In Touch</button>
+    </div>
 
-  <hr class="top-divider">
+    <hr class="top-divider">
+  </header>
 
   <main class="main-content">
     
@@ -32,7 +34,7 @@
     <section id="hero-section" class="ribbons-wrapper">
 
       <!-- Ribbon 1: Name & Hero Shot -->
-      <div class="ribbon ribbon-a">
+      <div class="ribbon ribbon-a ribbon-hero">
         <div class="ribbon-inner hero-ribbon-inner">
           <div class="hero-text">
             <span class="hero-sub-header">[DEPARTMENT / SPECIALIZATION]</span>
