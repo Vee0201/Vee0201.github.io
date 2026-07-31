@@ -1,44 +1,144 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Tab Filtering Logic
-  const tabs = document.querySelectorAll('.nav-tab');
-  const cards = document.querySelectorAll('.card');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  <!-- Navigation Container -->
+  <div class="nav-container">
+    <nav class="navbar">
+      <button class="nav-tab active" data-filter="all">Home</button>
+      <button class="nav-tab" data-filter="research">Research</button>
+      <button class="nav-tab" data-filter="experience">Experience</button>
+    </nav>
+    <button id="contact-btn" class="contact-tab">Get In Touch</button>
+  </div>
 
-      const filter = tab.getAttribute('data-filter');
+  <!-- Project Grid -->
+  <main class="grid-container">
 
-      cards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    });
-  });
+    <!-- Card 1: Research -->
+    <article class="card" data-category="research">
+      <div class="card-media">
+        <img src="assets/cfd-preview.png" alt="Drag Reduction System">
+      </div>
+      <div class="card-body">
+        <span class="sub-header">DHIO RESEARCH</span>
+        <h2 class="card-title">Drag Reduction System</h2>
+        <p class="card-description">
+          A transient moving-mesh CFD study of a drag reduction system, resolving the flow as a slotted element opens to shed downforce.
+        </p>
+        <div class="tags">
+          <span class="pill">Moving mesh</span>
+          <span class="pill">Transient CFD</span>
+        </div>
+      </div>
+    </article>
 
-  // Contact Modal Interactivity
-  const contactBtn = document.getElementById('contact-btn');
-  const contactModal = document.getElementById('contact-modal');
-  const closeBtn = document.querySelector('.close-btn');
+    <!-- Card 2: Experience -->
+    <article class="card" data-category="experience">
+      <div class="card-media text-banner">
+        <span class="banner-text">FADEC</span>
+      </div>
+      <div class="card-body">
+        <span class="sub-header">LAT AEROSPACE · GTE TEAM</span>
+        <h2 class="card-title">FADEC & Turbojet Sim</h2>
+        <p class="card-description">
+          A modular FADEC for turbojet engines on an STM32 platform, a C++ software-in-the-loop engine simulator, and a hybrid UAV powertrain.
+        </p>
+        <div class="tags">
+          <span class="pill">STM32</span>
+          <span class="pill">C++ SITL</span>
+        </div>
+      </div>
+    </article>
 
-  if (contactBtn && contactModal && closeBtn) {
-    contactBtn.addEventListener('click', () => {
-      contactModal.classList.add('show');
-    });
+    <!-- Card 3: Research -->
+    <article class="card" data-category="research">
+      <div class="card-media text-banner">
+        <span class="banner-text">Raman</span>
+      </div>
+      <div class="card-body">
+        <span class="sub-header">DST NIDHI PRAYAS</span>
+        <h2 class="card-title">Raman Spectrophotometer</h2>
+        <p class="card-description">
+          A high-precision Czerny-Turner Raman spectrophotometer for non-destructive detection of organic biosignatures.
+        </p>
+        <div class="tags">
+          <span class="pill">Optics</span>
+          <span class="pill">Spectroscopy</span>
+        </div>
+      </div>
+    </article>
 
-    closeBtn.addEventListener('click', () => {
-      contactModal.classList.remove('show');
-    });
+    <!-- Card 4: Experience -->
+    <article class="card" data-category="experience">
+      <div class="card-media text-banner">
+        <span class="banner-text">ATV</span>
+      </div>
+      <div class="card-body">
+        <span class="sub-header">ASME · BAJA SAE</span>
+        <h2 class="card-title">Modular ATV Monocoque</h2>
+        <p class="card-description">
+          A high-torsional-stiffness monocoque chassis for an all-terrain vehicle, with anti-Ackermann steering and a stress-checked geartrain.
+        </p>
+        <div class="tags">
+          <span class="pill">Structures</span>
+          <span class="pill">FEA</span>
+        </div>
+      </div>
+    </article>
 
-    window.addEventListener('click', (event) => {
-      if (event.target === contactModal) {
-        contactModal.classList.remove('show');
-      }
-    });
-  }
-});
+    <!-- Card 5: Experience -->
+    <article class="card" data-category="experience">
+      <div class="card-media text-banner flex-column">
+        <span class="banner-text">5-DOF</span>
+        <span class="banner-subtext">Manipulator</span>
+      </div>
+      <div class="card-body">
+        <span class="sub-header">IEEE RASSE 2025</span>
+        <h2 class="card-title">5-DOF Manipulator</h2>
+        <p class="card-description">
+          A five degree-of-freedom robotic arm with a hot-swappable end-effector interface for tasks from micro-sampling to warehouse automation.
+        </p>
+        <div class="tags">
+          <span class="pill">Robotics</span>
+          <span class="pill">Kinematics</span>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Contact Pane Overlay -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Get In Touch</h2>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/yourprofile</span>
+        </a>
+        <a href="mailto:personal@example.com" class="contact-item">
+          <span class="contact-label">Personal Mail</span>
+          <span class="contact-value">personal@example.com</span>
+        </a>
+        <a href="mailto:university@edu.com" class="contact-item">
+          <span class="contact-label">University Mail</span>
+          <span class="contact-value">university@edu.com</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
