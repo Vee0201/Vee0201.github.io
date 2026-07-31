@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
       <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
       <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
       <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
-      <a href="Assets/CV.pdf" target="_blank" rel="noopener noreferrer" class="nav-tab nav-tab-link">CV</a>
+      <button class="nav-tab" id="cv-btn" type="button">CV</button>
     </nav>
     <button id="contact-btn" class="contact-tab">Get In Touch</button>
   </div>
@@ -28,37 +28,100 @@
 
   <main class="main-content">
     
-    <!-- Hero Section (Visible on Home Tab) -->
-    <section id="hero-section" class="hero-container">
-      <div class="hero-text">
-        <span class="hero-sub-header">[DEPARTMENT / SPECIALIZATION]</span>
-        <h1 class="hero-title">[Your Name].</h1>
-        <p class="hero-bio">
-          [Summary of engineering focus, academic specialization, analytical methods, and primary technical interests.]
-        </p>
-        <ul class="hero-meta">
-          <li>• [Degree Program]</li>
-          <li>• [Class of Year]</li>
-          <li>• [Location/Institution]</li>
-        </ul>
-        <div class="hero-actions">
-          <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
-          <a href="#" class="btn btn-outline">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            Download CV
-          </a>
-          <a href="mailto:personal@domain.com" class="btn btn-outline">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Email me
-          </a>
+    <!-- Home Ribbons (Visible on Home Tab) -->
+    <section id="hero-section" class="ribbons-wrapper">
+
+      <!-- Ribbon 1: Name & Hero Shot -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner hero-ribbon-inner">
+          <div class="hero-text">
+            <span class="hero-sub-header">[DEPARTMENT / SPECIALIZATION]</span>
+            <h1 class="hero-title">[Your Name].</h1>
+            <p class="hero-bio">
+              [Summary of engineering focus, academic specialization, analytical methods, and primary technical interests.]
+            </p>
+            <ul class="hero-meta">
+              <li>• [Degree Program]</li>
+              <li>• [Class of Year]</li>
+              <li>• [Location/Institution]</li>
+            </ul>
+            <div class="hero-actions">
+              <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
+              <button class="btn btn-outline" id="hero-cv-btn" type="button">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Download CV
+              </button>
+              <a href="mailto:personal@domain.com" class="btn btn-outline">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email me
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-image-wrapper">
+            <img src="Assets/profile.jpg" alt="Profile Photo" class="hero-image">
+            <div class="hero-badge">[YOUR NAME]</div>
+          </div>
         </div>
       </div>
 
-      <div class="hero-image-wrapper">
-        <img src="Assets/profile.jpg" alt="Profile Photo" class="hero-image">
-        <div class="hero-badge">[YOUR NAME]</div>
+      <!-- Ribbon 2: Current / Upcoming -->
+      <div class="ribbon ribbon-b">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">RIGHT NOW</span>
+          <h2 class="ribbon-title">Current / Upcoming</h2>
+          <ul class="ribbon-list">
+            <li>
+              <span class="ribbon-list-label">[Status]</span>
+              <span class="ribbon-list-text">[Brief description of ongoing project, research, or upcoming milestone.]</span>
+            </li>
+            <li>
+              <span class="ribbon-list-label">[Status]</span>
+              <span class="ribbon-list-text">[Brief description of a second current activity or commitment.]</span>
+            </li>
+          </ul>
+        </div>
       </div>
+
+      <!-- Ribbon 3: Selected Work -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">HIGHLIGHTS</span>
+          <h2 class="ribbon-title">Selected Work</h2>
+          <div class="ribbon-card-row">
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+          </div>
+          <button class="btn btn-outline ribbon-cta" data-nav-target="projects">See all projects &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Ribbon 4: Beyond the Lab -->
+      <div class="ribbon ribbon-b">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">OFF THE CLOCK</span>
+          <h2 class="ribbon-title">Beyond the Lab</h2>
+          <p class="ribbon-text">
+            [A more personal paragraph about hobbies, interests, or pursuits outside of academic and technical work.]
+          </p>
+        </div>
+      </div>
+
     </section>
+
 
     <!-- Project Grid (Visible on Research, Projects, Experience, Skills) -->
     <section id="grid-section" class="grid-container hidden">
@@ -157,6 +220,24 @@
         <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" class="contact-item">
           <span class="contact-label">LinkedIn</span>
           <span class="contact-value">linkedin.com/in/username</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CV Modal -->
+  <div id="cv-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" role="button" tabindex="0" aria-label="Close CV dialog">&times;</span>
+      <h2>Download CV</h2>
+      <div class="contact-links">
+        <a href="Assets/CV-1page.pdf" download class="contact-item">
+          <span class="contact-label">1-Page CV</span>
+          <span class="contact-value">Concise overview</span>
+        </a>
+        <a href="Assets/CV-2page.pdf" download class="contact-item">
+          <span class="contact-label">2-Page CV</span>
+          <span class="contact-value">Full detail</span>
         </a>
       </div>
     </div>
