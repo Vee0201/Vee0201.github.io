@@ -20,6 +20,37 @@
   
   --footer-bg: #e2e8f0;
   --grid-line: rgba(29, 64, 175, 0.06);
+  --media-placeholder-bg: #e2e8f0;
+}
+
+/* Dark mode — overrides the same custom properties so every component
+   that already references var(--...) repaints automatically. Toggled via
+   body.dark-mode in script.js; intentionally not persisted, so the site
+   always loads in light mode. */
+body.dark-mode,
+html.dark-mode-pending {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --card-hover-border: #475569;
+
+  --text-main: #cbd5e1;
+  --text-heading: #f8fafc;
+  --text-muted: #94a3b8;
+
+  --blueprint-blue: #60a5fa;
+  --blueprint-dark: #93c5fd;
+  --blueprint-bg: rgba(96, 165, 250, 0.14);
+  --blueprint-border: rgba(96, 165, 250, 0.35);
+
+  --safety-orange: #ff8a3d;
+  --safety-orange-dark: #ffbf94;
+  --safety-orange-bg: rgba(255, 102, 0, 0.14);
+  --safety-orange-border: rgba(255, 138, 61, 0.35);
+
+  --footer-bg: #1e293b;
+  --grid-line: rgba(96, 165, 250, 0.08);
+  --media-placeholder-bg: #334155;
 }
 
 * {
@@ -157,6 +188,38 @@ a, button {
   box-shadow: 0 0 12px rgba(29, 78, 216, 0.35);
 }
 
+/* Dark Mode Toggle */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--safety-orange);
+  color: var(--safety-orange);
+}
+
+body.dark-mode .theme-toggle-btn {
+  background: var(--blueprint-bg);
+  border-color: var(--blueprint-border);
+  color: var(--safety-orange);
+}
+
+.theme-icon {
+  width: 18px;
+  height: 18px;
+}
+
 /* Generic visibility utility — ensures any element with .hidden is hidden,
    even ones not covered by a more specific selector below (e.g. #projects-section) */
 .hidden {
@@ -226,10 +289,13 @@ a, button {
     2px 22px;
 }
 
-/* Core point at (22px, 22px). Toward-content rays run 44px, away-from-content rays stay 22px. */
+/* Core point at (22px, 22px). Toward-content rays run 44px, away-from-content rays stay 22px.
+   Positioned relative to the centered 1100px content box (not the full-bleed
+   ribbon edge) so it stays anchored near the actual content corner at any
+   viewport width, clamped so it never runs off-screen on narrow ones. */
 .corner-mark-tl {
   top: -22px;
-  left: 118px;
+  left: max(20px, calc(50% - 574px));
   background-position:
     9px 19px,
     19px 9px,
@@ -242,7 +308,7 @@ a, button {
 /* Core point at (44px, 44px), mirrored. */
 .corner-mark-br {
   bottom: -22px;
-  right: 118px;
+  right: max(20px, calc(50% - 574px));
   background-position:
     31px 41px,
     41px 31px,
@@ -303,9 +369,9 @@ a, button {
 }
 
 .ribbon-list-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--blueprint-blue);
   text-transform: uppercase;
 }
@@ -326,14 +392,15 @@ a, button {
 .mini-card {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-left: 3px solid transparent;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 20px;
-  transition: border-left-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .mini-card:hover {
-  border-left-color: var(--safety-orange);
+  transform: translateY(-4px);
+  border-color: var(--card-hover-border);
+  box-shadow: 0 12px 24px -12px rgba(15, 23, 42, 0.18);
 }
 
 .mini-card-title {
@@ -402,7 +469,7 @@ a, button {
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  border-radius: 24px;
+  border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
   text-decoration: none;
@@ -448,7 +515,7 @@ a, button {
   overflow: hidden;
   border: 1px solid var(--card-border);
   box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
-  background-color: #e2e8f0;
+  background-color: var(--media-placeholder-bg);
 }
 
 .hero-image {
@@ -538,15 +605,6 @@ a, button {
   background-color: var(--blueprint-blue);
 }
 
-/* Ribbon Panel (used to give a ribbon's content its own bordered card,
-   e.g. the Professional Experience timeline) */
-.ribbon-panel {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 32px;
-}
-
 /* Experience: Timeline */
 .timeline-list {
   list-style: none;
@@ -575,9 +633,9 @@ a, button {
 }
 
 .timeline-date {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--blueprint-blue);
   text-transform: uppercase;
   display: block;
@@ -595,7 +653,7 @@ a, button {
 .timeline-org {
   display: block;
   font-size: 0.85rem;
-  color: var(--text-muted, var(--text-main));
+  color: var(--text-muted);
   margin-bottom: 10px;
 }
 
@@ -878,7 +936,7 @@ a, button {
 
 .card-media {
   height: 200px;
-  background-color: #e2e8f0;
+  background-color: var(--media-placeholder-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -923,7 +981,7 @@ a, button {
 }
 
 .sub-header {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 1.5px;
   color: var(--blueprint-blue);

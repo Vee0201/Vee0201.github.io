@@ -256,6 +256,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Dark mode toggle. Preference is remembered via localStorage so it
+  // persists across visits; falls back to light mode if nothing is stored.
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const THEME_KEY = 'theme-preference';
+
+  function applyTheme(isDark) {
+    document.body.classList.toggle('dark-mode', isDark);
+    if (themeToggleBtn) themeToggleBtn.setAttribute('aria-pressed', String(isDark));
+  }
+
+  try {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme === 'dark') applyTheme(true);
+  } catch (e) {
+    // localStorage unavailable (e.g. privacy mode) — default stays light.
+  }
+  document.documentElement.classList.remove('dark-mode-pending');
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = !document.body.classList.contains('dark-mode');
+      applyTheme(isDark);
+      try {
+        localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+      } catch (e) {
+        // Ignore storage failures; toggle still works for the current session.
+      }
+    });
+  }
+
   (async () => {
     const footerLastUpdatedEl = document.getElementById('footer-last-updated');
 

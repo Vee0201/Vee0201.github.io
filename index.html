@@ -8,6 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    // Applied before first paint to avoid a light-mode flash for users
+    // who previously chose dark mode. Mirrors the logic in script.js.
+    try {
+      if (localStorage.getItem('theme-preference') === 'dark') {
+        document.documentElement.classList.add('dark-mode-pending');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -23,6 +32,13 @@
         <button class="nav-tab" id="cv-btn" type="button">CV</button>
       </nav>
       <button id="contact-btn" class="contact-tab">Get In Touch</button>
+      <button id="theme-toggle-btn" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18h6"/>
+          <path d="M10 21h4"/>
+          <path d="M12 3a6 6 0 0 0-6 6c0 2.14.94 3.36 2 4.5.53.57 1 1.13 1 2.5h6c0-1.37.47-1.93 1-2.5 1.06-1.14 2-2.36 2-4.5a6 6 0 0 0-6-6z"/>
+        </svg>
+      </button>
     </div>
 
     <hr class="top-divider">
@@ -509,10 +525,9 @@
       <!-- Professional Experience Timeline Ribbon -->
       <div class="ribbon ribbon-a">
         <div class="ribbon-inner">
-          <div class="ribbon-panel">
-            <span class="ribbon-eyebrow">PROFESSIONAL EXPERIENCE</span>
-            <h2 class="ribbon-title">Where I have worked</h2>
-            <ul class="timeline-list">
+          <span class="ribbon-eyebrow">PROFESSIONAL EXPERIENCE</span>
+          <h2 class="ribbon-title">Where I have worked</h2>
+          <ul class="timeline-list">
               <li class="timeline-item">
                 <span class="timeline-date">[MONTH YEAR] to Present</span>
                 <h3 class="timeline-role">[Engineering Role Title]</h3>
@@ -543,7 +558,6 @@
             </ul>
           </div>
         </div>
-      </div>
 
       <!-- Technical Leadership Highlight Ribbon -->
       <div class="ribbon ribbon-b">
