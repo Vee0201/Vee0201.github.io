@@ -2,13 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.nav-tab[data-filter]');
   const heroSection = document.getElementById('hero-section');
   const gridSection = document.getElementById('grid-section');
+  const projectsSection = document.getElementById('projects-section');
   const experienceSection = document.getElementById('experience-section');
   const researchIntro = document.getElementById('research-intro');
+  const detailView = document.getElementById('detail-view');
   const cards = document.querySelectorAll('.card');
   const footerLinks = document.querySelectorAll('[data-footer-filter]');
   const actionTargets = document.querySelectorAll('[data-nav-target]');
 
+  let currentFilter = 'home';
+
   function navigateToTab(targetFilter) {
+    currentFilter = targetFilter;
+
     // Active state update
     tabs.forEach(tab => {
       if (tab.getAttribute('data-filter') === targetFilter) {
@@ -20,20 +26,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Toggle between Hero, Grid, and Experience ribbon views
+    // Leaving the detail view whenever a nav tab is used
+    if (detailView) detailView.classList.add('hidden');
+
+    // Toggle between Hero, Grid, Projects, and Experience ribbon views
     if (targetFilter === 'home') {
       heroSection.classList.remove('hidden');
       gridSection.classList.add('hidden');
+      if (projectsSection) projectsSection.classList.add('hidden');
       if (experienceSection) experienceSection.classList.add('hidden');
       if (researchIntro) researchIntro.classList.add('hidden');
     } else if (targetFilter === 'experience') {
       heroSection.classList.add('hidden');
       gridSection.classList.add('hidden');
+      if (projectsSection) projectsSection.classList.add('hidden');
       if (experienceSection) experienceSection.classList.remove('hidden');
+      if (researchIntro) researchIntro.classList.add('hidden');
+    } else if (targetFilter === 'projects') {
+      heroSection.classList.add('hidden');
+      gridSection.classList.add('hidden');
+      if (projectsSection) projectsSection.classList.remove('hidden');
+      if (experienceSection) experienceSection.classList.add('hidden');
       if (researchIntro) researchIntro.classList.add('hidden');
     } else {
       heroSection.classList.add('hidden');
       gridSection.classList.remove('hidden');
+      if (projectsSection) projectsSection.classList.add('hidden');
       if (experienceSection) experienceSection.classList.add('hidden');
 
       // Research summary panel only shows on the Research tab
@@ -80,49 +98,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Detail Pane: clicking a research/project card opens a full detail view,
-  // populated from that card's matching <template data-detail="...">.
-  const detailPane = document.getElementById('detail-pane');
-  const detailPaneContent = document.getElementById('detail-pane-content');
-  const detailCloseBtn = document.getElementById('detail-close-btn');
+  // Detail View: clicking a research/project card swaps the current page
+  // content for a full detail view, populated from that card's matching
+  // <template data-detail="...">. A Back button restores the tab the
+  // person was on before opening it.
+  const detailViewContent = document.getElementById('detail-view-content');
+  const detailBackBtn = document.getElementById('detail-back-btn');
   const detailCards = document.querySelectorAll('.card-clickable[data-detail]');
 
-  function openDetailPane(templateId) {
+  function openDetailView(templateId) {
     const template = document.getElementById(templateId);
-    if (!template || !detailPaneContent) return;
-    detailPaneContent.innerHTML = '';
-    detailPaneContent.appendChild(template.content.cloneNode(true));
-    detailPane.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    detailPane.scrollTop = 0;
-    if (detailCloseBtn) detailCloseBtn.focus();
+    if (!template || !detailViewContent || !detailView) return;
+
+    // Hide whichever main view is currently showing
+    heroSection.classList.add('hidden');
+    gridSection.classList.add('hidden');
+    if (projectsSection) projectsSection.classList.add('hidden');
+    if (experienceSection) experienceSection.classList.add('hidden');
+    if (researchIntro) researchIntro.classList.add('hidden');
+
+    detailViewContent.innerHTML = '';
+    detailViewContent.appendChild(template.content.cloneNode(true));
+    detailView.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (detailBackBtn) detailBackBtn.focus();
   }
 
-  function closeDetailPane() {
-    detailPane.classList.remove('show');
-    document.body.style.overflow = '';
+  function closeDetailView() {
+    navigateToTab(currentFilter);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   detailCards.forEach(card => {
     const templateId = card.getAttribute('data-detail');
-    card.addEventListener('click', () => openDetailPane(templateId));
+    card.addEventListener('click', () => openDetailView(templateId));
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openDetailPane(templateId);
+        openDetailView(templateId);
       }
     });
   });
 
-  if (detailCloseBtn) detailCloseBtn.addEventListener('click', closeDetailPane);
-  if (detailPane) {
-    detailPane.addEventListener('click', (e) => {
-      if (e.target === detailPane) closeDetailPane();
-    });
-  }
+  if (detailBackBtn) detailBackBtn.addEventListener('click', closeDetailView);
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && detailPane && detailPane.classList.contains('show')) {
-      closeDetailPane();
+    if (e.key === 'Escape' && detailView && !detailView.classList.contains('hidden')) {
+      closeDetailView();
     }
   });
 

@@ -165,7 +165,7 @@
           </div>
         </div>
         <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M32 10 V26 Q32 36 22 36 H8" fill="none" stroke="var(--safety-orange)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M30 8 V22 Q30 36 16 36 H6" fill="none" stroke="var(--safety-orange)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </article>
 
@@ -197,57 +197,6 @@
         <div class="detail-section">
           <h3>Links</h3>
           <p>[Link to paper, poster, repository, or dataset, if available.]</p>
-        </div>
-      </template>
-
-      <!-- Projects Card -->
-      <article class="card card-clickable" data-category="projects" data-detail="detail-project-1" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="card-media text-banner">
-          <span class="banner-text">PROJECT A</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[TEAM NAME]</span>
-          <h2 class="card-title">[Project Title A]</h2>
-          <p class="card-description">
-            [Overview of design architecture, system specifications, hardware or software implementation details.]
-          </p>
-          <div class="tags">
-            <span class="pill">Technology 1</span>
-            <span class="pill">Technology 2</span>
-          </div>
-        </div>
-        <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M32 10 V26 Q32 36 22 36 H8" fill="none" stroke="var(--safety-orange)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </article>
-
-      <!-- Projects Card Detail Template -->
-      <template id="detail-project-1">
-        <span class="detail-eyebrow">[TEAM NAME]</span>
-        <h2 class="detail-title">[Project Title A]</h2>
-        <div class="detail-gallery">
-          <img src="Assets/profile.jpg" alt="Project detail image 1">
-          <img src="assets/cfd-preview.png" alt="Project detail image 2">
-        </div>
-        <div class="tags detail-tags">
-          <span class="pill">Technology 1</span>
-          <span class="pill">Technology 2</span>
-        </div>
-        <div class="detail-section">
-          <h3>Overview</h3>
-          <p>[What the project is, who it was for, and the problem it solved.]</p>
-        </div>
-        <div class="detail-section">
-          <h3>Design &amp; Implementation</h3>
-          <p>[Architecture, hardware/software stack, key engineering decisions.]</p>
-        </div>
-        <div class="detail-section">
-          <h3>Challenges</h3>
-          <p>[Technical obstacles encountered and how they were resolved.]</p>
-        </div>
-        <div class="detail-section">
-          <h3>Links</h3>
-          <p>[Repository, demo, or write-up link, if available.]</p>
         </div>
       </template>
 
@@ -308,6 +257,133 @@
           </div>
         </div>
       </article>
+
+    </section>
+
+    <!-- Projects Section (Visible only on Projects Tab) -->
+    <section id="projects-section" class="hidden">
+
+      <!-- Projects Subsection -->
+      <div class="section-intro">
+        <div class="section-intro-inner">
+          <span class="ribbon-eyebrow">MAIN BUILDS</span>
+          <h2 class="ribbon-title">Projects</h2>
+          <p class="ribbon-text">[One line describing your primary, most substantial engineering projects.]</p>
+        </div>
+      </div>
+      <div class="grid-container projects-grid">
+
+        <!-- Project Card -->
+        <article class="card card-clickable" data-detail="detail-project-1" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media text-banner">
+            <span class="banner-text">PROJECT A</span>
+          </div>
+          <div class="card-body">
+            <span class="sub-header">[TEAM NAME]</span>
+            <h2 class="card-title">[Project Title A]</h2>
+            <p class="card-description">
+              [Overview of design architecture, system specifications, hardware or software implementation details.]
+            </p>
+            <div class="tags">
+              <span class="pill">Technology 1</span>
+              <span class="pill">Technology 2</span>
+            </div>
+          </div>
+          <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M30 8 V22 Q30 36 16 36 H6" fill="none" stroke="var(--safety-orange)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </article>
+
+        <!-- Project Card Detail Template -->
+        <template id="detail-project-1">
+          <span class="detail-eyebrow">[TEAM NAME]</span>
+          <h2 class="detail-title">[Project Title A]</h2>
+          <div class="detail-gallery">
+            <img src="Assets/profile.jpg" alt="Project detail image 1">
+            <img src="assets/cfd-preview.png" alt="Project detail image 2">
+          </div>
+          <div class="tags detail-tags">
+            <span class="pill">Technology 1</span>
+            <span class="pill">Technology 2</span>
+          </div>
+          <div class="detail-section">
+            <h3>Overview</h3>
+            <p>[What the project is, who it was for, and the problem it solved.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Design &amp; Implementation</h3>
+            <p>[Architecture, hardware/software stack, key engineering decisions.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Challenges</h3>
+            <p>[Technical obstacles encountered and how they were resolved.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Links</h3>
+            <p>[Repository, demo, or write-up link, if available.]</p>
+          </div>
+        </template>
+
+      </div>
+
+      <!-- Side Projects & Tangents Subsection -->
+      <div class="section-intro projects-subsection-spacer">
+        <div class="section-intro-inner">
+          <span class="ribbon-eyebrow">FOR FUN</span>
+          <h2 class="ribbon-title">Side Projects &amp; Tangents</h2>
+          <p class="ribbon-text">[One line describing smaller builds, experiments, or things you made just to learn something.]</p>
+        </div>
+      </div>
+      <div class="grid-container projects-grid">
+
+        <!-- Side Project Card -->
+        <article class="card card-clickable" data-detail="detail-side-project-1" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media text-banner">
+            <span class="banner-text">TANGENT A</span>
+          </div>
+          <div class="card-body">
+            <span class="sub-header">[SOLO / WEEKEND PROJECT]</span>
+            <h2 class="card-title">[Side Project Title]</h2>
+            <p class="card-description">
+              [Brief, casual description of what this is and why you built it.]
+            </p>
+            <div class="tags">
+              <span class="pill">Technology 1</span>
+              <span class="pill">Technology 2</span>
+            </div>
+          </div>
+          <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M30 8 V22 Q30 36 16 36 H6" fill="none" stroke="var(--safety-orange)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </article>
+
+        <!-- Side Project Card Detail Template -->
+        <template id="detail-side-project-1">
+          <span class="detail-eyebrow">[SOLO / WEEKEND PROJECT]</span>
+          <h2 class="detail-title">[Side Project Title]</h2>
+          <div class="detail-gallery">
+            <img src="Assets/profile.jpg" alt="Side project detail image 1">
+            <img src="assets/cfd-preview.png" alt="Side project detail image 2">
+          </div>
+          <div class="tags detail-tags">
+            <span class="pill">Technology 1</span>
+            <span class="pill">Technology 2</span>
+          </div>
+          <div class="detail-section">
+            <h3>What it is</h3>
+            <p>[Quick explanation of the project and the itch it scratched.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>What I learned</h3>
+            <p>[New skill, tool, or concept picked up while building it.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Links</h3>
+            <p>[Repository or demo link, if available.]</p>
+          </div>
+        </template>
+
+      </div>
 
     </section>
 
@@ -413,6 +489,15 @@
 
     </section>
 
+    <!-- Detail View (full-page, opens on card click, populated from that card's <template>) -->
+    <section id="detail-view" class="detail-view hidden">
+      <button class="back-btn" id="detail-back-btn" type="button">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <div id="detail-view-content" class="detail-view-content"></div>
+    </section>
+
   </main>
 
   <!-- Contact Modal -->
@@ -457,14 +542,6 @@
           Download PDF
         </a>
       </div>
-    </div>
-  </div>
-
-  <!-- Detail Pane (opens on card click, populated from that card's <template>) -->
-  <div id="detail-pane" class="detail-pane" role="dialog" aria-modal="true" aria-label="Detail view">
-    <div class="detail-pane-inner">
-      <button class="close-btn detail-close-btn" id="detail-close-btn" type="button" aria-label="Close detail view">&times;</button>
-      <div id="detail-pane-content" class="detail-pane-content"></div>
     </div>
   </div>
 

@@ -676,8 +676,8 @@ a, button {
 
 .corner-accent {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  bottom: 6px;
+  right: 6px;
   width: 36px;
   height: 36px;
   pointer-events: none;
@@ -692,38 +692,40 @@ a, button {
   outline-offset: 2px;
 }
 
-/* Detail Pane */
-.detail-pane {
-  display: none;
-  position: fixed;
-  z-index: 1100;
-  inset: 0;
-  background-color: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(4px);
-  overflow-y: auto;
-  padding: 40px 20px;
-}
-
-.detail-pane.show {
-  display: block;
-}
-
-.detail-pane-inner {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
-  padding: 40px;
+/* Detail View (full page, in-flow — replaces previous card grid/ribbons when open) */
+.detail-view {
   animation: fadeInUp 0.3s ease both;
 }
 
-.detail-close-btn {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  z-index: 1;
+.detail-view.hidden {
+  display: none;
+}
+
+.detail-view-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 auto 28px;
+  max-width: 900px;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: var(--blueprint-blue);
 }
 
 .detail-eyebrow {
@@ -738,11 +740,10 @@ a, button {
 
 .detail-title {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   color: var(--text-heading);
   font-weight: 600;
   margin-bottom: 24px;
-  padding-right: 32px;
 }
 
 .detail-gallery {
@@ -755,9 +756,9 @@ a, button {
 }
 
 .detail-gallery img {
-  height: 220px;
+  height: 320px;
   width: auto;
-  max-width: 85%;
+  max-width: 90%;
   flex-shrink: 0;
   object-fit: cover;
   border-radius: 12px;
@@ -779,25 +780,30 @@ a, button {
 
 .detail-section h3 {
   font-family: 'Archivo', sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .detail-section p {
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.65;
   color: var(--text-main);
 }
 
 @media (max-width: 640px) {
-  .detail-pane-inner {
-    padding: 28px 20px;
-  }
   .detail-gallery img {
-    height: 160px;
+    height: 200px;
   }
+}
+
+.projects-subsection-spacer {
+  margin-top: 48px;
+}
+
+.projects-grid {
+  margin-bottom: 8px;
 }
 
 /* Grid Section */
