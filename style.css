@@ -193,10 +193,16 @@ a, button {
 }
 
 .ribbon-b {
-  /* Tinted overlay on top of the body's grid, instead of an opaque fill,
-     so the same grid pattern reads through consistently on every ribbon,
-     matching the (now shared) grid behind Research/Projects content. */
-  background-color: color-mix(in srgb, var(--blueprint-bg) 92%, transparent);
+  /* Solid tint, with its own copy of the same grid pattern drawn on top.
+     Using background-attachment: fixed means this lines up pixel-for-pixel
+     with the grid on body and inside .grid-container, so it reads as one
+     continuous grid rather than a faded/opaque panel sitting in front of it. */
+  background-color: var(--blueprint-bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
   position: relative;
 }
 
@@ -532,6 +538,15 @@ a, button {
   height: 5px;
   border-radius: 50%;
   background-color: var(--blueprint-blue);
+}
+
+/* Ribbon Panel (used to give a ribbon's content its own bordered card,
+   e.g. the Professional Experience timeline) */
+.ribbon-panel {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
 }
 
 /* Experience: Timeline */
