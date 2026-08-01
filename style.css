@@ -835,6 +835,191 @@ body.dark-mode .theme-toggle-btn {
   opacity: 0.85;
 }
 
+/* ===== Hero Photo — ISO 129-style Dimension Callouts =====
+   Scoped to .hero-dim only, so the generic .dim-frame hover above (used
+   on cards and the leadership photo) is untouched. These dims are drawn
+   outside the part on hover, like a real CAD sketch, so overflow needs to
+   move from the wrapper to the image itself for the rounded corners. */
+
+.hero-image-wrapper.hero-dim {
+  overflow: visible;
+}
+
+.hero-image-wrapper.hero-dim .hero-image {
+  border-radius: 16px;
+}
+
+.dim-callouts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-family: 'Archivo', sans-serif;
+}
+
+.hero-dim:hover .dim-callouts {
+  opacity: 1;
+}
+
+.dim {
+  position: absolute;
+}
+
+.dim-value {
+  position: absolute;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--safety-orange);
+  white-space: nowrap;
+  background: var(--bg-color);
+  padding: 0 4px;
+  line-height: 1.4;
+}
+
+.dim-ext,
+.dim-stroke,
+.dim-leader {
+  position: absolute;
+  background: var(--safety-orange);
+}
+
+.dim-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ---- Width dimension: runs above the photo ---- */
+.dim-width {
+  top: -28px;
+  left: 4px;
+  right: 4px;
+  height: 28px;
+}
+
+.dim-width .dim-ext-a,
+.dim-width .dim-ext-b {
+  top: 6px;
+  bottom: -6px;
+  width: 1px;
+}
+.dim-width .dim-ext-a { left: 0; }
+.dim-width .dim-ext-b { right: 0; }
+
+.dim-width .dim-stroke {
+  top: 14px;
+  left: 4px;
+  right: 4px;
+  height: 1px;
+}
+
+.dim-width .dim-arrow {
+  top: 10px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.dim-width .dim-arrow-a {
+  left: 0;
+  border-left: 7px solid var(--safety-orange);
+}
+.dim-width .dim-arrow-b {
+  right: 0;
+  border-right: 7px solid var(--safety-orange);
+}
+
+.dim-width .dim-value {
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ---- Height dimension: runs to the right of the photo ---- */
+.dim-height {
+  top: 4px;
+  bottom: 4px;
+  right: -30px;
+  width: 30px;
+}
+
+.dim-height .dim-ext-a,
+.dim-height .dim-ext-b {
+  left: 6px;
+  right: -6px;
+  height: 1px;
+}
+.dim-height .dim-ext-a { top: 0; }
+.dim-height .dim-ext-b { bottom: 0; }
+
+.dim-height .dim-stroke {
+  left: 14px;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+}
+
+.dim-height .dim-arrow {
+  left: 10px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+.dim-height .dim-arrow-a {
+  top: 0;
+  border-top: 7px solid var(--safety-orange);
+}
+.dim-height .dim-arrow-b {
+  bottom: 0;
+  border-bottom: 7px solid var(--safety-orange);
+}
+
+.dim-height .dim-value {
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+}
+
+/* ---- Fillet radius: leadered out of the bottom-left corner ---- */
+.dim-fillet {
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+.dim-fillet .dim-leader {
+  bottom: 0;
+  left: 0;
+  width: 34px;
+  height: 1px;
+  transform: rotate(135deg);
+  transform-origin: left center;
+}
+
+.dim-fillet .dim-leader::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -3px;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-right: 7px solid var(--safety-orange);
+}
+
+.dim-fillet .dim-value {
+  bottom: -30px;
+  left: -34px;
+}
+
+/* Name badge moves to bottom-right so it stays clear of the fillet
+   leader coming out of the bottom-left corner. */
+.hero-dim .hero-badge {
+  left: auto;
+  right: 16px;
+}
+
 /* Card base */
 .card {
   position: relative;
