@@ -148,6 +148,12 @@ a, button {
   box-shadow: 0 0 12px rgba(29, 78, 216, 0.35);
 }
 
+/* Generic visibility utility — ensures any element with .hidden is hidden,
+   even ones not covered by a more specific selector below (e.g. #projects-section) */
+.hidden {
+  display: none;
+}
+
 .main-content {
   max-width: 1100px;
   margin: 0 auto 80px auto;
@@ -811,6 +817,20 @@ a, button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
+  position: relative;
+}
+
+.grid-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  z-index: -1;
   background-image:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
