@@ -606,6 +606,13 @@ body.dark-mode .theme-toggle-btn {
 }
 
 /* Experience: Timeline */
+.timeline-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
+}
+
 .timeline-list {
   list-style: none;
   display: flex;
@@ -697,13 +704,21 @@ body.dark-mode .theme-toggle-btn {
   align-items: start;
 }
 
+.leadership-image-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+}
+
 .leadership-image {
   width: 100%;
   height: 100%;
   min-height: 240px;
   object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid var(--card-border);
+  display: block;
 }
 
 .leadership-copy p {
@@ -748,9 +763,76 @@ body.dark-mode .theme-toggle-btn {
   .leadership-layout {
     grid-template-columns: 1fr;
   }
+  .leadership-image-wrapper,
   .leadership-image {
     min-height: 200px;
   }
+}
+
+/* Dimension-Line Hover Frame — a subtle engineering-drawing style
+   annotation (extension lines + end ticks) that fades in around key
+   images on hover. Uses the same stacked-gradient technique as
+   .corner-mark for visual consistency. Purely decorative — no fabricated
+   measurements, just the graphic language of a dimension callout. */
+.dim-frame {
+  position: relative;
+}
+
+.dim-frame::before,
+.dim-frame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background-repeat: no-repeat;
+}
+
+/* Top edge: horizontal dimension line with ticks at each end.
+   Sits just inside the top edge (not protruding outside) so it isn't
+   clipped by ancestors using overflow:hidden for rounded corners. */
+.dim-frame::before {
+  top: 10px;
+  left: 10%;
+  right: 10%;
+  height: 10px;
+  background-image:
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange));
+  background-size:
+    100% 1px,
+    1px 10px,
+    1px 10px;
+  background-position:
+    0 0,
+    0 0,
+    100% 0;
+}
+
+/* Left edge: vertical dimension line with ticks at each end */
+.dim-frame::after {
+  left: 10px;
+  top: 10%;
+  bottom: 10%;
+  width: 10px;
+  background-image:
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange)),
+    linear-gradient(var(--safety-orange), var(--safety-orange));
+  background-size:
+    1px 100%,
+    10px 1px,
+    10px 1px;
+  background-position:
+    0 0,
+    0 0,
+    0 100%;
+}
+
+.dim-frame:hover::before,
+.dim-frame:hover::after {
+  opacity: 0.85;
 }
 
 /* Card base */
@@ -1263,6 +1345,20 @@ body.dark-mode .theme-toggle-btn {
   color: var(--text-muted);
   flex-wrap: wrap;
   gap: 12px;
+}
+
+/* Title-Block Stamp — a quiet nod to engineering drawing conventions
+   (revision + sheet number), styled like a real drafting title block cell. */
+.title-block {
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--card-border);
+  padding: 4px 10px;
+  border-radius: 2px;
 }
 
 @media (max-width: 868px) {
