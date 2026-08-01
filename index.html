@@ -344,6 +344,57 @@
           </div>
         </template>
 
+        <!-- Project Card -->
+        <article class="card card-clickable" data-detail="detail-project-2" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media text-banner">
+            <span class="banner-text">PROJECT B</span>
+          </div>
+          <div class="card-body">
+            <span class="sub-header">[TEAM NAME]</span>
+            <h2 class="card-title">[Project Title B]</h2>
+            <p class="card-description">
+              [Overview of design architecture, system specifications, hardware or software implementation details.]
+            </p>
+            <div class="tags">
+              <span class="pill">Technology 1</span>
+              <span class="pill">Technology 2</span>
+            </div>
+          </div>
+          <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M35 6 V18 Q35 34 19 34 H4" fill="none" stroke="var(--safety-orange)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </article>
+
+        <!-- Project Card Detail Template -->
+        <template id="detail-project-2">
+          <span class="detail-eyebrow">[TEAM NAME]</span>
+          <h2 class="detail-title">[Project Title B]</h2>
+          <div class="detail-gallery">
+            <img src="Assets/profile.jpg" alt="Project detail image 1">
+            <img src="assets/cfd-preview.png" alt="Project detail image 2">
+          </div>
+          <div class="tags detail-tags">
+            <span class="pill">Technology 1</span>
+            <span class="pill">Technology 2</span>
+          </div>
+          <div class="detail-section">
+            <h3>Overview</h3>
+            <p>[What the project is, who it was for, and the problem it solved.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Design &amp; Implementation</h3>
+            <p>[Architecture, hardware/software stack, key engineering decisions.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Challenges</h3>
+            <p>[Technical obstacles encountered and how they were resolved.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Links</h3>
+            <p>[Repository, demo, or write-up link, if available.]</p>
+          </div>
+        </template>
+
       </div>
 
       <!-- Side Projects & Tangents Subsection -->
@@ -379,6 +430,53 @@
 
         <!-- Side Project Card Detail Template -->
         <template id="detail-side-project-1">
+          <span class="detail-eyebrow">[SOLO / WEEKEND PROJECT]</span>
+          <h2 class="detail-title">[Side Project Title]</h2>
+          <div class="detail-gallery">
+            <img src="Assets/profile.jpg" alt="Side project detail image 1">
+            <img src="assets/cfd-preview.png" alt="Side project detail image 2">
+          </div>
+          <div class="tags detail-tags">
+            <span class="pill">Technology 1</span>
+            <span class="pill">Technology 2</span>
+          </div>
+          <div class="detail-section">
+            <h3>What it is</h3>
+            <p>[Quick explanation of the project and the itch it scratched.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>What I learned</h3>
+            <p>[New skill, tool, or concept picked up while building it.]</p>
+          </div>
+          <div class="detail-section">
+            <h3>Links</h3>
+            <p>[Repository or demo link, if available.]</p>
+          </div>
+        </template>
+
+        <!-- Side Project Card -->
+        <article class="card card-clickable" data-detail="detail-side-project-2" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media text-banner">
+            <span class="banner-text">TANGENT B</span>
+          </div>
+          <div class="card-body">
+            <span class="sub-header">[SOLO / WEEKEND PROJECT]</span>
+            <h2 class="card-title">[Side Project Title]</h2>
+            <p class="card-description">
+              [Brief, casual description of what this is and why you built it.]
+            </p>
+            <div class="tags">
+              <span class="pill">Technology 1</span>
+              <span class="pill">Technology 2</span>
+            </div>
+          </div>
+          <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M35 6 V18 Q35 34 19 34 H4" fill="none" stroke="var(--safety-orange)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </article>
+
+        <!-- Side Project Card Detail Template -->
+        <template id="detail-side-project-2">
           <span class="detail-eyebrow">[SOLO / WEEKEND PROJECT]</span>
           <h2 class="detail-title">[Side Project Title]</h2>
           <div class="detail-gallery">
