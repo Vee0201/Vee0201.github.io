@@ -76,8 +76,42 @@
             </div>
           </div>
 
-          <div class="hero-image-wrapper dim-frame">
+          <div class="hero-image-wrapper hero-dim">
             <img src="Assets/profile.jpg" alt="Profile Photo" class="hero-image">
+
+            <!-- ISO 129-style dimension callouts, shown on .hero-dim:hover.
+                 Decorative — update the three .dim-value numbers below if
+                 the photo's real size or corner radius ever changes. -->
+            <div class="dim-callouts" aria-hidden="true">
+
+              <!-- Overall width, dimensioned above the photo -->
+              <div class="dim dim-width">
+                <span class="dim-ext dim-ext-a"></span>
+                <span class="dim-ext dim-ext-b"></span>
+                <span class="dim-stroke"></span>
+                <span class="dim-arrow dim-arrow-a"></span>
+                <span class="dim-arrow dim-arrow-b"></span>
+                <span class="dim-value">96</span>
+              </div>
+
+              <!-- Overall height, dimensioned to the right of the photo -->
+              <div class="dim dim-height">
+                <span class="dim-ext dim-ext-a"></span>
+                <span class="dim-ext dim-ext-b"></span>
+                <span class="dim-stroke"></span>
+                <span class="dim-arrow dim-arrow-a"></span>
+                <span class="dim-arrow dim-arrow-b"></span>
+                <span class="dim-value">120</span>
+              </div>
+
+              <!-- Corner fillet radius, leadered from the bottom-left corner -->
+              <div class="dim dim-fillet">
+                <span class="dim-leader"></span>
+                <span class="dim-value">R16</span>
+              </div>
+
+            </div>
+
             <div class="hero-badge">[YOUR NAME]</div>
           </div>
         </div>
