@@ -676,10 +676,10 @@ a, button {
 
 .corner-accent {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 46px;
-  height: 46px;
+  bottom: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
   pointer-events: none;
 }
 
@@ -840,12 +840,21 @@ a, button {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
   transform: translateY(-4px);
   border-color: var(--card-hover-border);
+  box-shadow: 0 12px 24px -12px rgba(15, 23, 42, 0.18);
+}
+
+.card-clickable:hover {
+  box-shadow: 0 14px 28px -12px rgba(15, 23, 42, 0.22);
+}
+
+.card-clickable:hover .corner-accent path {
+  stroke: var(--safety-orange-dark);
 }
 
 .card.hidden {
@@ -976,6 +985,12 @@ a, button {
   color: var(--text-muted);
   font-size: 1.5rem;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 1;
+  font-family: inherit;
+  appearance: none;
 }
 
 .close-btn:hover {
