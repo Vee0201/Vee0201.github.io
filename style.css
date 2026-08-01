@@ -455,6 +455,72 @@ a, button {
   text-transform: uppercase;
 }
 
+/* Research Summary / Section Intro Panel */
+.section-intro {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.35s ease both;
+}
+
+.section-intro.hidden {
+  display: none;
+}
+
+.section-intro-inner {
+  max-width: 800px;
+}
+
+.section-intro-tags {
+  margin-top: 20px;
+}
+
+/* Coursework */
+.card-wide {
+  grid-column: 1 / -1;
+}
+
+.coursework-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 4px;
+}
+
+.coursework-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.coursework-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.coursework-list li {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text-main);
+  padding-left: 14px;
+  position: relative;
+}
+
+.coursework-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--blueprint-blue);
+}
+
 /* Grid Section */
 .grid-container {
   display: grid;

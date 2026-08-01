@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.nav-tab[data-filter]');
   const heroSection = document.getElementById('hero-section');
   const gridSection = document.getElementById('grid-section');
+  const researchIntro = document.getElementById('research-intro');
   const cards = document.querySelectorAll('.card');
   const footerLinks = document.querySelectorAll('[data-footer-filter]');
   const actionTargets = document.querySelectorAll('[data-nav-target]');
@@ -22,9 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (targetFilter === 'home') {
       heroSection.classList.remove('hidden');
       gridSection.classList.add('hidden');
+      if (researchIntro) researchIntro.classList.add('hidden');
     } else {
       heroSection.classList.add('hidden');
       gridSection.classList.remove('hidden');
+
+      // Research summary panel only shows on the Research tab
+      if (researchIntro) {
+        researchIntro.classList.toggle('hidden', targetFilter !== 'research');
+      }
 
       // Filter cards
       cards.forEach(card => {

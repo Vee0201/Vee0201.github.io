@@ -19,7 +19,7 @@
         <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
         <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
         <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
-        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Skills</button>
+        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Coursework &amp; Skills</button>
         <button class="nav-tab" id="cv-btn" type="button">CV</button>
       </nav>
       <button id="contact-btn" class="contact-tab">Get In Touch</button>
@@ -129,6 +129,22 @@
     </section>
 
 
+    <!-- Research Summary (Visible only on Research Tab) -->
+    <section id="research-intro" class="section-intro hidden">
+      <div class="section-intro-inner">
+        <span class="ribbon-eyebrow">OVERVIEW</span>
+        <h2 class="ribbon-title">Research Focus</h2>
+        <p class="ribbon-text">
+          [2-3 sentence summary of your research interests: the subfield you work in, the kinds of problems you're drawn to, and the methods or tools you use to approach them.]
+        </p>
+        <div class="tags section-intro-tags">
+          <span class="pill">Interest Area 1</span>
+          <span class="pill">Interest Area 2</span>
+          <span class="pill">Interest Area 3</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Project Grid (Visible on Research, Projects, Experience, Skills) -->
     <section id="grid-section" class="grid-container hidden">
 
@@ -182,6 +198,45 @@
           <div class="tags">
             <span class="pill">Skill 1</span>
             <span class="pill">Skill 2</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Coursework Card -->
+      <article class="card card-wide" data-category="skills">
+        <div class="card-media text-banner flex-column">
+          <span class="banner-text">COURSEWORK</span>
+          <span class="banner-subtext">ACADEMIC PREPARATION</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[DEPARTMENT / PROGRAM]</span>
+          <h2 class="card-title">Relevant Coursework</h2>
+          <p class="card-description">
+            [One line noting overall academic focus or standout coursework theme.]
+          </p>
+          <div class="coursework-groups">
+            <div class="coursework-group">
+              <span class="ribbon-list-label">Core</span>
+              <ul class="coursework-list">
+                <li>[Course Name]</li>
+                <li>[Course Name]</li>
+                <li>[Course Name]</li>
+              </ul>
+            </div>
+            <div class="coursework-group">
+              <span class="ribbon-list-label">Advanced / Graduate-Level</span>
+              <ul class="coursework-list">
+                <li>[Course Name]</li>
+                <li>[Course Name]</li>
+              </ul>
+            </div>
+            <div class="coursework-group">
+              <span class="ribbon-list-label">Math &amp; Statistics</span>
+              <ul class="coursework-list">
+                <li>[Course Name]</li>
+                <li>[Course Name]</li>
+              </ul>
+            </div>
           </div>
         </div>
       </article>
@@ -272,7 +327,7 @@
             <li><a href="#" data-footer-filter="research">Research</a></li>
             <li><a href="#" data-footer-filter="projects">Projects</a></li>
             <li><a href="#" data-footer-filter="experience">Experience</a></li>
-            <li><a href="#" data-footer-filter="skills">Skills</a></li>
+            <li><a href="#" data-footer-filter="skills">Coursework &amp; Skills</a></li>
           </ul>
         </div>
 
