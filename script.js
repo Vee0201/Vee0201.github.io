@@ -178,9 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact Modal
+  // Contact Modal — opened from either the header tab or the hero's
+  // "Get In Touch" button (formerly a plain mailto link).
   setupModal(
-    [document.getElementById('contact-btn')],
+    [document.getElementById('contact-btn'), document.getElementById('hero-contact-btn')],
     document.getElementById('contact-modal')
   );
 
