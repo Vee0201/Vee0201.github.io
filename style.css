@@ -38,6 +38,15 @@ body {
   color: var(--text-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  /* Site-wide blueprint grid. Applied once here (instead of separately on
+     .ribbon and .grid-container) so every tab — Home, Research, Projects,
+     Experience, Skills — shows the exact same continuous grid behind its
+     content, rather than only appearing behind some sections. */
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
 }
 
 a, button {
@@ -177,19 +186,17 @@ a, button {
 .ribbon {
   width: 100%;
   padding: 64px 20px;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-attachment: fixed;
 }
 
 .ribbon-a {
-  background-color: var(--bg-color);
+  background-color: transparent;
 }
 
 .ribbon-b {
-  background-color: var(--blueprint-bg);
+  /* Tinted overlay on top of the body's grid, instead of an opaque fill,
+     so the same grid pattern reads through consistently on every ribbon,
+     matching the (now shared) grid behind Research/Projects content. */
+  background-color: color-mix(in srgb, var(--blueprint-bg) 92%, transparent);
   position: relative;
 }
 
@@ -818,24 +825,6 @@ a, button {
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
   position: relative;
-}
-
-.grid-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  right: 50%;
-  width: 100vw;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  z-index: -1;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-attachment: fixed;
 }
 
 .grid-container.hidden {
