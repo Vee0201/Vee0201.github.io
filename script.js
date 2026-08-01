@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.nav-tab[data-filter]');
   const heroSection = document.getElementById('hero-section');
   const gridSection = document.getElementById('grid-section');
+  const experienceSection = document.getElementById('experience-section');
   const researchIntro = document.getElementById('research-intro');
   const cards = document.querySelectorAll('.card');
   const footerLinks = document.querySelectorAll('[data-footer-filter]');
@@ -19,14 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Toggle view between Hero and Grid
+    // Toggle between Hero, Grid, and Experience ribbon views
     if (targetFilter === 'home') {
       heroSection.classList.remove('hidden');
       gridSection.classList.add('hidden');
+      if (experienceSection) experienceSection.classList.add('hidden');
+      if (researchIntro) researchIntro.classList.add('hidden');
+    } else if (targetFilter === 'experience') {
+      heroSection.classList.add('hidden');
+      gridSection.classList.add('hidden');
+      if (experienceSection) experienceSection.classList.remove('hidden');
       if (researchIntro) researchIntro.classList.add('hidden');
     } else {
       heroSection.classList.add('hidden');
       gridSection.classList.remove('hidden');
+      if (experienceSection) experienceSection.classList.add('hidden');
 
       // Research summary panel only shows on the Research tab
       if (researchIntro) {

@@ -165,7 +165,7 @@
           </div>
         </div>
         <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M18 14 V28 Q18 36 26 36 H34" fill="none" stroke="var(--safety-orange)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M32 10 V26 Q32 36 22 36 H8" fill="none" stroke="var(--safety-orange)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </article>
 
@@ -217,7 +217,7 @@
           </div>
         </div>
         <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M18 14 V28 Q18 36 26 36 H34" fill="none" stroke="var(--safety-orange)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M32 10 V26 Q32 36 22 36 H8" fill="none" stroke="var(--safety-orange)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </article>
 
@@ -250,24 +250,6 @@
           <p>[Repository, demo, or write-up link, if available.]</p>
         </div>
       </template>
-
-      <!-- Experience Card -->
-      <article class="card" data-category="experience">
-        <div class="card-media text-banner">
-          <span class="banner-text">ROLE A</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[COMPANY NAME]</span>
-          <h2 class="card-title">[Engineering Role Title]</h2>
-          <p class="card-description">
-            [Key responsibilities, team leadership, system integration, or engineering metrics achieved.]
-          </p>
-          <div class="tags">
-            <span class="pill">Skill 1</span>
-            <span class="pill">Skill 2</span>
-          </div>
-        </div>
-      </article>
 
       <!-- Coursework Card -->
       <article class="card card-wide" data-category="skills">
@@ -326,6 +308,108 @@
           </div>
         </div>
       </article>
+
+    </section>
+
+    <!-- Experience Ribbons (Visible only on Experience Tab) -->
+    <section id="experience-section" class="ribbons-wrapper hidden">
+
+      <!-- Intro Ribbon -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">EXPERIENCE &amp; LEADERSHIP</span>
+          <h2 class="ribbon-title">The journey so far.</h2>
+          <p class="ribbon-text">
+            [A short paragraph tying together internships, leadership, and teaching — the thread that connects them.]
+          </p>
+        </div>
+      </div>
+
+      <!-- Professional Experience Timeline Ribbon -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">PROFESSIONAL EXPERIENCE</span>
+          <h2 class="ribbon-title">Where I have worked</h2>
+          <ul class="timeline-list">
+            <li class="timeline-item">
+              <span class="timeline-date">[MONTH YEAR] to Present</span>
+              <h3 class="timeline-role">[Engineering Role Title]</h3>
+              <span class="timeline-org">[Company / Organization]</span>
+              <ul class="timeline-bullets">
+                <li>[Responsibility or achievement, quantified where possible.]</li>
+                <li>[Responsibility or achievement, quantified where possible.]</li>
+              </ul>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-date">[MONTH YEAR] to [MONTH YEAR]</span>
+              <h3 class="timeline-role">[Internship Title]</h3>
+              <span class="timeline-org">[Company / Organization]</span>
+              <ul class="timeline-bullets">
+                <li>[Responsibility or achievement, quantified where possible.]</li>
+                <li>[Responsibility or achievement, quantified where possible.]</li>
+              </ul>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-date">[MONTH YEAR] to [MONTH YEAR]</span>
+              <h3 class="timeline-role">[Internship Title]</h3>
+              <span class="timeline-org">[Company / Organization]</span>
+              <ul class="timeline-bullets">
+                <li>[Responsibility or achievement, quantified where possible.]</li>
+                <li>[Responsibility or achievement, quantified where possible.]</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Technical Leadership Highlight Ribbon -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">TECHNICAL LEADERSHIP</span>
+          <h2 class="ribbon-title">[Leadership Role Title]</h2>
+          <p class="ribbon-subtext">[Organization / Team] &middot; [MONTH YEAR] to Present</p>
+          <div class="leadership-layout">
+            <img src="Assets/profile.jpg" alt="Leadership role photo" class="leadership-image">
+            <div class="leadership-copy">
+              <p>[Intro paragraph on the scope and impact of the role — team size, budget, or scale.]</p>
+              <ul class="leadership-bullets">
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+              </ul>
+              <div class="tags">
+                <span class="pill">Tag 1</span>
+                <span class="pill">Tag 2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teaching Ribbon -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">TEACHING</span>
+          <h2 class="ribbon-title">Passing it on</h2>
+          <div class="ribbon-card-row">
+            <div class="mini-card">
+              <span class="sub-header">[ORGANIZATION] &middot; [DATE RANGE]</span>
+              <h3 class="mini-card-title">[Teaching Role Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the teaching or mentorship role.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[ORGANIZATION] &middot; [DATE RANGE]</span>
+              <h3 class="mini-card-title">[Teaching Role Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the teaching or mentorship role.]</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </section>
 
