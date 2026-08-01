@@ -149,7 +149,7 @@
     <section id="grid-section" class="grid-container hidden">
 
       <!-- Research Card -->
-      <article class="card" data-category="research">
+      <article class="card card-clickable" data-category="research" data-detail="detail-research-1" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media">
           <img src="assets/cfd-preview.png" alt="Research Preview">
         </div>
@@ -164,10 +164,44 @@
             <span class="pill">Topic 2</span>
           </div>
         </div>
+        <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M18 14 V28 Q18 36 26 36 H34" fill="none" stroke="var(--safety-orange)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </article>
 
+      <!-- Research Card Detail Template -->
+      <template id="detail-research-1">
+        <span class="detail-eyebrow">[LAB / ORGANIZATION]</span>
+        <h2 class="detail-title">[Research Project Title]</h2>
+        <div class="detail-gallery">
+          <img src="assets/cfd-preview.png" alt="Research detail image 1">
+          <img src="Assets/profile.jpg" alt="Research detail image 2">
+          <img src="assets/cfd-preview.png" alt="Research detail image 3">
+        </div>
+        <div class="tags detail-tags">
+          <span class="pill">Topic 1</span>
+          <span class="pill">Topic 2</span>
+        </div>
+        <div class="detail-section">
+          <h3>Overview</h3>
+          <p>[High-level summary of the research question, motivation, and why it matters.]</p>
+        </div>
+        <div class="detail-section">
+          <h3>Methodology</h3>
+          <p>[Description of the technical approach, tools, models, or experimental setup used.]</p>
+        </div>
+        <div class="detail-section">
+          <h3>Results &amp; Outcomes</h3>
+          <p>[Key findings, metrics, or engineering outcomes. Quantify where possible.]</p>
+        </div>
+        <div class="detail-section">
+          <h3>Links</h3>
+          <p>[Link to paper, poster, repository, or dataset, if available.]</p>
+        </div>
+      </template>
+
       <!-- Projects Card -->
-      <article class="card" data-category="projects">
+      <article class="card card-clickable" data-category="projects" data-detail="detail-project-1" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media text-banner">
           <span class="banner-text">PROJECT A</span>
         </div>
@@ -182,7 +216,40 @@
             <span class="pill">Technology 2</span>
           </div>
         </div>
+        <svg class="corner-accent" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M18 14 V28 Q18 36 26 36 H34" fill="none" stroke="var(--safety-orange)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </article>
+
+      <!-- Projects Card Detail Template -->
+      <template id="detail-project-1">
+        <span class="detail-eyebrow">[TEAM NAME]</span>
+        <h2 class="detail-title">[Project Title A]</h2>
+        <div class="detail-gallery">
+          <img src="Assets/profile.jpg" alt="Project detail image 1">
+          <img src="assets/cfd-preview.png" alt="Project detail image 2">
+        </div>
+        <div class="tags detail-tags">
+          <span class="pill">Technology 1</span>
+          <span class="pill">Technology 2</span>
+        </div>
+        <div class="detail-section">
+          <h3>Overview</h3>
+          <p>[What the project is, who it was for, and the problem it solved.]</p>
+        </div>
+        <div class="detail-section">
+          <h3>Design &amp; Implementation</h3>
+          <p>[Architecture, hardware/software stack, key engineering decisions.]</p>
+        </div>
+        <div class="detail-section">
+          <h3>Challenges</h3>
+          <p>[Technical obstacles encountered and how they were resolved.]</p>
+        </div>
+        <div class="detail-section">
+          <h3>Links</h3>
+          <p>[Repository, demo, or write-up link, if available.]</p>
+        </div>
+      </template>
 
       <!-- Experience Card -->
       <article class="card" data-category="experience">
@@ -306,6 +373,14 @@
           Download PDF
         </a>
       </div>
+    </div>
+  </div>
+
+  <!-- Detail Pane (opens on card click, populated from that card's <template>) -->
+  <div id="detail-pane" class="detail-pane" role="dialog" aria-modal="true" aria-label="Detail view">
+    <div class="detail-pane-inner">
+      <button class="close-btn detail-close-btn" id="detail-close-btn" type="button" aria-label="Close detail view">&times;</button>
+      <div id="detail-pane-content" class="detail-pane-content"></div>
     </div>
   </div>
 

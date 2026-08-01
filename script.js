@@ -72,6 +72,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Detail Pane: clicking a research/project card opens a full detail view,
+  // populated from that card's matching <template data-detail="...">.
+  const detailPane = document.getElementById('detail-pane');
+  const detailPaneContent = document.getElementById('detail-pane-content');
+  const detailCloseBtn = document.getElementById('detail-close-btn');
+  const detailCards = document.querySelectorAll('.card-clickable[data-detail]');
+
+  function openDetailPane(templateId) {
+    const template = document.getElementById(templateId);
+    if (!template || !detailPaneContent) return;
+    detailPaneContent.innerHTML = '';
+    detailPaneContent.appendChild(template.content.cloneNode(true));
+    detailPane.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    detailPane.scrollTop = 0;
+    if (detailCloseBtn) detailCloseBtn.focus();
+  }
+
+  function closeDetailPane() {
+    detailPane.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  detailCards.forEach(card => {
+    const templateId = card.getAttribute('data-detail');
+    card.addEventListener('click', () => openDetailPane(templateId));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openDetailPane(templateId);
+      }
+    });
+  });
+
+  if (detailCloseBtn) detailCloseBtn.addEventListener('click', closeDetailPane);
+  if (detailPane) {
+    detailPane.addEventListener('click', (e) => {
+      if (e.target === detailPane) closeDetailPane();
+    });
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && detailPane && detailPane.classList.contains('show')) {
+      closeDetailPane();
+    }
+  });
+
   // Generic modal setup: pass trigger button(s), the modal element, and its close button
   function setupModal(triggers, modal) {
     if (!modal) return;
