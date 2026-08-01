@@ -183,7 +183,7 @@ a, button {
 }
 
 .contact-tab:hover {
-  background: var(--blueprint-dark);
+  background: linear-gradient(135deg, var(--blueprint-blue), var(--blueprint-dark));
   border-color: var(--blueprint-dark);
   box-shadow: 0 0 12px rgba(29, 78, 216, 0.35);
 }
@@ -295,7 +295,7 @@ body.dark-mode .theme-toggle-btn {
    viewport width, clamped so it never runs off-screen on narrow ones. */
 .corner-mark-tl {
   top: -22px;
-  left: max(20px, calc(50% - 574px));
+  left: max(20px, calc(50% - 674px));
   background-position:
     9px 19px,
     19px 9px,
@@ -308,7 +308,7 @@ body.dark-mode .theme-toggle-btn {
 /* Core point at (44px, 44px), mirrored. */
 .corner-mark-br {
   bottom: -22px;
-  right: max(20px, calc(50% - 574px));
+  right: max(20px, calc(50% - 674px));
   background-position:
     31px 41px,
     41px 31px,
@@ -975,7 +975,7 @@ body.dark-mode .theme-toggle-btn {
 .dim-height .dim-value {
   left: -4px;
   top: 50%;
-  transform: translateY(-50%) rotate(90deg);
+  transform: translateY(-50%) rotate(-90deg);
   transform-origin: center;
 }
 
