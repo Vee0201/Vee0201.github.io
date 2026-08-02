@@ -298,7 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const SHEET_ID = '18qeKeF1IQj3G9GKwxpjSoNg5a9C0PNUNtdYIhEOycC8';
 
   function sheetCsvUrl(sheetName) {
-    return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+    // A timestamp query param busts any HTTP/browser caching of the CSV
+    // response, so a manual refresh (or even a normal reload) always pulls
+    // the latest spreadsheet content rather than a stale cached copy.
+    return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_ts=${Date.now()}`;
   }
 
   // Minimal RFC4180 CSV parser — handles quoted fields containing commas,
@@ -546,15 +549,11 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = html || '<p class="data-loading-note">No entries yet.</p>';
   }
 
-  (async () => {
-    const footerLastUpdatedEl = document.getElementById('footer-last-updated');
-
-    // CV panel: one date per PDF, fetched independently so the text can switch with the active tab.
-    const cvPaths = ['Assets/CV-1page.pdf', 'Assets/CV-2page.pdf'];
-    const cvDatesPromise = Promise.all(cvPaths.map(p => latestCommitDate(p)));
-
-    // Spreadsheet-driven sections — fetched in parallel with everything else.
-    const sheetPromise = Promise.all([
+  // Fetches and renders all spreadsheet-driven sections. Reusable — called
+  // once on page load, and again whenever the person clicks the refresh
+  // button to pull the latest content on demand.
+  function loadAllSheetData() {
+    return Promise.all([
       fetchSheet('Research').then(renderResearchCards),
       fetchSheet('ResearchFocus').then(renderResearchFocus),
       fetchSheet('Projects').then(renderProjectCards),
@@ -566,6 +565,69 @@ document.addEventListener('DOMContentLoaded', () => {
         renderGroupedList('skills-groups-container', records, ['Software & Tools', 'Programming Languages', 'Lab & Hardware'])
       ),
     ]);
+  }
+
+  // Reconciles card visibility after (re)rendering — catches cards
+  // injected while a different tab was active, without interrupting an
+  // already-open detail view.
+  function reconcileVisibilityAfterDataLoad() {
+    if (!detailView || detailView.classList.contains('hidden')) {
+      navigateToTab(currentFilter);
+    }
+  }
+
+  // Manual "refresh content" button — re-fetches the spreadsheet on
+  // demand rather than requiring a full page reload.
+  const refreshBtn = document.getElementById('refresh-content-btn');
+  const refreshStatus = document.getElementById('refresh-status');
+  let refreshStatusTimer = null;
+
+  function showRefreshStatus(text) {
+    if (!refreshStatus) return;
+    clearTimeout(refreshStatusTimer);
+    refreshStatus.textContent = text;
+    refreshStatus.classList.add('show');
+    refreshStatusTimer = setTimeout(() => refreshStatus.classList.remove('show'), 2500);
+  }
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', async () => {
+      if (refreshBtn.classList.contains('is-refreshing')) return;
+      refreshBtn.classList.add('is-refreshing');
+      showRefreshStatus('Refreshing…');
+      try {
+        await loadAllSheetData();
+        reconcileVisibilityAfterDataLoad();
+        showRefreshStatus('Updated');
+      } catch (e) {
+        showRefreshStatus('Refresh failed — try again');
+      } finally {
+        refreshBtn.classList.remove('is-refreshing');
+      }
+    });
+  }
+
+  // Back to Top — appears once the person has scrolled past the header,
+  // scrolls smoothly back up when clicked.
+  const backToTopBtn = document.getElementById('back-to-top-btn');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      backToTopBtn.classList.toggle('show', window.scrollY > 400);
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  (async () => {
+    const footerLastUpdatedEl = document.getElementById('footer-last-updated');
+
+    // CV panel: one date per PDF, fetched independently so the text can switch with the active tab.
+    const cvPaths = ['Assets/CV-1page.pdf', 'Assets/CV-2page.pdf'];
+    const cvDatesPromise = Promise.all(cvPaths.map(p => latestCommitDate(p)));
+
+    // Spreadsheet-driven sections — fetched in parallel with everything else.
+    const sheetPromise = loadAllSheetData();
 
     const results = await cvDatesPromise;
     cvPaths.forEach((p, i) => { if (results[i]) cvDates[p] = results[i]; });
@@ -585,8 +647,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // filtering already ran (e.g. person is already on the Research tab
     // while the fetch is still in flight).
     await sheetPromise;
-    if (!detailView || detailView.classList.contains('hidden')) {
-      navigateToTab(currentFilter);
-    }
+    reconcileVisibilityAfterDataLoad();
   })();
 });

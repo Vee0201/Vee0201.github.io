@@ -240,6 +240,76 @@ body.dark-mode .theme-toggle-btn {
   height: 18px;
 }
 
+/* Refresh Content Button — re-fetches the spreadsheet on demand instead
+   of waiting for a full page reload. Reuses .theme-toggle-btn's circular
+   shape for visual consistency with the dark-mode toggle beside it. */
+#refresh-content-btn.is-refreshing #refresh-icon {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.refresh-status {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.refresh-status.show {
+  opacity: 1;
+}
+
+/* Back to Top */
+.back-to-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.back-to-top-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.back-to-top-btn.show {
+  opacity: 0.75;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top-btn:hover {
+  opacity: 1;
+  border-color: var(--safety-orange);
+  color: var(--safety-orange);
+}
+
+@media (max-width: 480px) {
+  .back-to-top-btn {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
 /* Generic visibility utility — ensures any element with .hidden is hidden,
    even ones not covered by a more specific selector below (e.g. #projects-section) */
 .hidden {

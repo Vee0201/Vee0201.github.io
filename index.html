@@ -32,6 +32,13 @@
         <button class="nav-tab" id="cv-btn" type="button">CV</button>
       </nav>
       <button id="contact-btn" class="contact-tab">Get In Touch</button>
+      <button id="refresh-content-btn" class="theme-toggle-btn" type="button" aria-label="Refresh content from spreadsheet" title="Refresh content from spreadsheet">
+        <svg class="theme-icon" id="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
+          <polyline points="21 3 21 9 15 9"/>
+        </svg>
+      </button>
+      <span id="refresh-status" class="refresh-status" aria-live="polite"></span>
       <button id="theme-toggle-btn" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false">
         <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 18h6"/>
@@ -470,6 +477,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top -->
+  <button id="back-to-top-btn" class="back-to-top-btn" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
 
   <script src="script.js"></script>
 </body>
