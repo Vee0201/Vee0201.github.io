@@ -750,6 +750,7 @@ body.dark-mode .theme-toggle-btn {
    CSS multi-column lets the browser balance items across 3 columns
    automatically, reading top-to-bottom within each column. */
 .coursework-flat-list {
+  display: block;
   column-count: 3;
   column-gap: 28px;
   margin-top: 4px;
