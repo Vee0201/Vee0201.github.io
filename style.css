@@ -1572,16 +1572,9 @@ body.dark-mode .theme-toggle-btn {
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1.8fr 1.3fr 1fr;
+  grid-template-columns: 1.6fr 1fr;
   gap: 40px;
   margin-bottom: 40px;
-}
-
-.footer-text {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--text-main);
-  max-width: 400px;
 }
 
 .footer-col-title {
@@ -1609,18 +1602,18 @@ body.dark-mode .theme-toggle-btn {
 
 .footer-links a,
 .footer-link-btn {
-  color: var(--text-heading);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.footer-link-btn {
   display: block;
+  width: 100%;
   background: none;
   border: none;
+  appearance: none;
   padding: 0;
   margin: 0;
+  color: var(--text-heading);
+  text-decoration: none;
   font-family: inherit;
+  font-size: 0.9rem;
+  line-height: normal;
   cursor: pointer;
   text-align: left;
 }
