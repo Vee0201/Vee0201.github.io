@@ -32,13 +32,6 @@
         <button class="nav-tab" id="cv-btn" type="button">CV</button>
       </nav>
       <button id="contact-btn" class="contact-tab">Get In Touch</button>
-      <button id="refresh-content-btn" class="theme-toggle-btn" type="button" aria-label="Refresh content from spreadsheet" title="Refresh content from spreadsheet">
-        <svg class="theme-icon" id="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
-          <polyline points="21 3 21 9 15 9"/>
-        </svg>
-      </button>
-      <span id="refresh-status" class="refresh-status" aria-live="polite"></span>
       <button id="theme-toggle-btn" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false">
         <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 18h6"/>
@@ -474,6 +467,16 @@
         <span class="copyright">&copy; [YEAR] [Your Name]</span>
         <span class="tagline">[Built with care · Location/Institution]</span>
         <span class="tagline" id="footer-last-updated">Last updated August 2026</span>
+        <span class="footer-refresh">
+          <button id="refresh-content-btn" class="footer-refresh-btn" type="button" aria-label="Refresh content from spreadsheet" title="Refresh content from spreadsheet">
+            <svg class="footer-refresh-icon" id="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
+              <polyline points="21 3 21 9 15 9"/>
+            </svg>
+            Refresh content
+          </button>
+          <span id="refresh-status" class="refresh-status" aria-live="polite"></span>
+        </span>
       </div>
     </div>
   </footer>

@@ -297,11 +297,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // they're one-off layouts, not repeating list content.
   const SHEET_ID = '18qeKeF1IQj3G9GKwxpjSoNg5a9C0PNUNtdYIhEOycC8';
 
-  function sheetCsvUrl(sheetName) {
-    // A timestamp query param busts any HTTP/browser caching of the CSV
-    // response, so a manual refresh (or even a normal reload) always pulls
-    // the latest spreadsheet content rather than a stale cached copy.
-    return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_ts=${Date.now()}`;
+  function sheetCsvUrl(sheetName, bust) {
+    const base = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+    // Only bust caching when explicitly asked to (manual refresh button) —
+    // normal page loads should be allowed to hit browser/CDN cache so
+    // repeat visits aren't paying for a full network round-trip every time.
+    return bust ? `${base}&_ts=${Date.now()}` : base;
   }
 
   // Minimal RFC4180 CSV parser — handles quoted fields containing commas,
@@ -351,9 +352,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  async function fetchSheet(sheetName) {
+  async function fetchSheet(sheetName, bust) {
     try {
-      const res = await fetch(sheetCsvUrl(sheetName));
+      const res = await fetch(sheetCsvUrl(sheetName, bust));
       if (!res.ok) return [];
       return csvToObjects(await res.text());
     } catch (e) {
@@ -362,6 +363,48 @@ document.addEventListener('DOMContentLoaded', () => {
       // throwing, so the rest of the site still works.
       return [];
     }
+  }
+
+  // localStorage cache so returning visitors see content instantly (zero
+  // network wait) instead of a "Loading…" flash on every single visit.
+  // Page load renders from cache immediately, then quietly re-fetches in
+  // the background and updates if anything changed (stale-while-revalidate).
+  const SHEET_CACHE_PREFIX = 'sheet-cache:';
+
+  function getCachedSheet(sheetName) {
+    try {
+      const raw = localStorage.getItem(SHEET_CACHE_PREFIX + sheetName);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setCachedSheet(sheetName, records) {
+    try {
+      localStorage.setItem(SHEET_CACHE_PREFIX + sheetName, JSON.stringify(records));
+    } catch (e) {
+      // Storage unavailable/full — cache is a nice-to-have, not required.
+    }
+  }
+
+  // Renders instantly from cache (if any), then fetches fresh data.
+  // bust=true forces a network round-trip (used by the manual refresh
+  // button) and always overwrites the cache with the new result. On a
+  // normal page load (bust=false), a failed/empty fetch doesn't blank out
+  // whatever cached content is already showing.
+  function loadSection(sheetName, renderFn, bust) {
+    if (!bust) {
+      const cached = getCachedSheet(sheetName);
+      if (cached) renderFn(cached);
+    }
+    return fetchSheet(sheetName, bust).then(records => {
+      const hadCache = !!getCachedSheet(sheetName);
+      if (records.length || bust || !hadCache) {
+        renderFn(records);
+        setCachedSheet(sheetName, records);
+      }
+    });
   }
 
   function escapeHtml(str) {
@@ -550,20 +593,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Fetches and renders all spreadsheet-driven sections. Reusable — called
-  // once on page load, and again whenever the person clicks the refresh
-  // button to pull the latest content on demand.
-  function loadAllSheetData() {
+  // once on page load (bust=false, cache-first), and again whenever the
+  // person clicks the refresh button (bust=true, forces fresh data).
+  function loadAllSheetData(bust) {
     return Promise.all([
-      fetchSheet('Research').then(renderResearchCards),
-      fetchSheet('ResearchFocus').then(renderResearchFocus),
-      fetchSheet('Projects').then(renderProjectCards),
-      fetchSheet('SideProjects').then(renderSideProjectCards),
-      fetchSheet('Coursework').then(records =>
-        renderGroupedList('coursework-groups-container', records, ['Core', 'Advanced-Graduate', 'Math & Stats'])
-      ),
-      fetchSheet('Skills').then(records =>
-        renderGroupedList('skills-groups-container', records, ['Software & Tools', 'Programming Languages', 'Lab & Hardware'])
-      ),
+      loadSection('Research', renderResearchCards, bust),
+      loadSection('ResearchFocus', renderResearchFocus, bust),
+      loadSection('Projects', renderProjectCards, bust),
+      loadSection('SideProjects', renderSideProjectCards, bust),
+      loadSection('Coursework', records =>
+        renderGroupedList('coursework-groups-container', records, ['Core', 'Advanced-Graduate', 'Math & Stats']), bust),
+      loadSection('Skills', records =>
+        renderGroupedList('skills-groups-container', records, ['Software & Tools', 'Programming Languages', 'Lab & Hardware']), bust),
     ]);
   }
 
@@ -596,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
       refreshBtn.classList.add('is-refreshing');
       showRefreshStatus('Refreshing…');
       try {
-        await loadAllSheetData();
+        await loadAllSheetData(true);
         reconcileVisibilityAfterDataLoad();
         showRefreshStatus('Updated');
       } catch (e) {
@@ -627,7 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cvDatesPromise = Promise.all(cvPaths.map(p => latestCommitDate(p)));
 
     // Spreadsheet-driven sections — fetched in parallel with everything else.
-    const sheetPromise = loadAllSheetData();
+    const sheetPromise = loadAllSheetData(false);
 
     const results = await cvDatesPromise;
     cvPaths.forEach((p, i) => { if (results[i]) cvDates[p] = results[i]; });

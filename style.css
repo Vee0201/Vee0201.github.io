@@ -240,10 +240,40 @@ body.dark-mode .theme-toggle-btn {
   height: 18px;
 }
 
-/* Refresh Content Button — re-fetches the spreadsheet on demand instead
-   of waiting for a full page reload. Reuses .theme-toggle-btn's circular
-   shape for visual consistency with the dark-mode toggle beside it. */
-#refresh-content-btn.is-refreshing #refresh-icon {
+/* Refresh Content Control — moved to the footer bar. A small text link
+   with an icon, re-fetches the spreadsheet on demand instead of waiting
+   for a full page reload. */
+.footer-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer-refresh-btn:hover {
+  color: var(--safety-orange);
+}
+
+.footer-refresh-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.footer-refresh-btn.is-refreshing .footer-refresh-icon {
   animation: spin 0.8s linear infinite;
 }
 
