@@ -327,7 +327,7 @@ body.dark-mode .theme-toggle-btn {
   display: grid;
   grid-template-columns: 1.4fr 0.6fr;
   gap: 48px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .ribbon-eyebrow {
@@ -507,9 +507,11 @@ body.dark-mode .theme-toggle-btn {
 /* Hero Image & Overlay Badge */
 .hero-image-wrapper {
   position: relative;
-  width: 100%;
-  max-width: 220px;
-  margin: 0 auto;
+  width: auto;
+  min-width: 160px;
+  max-width: 340px;
+  align-self: stretch;
+  margin: 6px 0;
   aspect-ratio: 4 / 5;
   border-radius: 16px;
   overflow: hidden;
@@ -900,8 +902,8 @@ body.dark-mode .theme-toggle-btn {
 
 .dim-width .dim-ext-a,
 .dim-width .dim-ext-b {
-  top: 6px;
-  bottom: -6px;
+  top: 10px;
+  height: 16px;
   width: 1px;
 }
 .dim-width .dim-ext-a { left: 0; }
@@ -944,8 +946,8 @@ body.dark-mode .theme-toggle-btn {
 
 .dim-height .dim-ext-a,
 .dim-height .dim-ext-b {
-  left: 6px;
-  right: -6px;
+  left: 2px;
+  width: 16px;
   height: 1px;
 }
 .dim-height .dim-ext-a { top: 0; }
@@ -1550,9 +1552,14 @@ body.dark-mode .theme-toggle-btn {
   .hero-ribbon-inner {
     grid-template-columns: 1fr;
     gap: 32px;
+    align-items: center;
   }
   .hero-image-wrapper {
+    width: 180px;
+    min-width: 0;
     max-width: 180px;
+    align-self: center;
+    margin: 0 auto;
   }
   .footer-top {
     grid-template-columns: 1fr;
