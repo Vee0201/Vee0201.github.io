@@ -188,9 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('contact-modal')
   );
 
-  // CV Modal (opened from the nav tab or the hero "Download CV" button)
+  // CV Modal (opened from the nav tab, hero "Download CV" button, or footer link)
   setupModal(
-    [document.getElementById('cv-btn'), document.getElementById('hero-cv-btn')],
+    [document.getElementById('cv-btn'), document.getElementById('hero-cv-btn'), document.getElementById('footer-cv-btn')],
     document.getElementById('cv-modal')
   );
 
