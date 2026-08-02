@@ -592,6 +592,33 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = html || '<p class="data-loading-note">No entries yet.</p>';
   }
 
+  // Flat, ungrouped list (used for Coursework) — reads the course name
+  // from the "CourseName" column if present, otherwise falls back to
+  // reading by position. Renders as a single list that CSS splits into 3
+  // balanced columns automatically (see .coursework-flat-list), rather
+  // than grouping by category — useful when entries are too skewed
+  // toward one category for separate columns to make sense.
+  function renderFlatList(containerId, records) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const names = records
+      .map(r => {
+        if (r['CourseName']) return r['CourseName'].trim();
+        const vals = Object.values(r);
+        return (vals[1] || vals[0] || '').trim();
+      })
+      .filter(Boolean);
+    if (!names.length) {
+      container.innerHTML = '<p class="data-loading-note">No entries yet.</p>';
+      return;
+    }
+    container.innerHTML = `
+      <ul class="coursework-list coursework-flat-list">
+        ${names.map(name => `<li>${escapeHtml(name)}</li>`).join('')}
+      </ul>
+    `;
+  }
+
   // Fetches and renders all spreadsheet-driven sections. Reusable — called
   // once on page load (bust=false, cache-first), and again whenever the
   // person clicks the refresh button (bust=true, forces fresh data).
@@ -602,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
       loadSection('Projects', renderProjectCards, bust),
       loadSection('SideProjects', renderSideProjectCards, bust),
       loadSection('Coursework', records =>
-        renderGroupedList('coursework-groups-container', records, ['Core', 'Advanced-Graduate', 'Math & Stats']), bust),
+        renderFlatList('coursework-groups-container', records), bust),
       loadSection('Skills', records =>
         renderGroupedList('skills-groups-container', records, ['Software & Tools', 'Programming Languages', 'Lab & Hardware']), bust),
     ]);

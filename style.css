@@ -745,6 +745,33 @@ body.dark-mode .theme-toggle-btn {
   background-color: var(--blueprint-blue);
 }
 
+/* Flat coursework list — used when courses aren't grouped by category
+   (e.g. too skewed toward one group to be useful as separate columns).
+   CSS multi-column lets the browser balance items across 3 columns
+   automatically, reading top-to-bottom within each column. */
+.coursework-flat-list {
+  column-count: 3;
+  column-gap: 28px;
+  margin-top: 4px;
+}
+
+.coursework-flat-list li {
+  break-inside: avoid;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 720px) {
+  .coursework-flat-list {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .coursework-flat-list {
+    column-count: 1;
+  }
+}
+
 /* Experience: Timeline */
 .timeline-card {
   background-color: var(--card-bg);
