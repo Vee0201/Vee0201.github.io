@@ -574,6 +574,10 @@ body.dark-mode .theme-toggle-btn {
   margin-bottom: 20px;
 }
 
+.hero-title-accent {
+  color: var(--safety-orange);
+}
+
 .hero-bio {
   font-size: 1.05rem;
   line-height: 1.6;
