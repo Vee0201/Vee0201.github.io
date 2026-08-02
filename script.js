@@ -664,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const footerLastUpdatedEl = document.getElementById('footer-last-updated');
 
     // CV panel: one date per PDF, fetched independently so the text can switch with the active tab.
-    const cvPaths = ['Assets/CV-1page.pdf', 'Assets/CV-2page.pdf'];
+    const cvPaths = ['assets/CV-1page.pdf', 'assets/CV-2page.pdf'];
     const cvDatesPromise = Promise.all(cvPaths.map(p => latestCommitDate(p)));
 
     // Spreadsheet-driven sections — fetched in parallel with everything else.
