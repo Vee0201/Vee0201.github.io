@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const experienceSection = document.getElementById('experience-section');
   const researchIntro = document.getElementById('research-intro');
   const detailView = document.getElementById('detail-view');
-  const cards = document.querySelectorAll('.card');
   const footerLinks = document.querySelectorAll('[data-footer-filter]');
   const actionTargets = document.querySelectorAll('[data-nav-target]');
 
@@ -59,8 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         researchIntro.classList.toggle('hidden', targetFilter !== 'research');
       }
 
-      // Filter cards
-      cards.forEach(card => {
+      // Filter cards (live query — includes cards injected after page load,
+      // e.g. Research cards rendered from the spreadsheet)
+      document.querySelectorAll('.card').forEach(card => {
         const category = card.getAttribute('data-category');
         if (category === targetFilter) {
           card.classList.remove('hidden');
@@ -99,26 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Detail View: clicking a research/project card swaps the current page
-  // content for a full detail view, populated from that card's matching
-  // <template data-detail="...">. A Back button restores the tab the
-  // person was on before opening it.
+  // content for a full detail view. Research, Projects, and Side Projects
+  // are rendered dynamically from the spreadsheet (see the sheet-data
+  // section below), so instead of static <template> elements, each
+  // rendered card's detail HTML is kept in `detailStore` keyed by a
+  // generated id, and clicks are handled via delegation since the cards
+  // don't exist yet at page-load time.
   const detailViewContent = document.getElementById('detail-view-content');
   const detailBackBtn = document.getElementById('detail-back-btn');
-  const detailCards = document.querySelectorAll('.card-clickable[data-detail]');
+  const detailStore = {};
 
-  function openDetailView(templateId) {
-    const template = document.getElementById(templateId);
-    if (!template || !detailViewContent || !detailView) return;
+  function openDetailView(id) {
+    const entry = detailStore[id];
+    if (!entry || !detailViewContent || !detailView) return;
 
-    // Hide whichever main view is currently showing
     heroSection.classList.add('hidden');
     gridSection.classList.add('hidden');
     if (projectsSection) projectsSection.classList.add('hidden');
     if (experienceSection) experienceSection.classList.add('hidden');
     if (researchIntro) researchIntro.classList.add('hidden');
 
-    detailViewContent.innerHTML = '';
-    detailViewContent.appendChild(template.content.cloneNode(true));
+    detailViewContent.innerHTML = entry.html;
     detailView.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (detailBackBtn) detailBackBtn.focus();
@@ -129,15 +130,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  detailCards.forEach(card => {
-    const templateId = card.getAttribute('data-detail');
-    card.addEventListener('click', () => openDetailView(templateId));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openDetailView(templateId);
-      }
-    });
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.card-clickable[data-detail-id]');
+    if (card) openDetailView(card.getAttribute('data-detail-id'));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest && e.target.closest('.card-clickable[data-detail-id]');
+    if (card) {
+      e.preventDefault();
+      openDetailView(card.getAttribute('data-detail-id'));
+    }
   });
 
   if (detailBackBtn) detailBackBtn.addEventListener('click', closeDetailView);
@@ -287,12 +290,284 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== Spreadsheet-driven content (Research, Projects, Coursework/Skills) =====
+  // Data lives in a Google Sheet, one tab per section. Each tab is read via
+  // Google's CSV export endpoint, parsed, and rendered into the matching
+  // container. Experience/Leadership/Teaching stay hardcoded in the HTML —
+  // they're one-off layouts, not repeating list content.
+  const SHEET_ID = '18qeKeF1IQj3G9GKwxpjSoNg5a9C0PNUNtdYIhEOycC8';
+
+  function sheetCsvUrl(sheetName) {
+    return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+  }
+
+  // Minimal RFC4180 CSV parser — handles quoted fields containing commas,
+  // newlines, and escaped ("") quotes, which Google's CSV export produces
+  // for any multi-line or comma-containing cell.
+  function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let field = '';
+    let inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (inQuotes) {
+        if (ch === '"') {
+          if (text[i + 1] === '"') { field += '"'; i++; }
+          else { inQuotes = false; }
+        } else {
+          field += ch;
+        }
+      } else if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',') {
+        row.push(field); field = '';
+      } else if (ch === '\r') {
+        // ignore; \n (below) ends the row
+      } else if (ch === '\n') {
+        row.push(field); field = '';
+        rows.push(row); row = [];
+      } else {
+        field += ch;
+      }
+    }
+    if (field.length > 0 || row.length > 0) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  function csvToObjects(text) {
+    const rows = parseCSV(text.trim());
+    if (rows.length === 0) return [];
+    const headers = rows[0].map(h => h.trim());
+    return rows.slice(1)
+      .filter(r => r.some(cell => (cell || '').trim() !== ''))
+      .map(r => {
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = (r[i] || '').trim(); });
+        return obj;
+      });
+  }
+
+  async function fetchSheet(sheetName) {
+    try {
+      const res = await fetch(sheetCsvUrl(sheetName));
+      if (!res.ok) return [];
+      return csvToObjects(await res.text());
+    } catch (e) {
+      // Network failure, sheet not published, tab renamed, etc. — render
+      // functions below treat an empty array as "nothing yet" rather than
+      // throwing, so the rest of the site still works.
+      return [];
+    }
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function splitPipe(str) {
+    return (str || '').split('|').map(s => s.trim()).filter(Boolean);
+  }
+
+  function buildTagsHtml(tagsStr) {
+    return splitPipe(tagsStr).map(t => `<span class="pill">${escapeHtml(t)}</span>`).join('');
+  }
+
+  function buildGalleryHtml(urls) {
+    return urls.filter(Boolean)
+      .map((u, i) => `<img src="${escapeHtml(u)}" alt="Gallery image ${i + 1}">`)
+      .join('');
+  }
+
+  function buildLinkSectionHtml(linkUrl, linkLabel) {
+    if (!linkUrl) return '';
+    return `<div class="detail-section"><h3>Links</h3><p><a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(linkLabel || 'View')}</a></p></div>`;
+  }
+
+  function renderResearchFocus(records) {
+    const textEl = document.getElementById('research-focus-text');
+    const tagsEl = document.getElementById('research-focus-tags');
+    if (!records.length) {
+      if (textEl) textEl.textContent = 'Add a row to the ResearchFocus sheet to populate this.';
+      return;
+    }
+    const r = records[0];
+    if (textEl) textEl.textContent = r['SummaryText'] || '';
+    if (tagsEl) tagsEl.innerHTML = buildTagsHtml(r['Tags (separate with |)']);
+  }
+
+  function renderResearchCards(records) {
+    const container = document.getElementById('research-cards-container');
+    if (!container) return;
+    if (!records.length) {
+      container.innerHTML = '<p class="data-loading-note">No research entries yet — add a row to the Research sheet.</p>';
+      return;
+    }
+    container.innerHTML = records.map((r, i) => {
+      const id = `research-${i}`;
+      const tagsHtml = buildTagsHtml(r['Tags (separate with |)']);
+      const imageUrl = r['ImageURL1'] || '';
+      detailStore[id] = {
+        html: `
+          <span class="detail-eyebrow">${escapeHtml(r['LabOrg'])}</span>
+          <h2 class="detail-title">${escapeHtml(r['Title'])}</h2>
+          <div class="detail-gallery">${buildGalleryHtml([r['ImageURL1'], r['ImageURL2'], r['ImageURL3']])}</div>
+          <div class="tags detail-tags">${tagsHtml}</div>
+          <div class="detail-section"><h3>Overview</h3><p>${escapeHtml(r['Overview'])}</p></div>
+          <div class="detail-section"><h3>Methodology</h3><p>${escapeHtml(r['Methodology'])}</p></div>
+          <div class="detail-section"><h3>Results &amp; Outcomes</h3><p>${escapeHtml(r['ResultsOutcomes'])}</p></div>
+          ${buildLinkSectionHtml(r['LinkURL'], r['LinkLabel'])}
+        `
+      };
+      return `
+        <article class="card card-clickable" data-category="research" data-detail-id="${id}" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media">
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(r['Title'])}">` : ''}
+          </div>
+          <div class="card-body">
+            <span class="sub-header">${escapeHtml(r['LabOrg'])}</span>
+            <h2 class="card-title">${escapeHtml(r['Title'])}</h2>
+            <p class="card-description">${escapeHtml(r['OneLineDescription'])}</p>
+            <div class="tags">${tagsHtml}</div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function renderProjectCards(records) {
+    const container = document.getElementById('projects-cards-container');
+    if (!container) return;
+    if (!records.length) {
+      container.innerHTML = '<p class="data-loading-note">No projects yet — add a row to the Projects sheet.</p>';
+      return;
+    }
+    container.innerHTML = records.map((r, i) => {
+      const id = `project-${i}`;
+      const tagsHtml = buildTagsHtml(r['Tags (separate with |)']);
+      detailStore[id] = {
+        html: `
+          <span class="detail-eyebrow">${escapeHtml(r['TeamOrg'])}</span>
+          <h2 class="detail-title">${escapeHtml(r['Title'])}</h2>
+          <div class="detail-gallery">${buildGalleryHtml([r['ImageURL1'], r['ImageURL2']])}</div>
+          <div class="tags detail-tags">${tagsHtml}</div>
+          <div class="detail-section"><h3>Overview</h3><p>${escapeHtml(r['Overview'])}</p></div>
+          <div class="detail-section"><h3>Design &amp; Implementation</h3><p>${escapeHtml(r['DesignImplementation'])}</p></div>
+          <div class="detail-section"><h3>Challenges</h3><p>${escapeHtml(r['Challenges'])}</p></div>
+          ${buildLinkSectionHtml(r['LinkURL'], r['LinkLabel'])}
+        `
+      };
+      return `
+        <article class="card card-clickable" data-detail-id="${id}" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media text-banner">
+            <span class="banner-text">${escapeHtml(r['BannerLabel'] || 'PROJECT')}</span>
+          </div>
+          <div class="card-body">
+            <span class="sub-header">${escapeHtml(r['TeamOrg'])}</span>
+            <h2 class="card-title">${escapeHtml(r['Title'])}</h2>
+            <p class="card-description">${escapeHtml(r['OneLineDescription'])}</p>
+            <div class="tags">${tagsHtml}</div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function renderSideProjectCards(records) {
+    const container = document.getElementById('side-projects-cards-container');
+    if (!container) return;
+    if (!records.length) {
+      container.innerHTML = '<p class="data-loading-note">No side projects yet — add a row to the SideProjects sheet.</p>';
+      return;
+    }
+    container.innerHTML = records.map((r, i) => {
+      const id = `side-project-${i}`;
+      const tagsHtml = buildTagsHtml(r['Tags (separate with |)']);
+      detailStore[id] = {
+        html: `
+          <span class="detail-eyebrow">${escapeHtml(r['SoloOrWeekendLabel'])}</span>
+          <h2 class="detail-title">${escapeHtml(r['Title'])}</h2>
+          <div class="detail-gallery">${buildGalleryHtml([r['ImageURL1'], r['ImageURL2']])}</div>
+          <div class="tags detail-tags">${tagsHtml}</div>
+          <div class="detail-section"><h3>What it is</h3><p>${escapeHtml(r['WhatItIs'])}</p></div>
+          <div class="detail-section"><h3>What I learned</h3><p>${escapeHtml(r['WhatILearned'])}</p></div>
+          ${buildLinkSectionHtml(r['LinkURL'], r['LinkLabel'])}
+        `
+      };
+      return `
+        <article class="card card-clickable" data-detail-id="${id}" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="card-media text-banner">
+            <span class="banner-text">${escapeHtml(r['BannerLabel'] || 'TANGENT')}</span>
+          </div>
+          <div class="card-body">
+            <span class="sub-header">${escapeHtml(r['SoloOrWeekendLabel'])}</span>
+            <h2 class="card-title">${escapeHtml(r['Title'])}</h2>
+            <p class="card-description">${escapeHtml(r['OneLineDescription'])}</p>
+            <div class="tags">${tagsHtml}</div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // Coursework/Skills sheets have verbose headers (e.g. "Group (Core /
+  // Advanced-Graduate / Math & Stats)"), so rather than matching that exact
+  // string, this reads by column position: first column = group, second =
+  // item name. Robust to the exact header wording.
+  function renderGroupedList(containerId, records, groupOrder) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!records.length) {
+      container.innerHTML = '<p class="data-loading-note">No entries yet.</p>';
+      return;
+    }
+    const groups = {};
+    groupOrder.forEach(g => { groups[g] = []; });
+    records.forEach(r => {
+      const vals = Object.values(r);
+      const groupRaw = (vals[0] || '').trim();
+      const name = (vals[1] || '').trim();
+      if (!name) return;
+      const matched = groupOrder.find(g => g.toLowerCase() === groupRaw.toLowerCase());
+      groups[matched || groupOrder[0]].push(name);
+    });
+    const html = groupOrder
+      .filter(g => groups[g].length)
+      .map(g => `
+        <div class="coursework-group">
+          <span class="ribbon-list-label">${escapeHtml(g)}</span>
+          <ul class="coursework-list">
+            ${groups[g].map(name => `<li>${escapeHtml(name)}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+    container.innerHTML = html || '<p class="data-loading-note">No entries yet.</p>';
+  }
+
   (async () => {
     const footerLastUpdatedEl = document.getElementById('footer-last-updated');
 
     // CV panel: one date per PDF, fetched independently so the text can switch with the active tab.
     const cvPaths = ['Assets/CV-1page.pdf', 'Assets/CV-2page.pdf'];
-    const results = await Promise.all(cvPaths.map(p => latestCommitDate(p)));
+    const cvDatesPromise = Promise.all(cvPaths.map(p => latestCommitDate(p)));
+
+    // Spreadsheet-driven sections — fetched in parallel with everything else.
+    const sheetPromise = Promise.all([
+      fetchSheet('Research').then(renderResearchCards),
+      fetchSheet('ResearchFocus').then(renderResearchFocus),
+      fetchSheet('Projects').then(renderProjectCards),
+      fetchSheet('SideProjects').then(renderSideProjectCards),
+      fetchSheet('Coursework').then(records =>
+        renderGroupedList('coursework-groups-container', records, ['Core', 'Advanced-Graduate', 'Math & Stats'])
+      ),
+      fetchSheet('Skills').then(records =>
+        renderGroupedList('skills-groups-container', records, ['Software & Tools', 'Programming Languages', 'Lab & Hardware'])
+      ),
+    ]);
+
+    const results = await cvDatesPromise;
     cvPaths.forEach((p, i) => { if (results[i]) cvDates[p] = results[i]; });
 
     const activeTab = document.querySelector('.cv-tab.active');
@@ -302,6 +577,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const repoDate = await latestCommitDate('');
     if (footerLastUpdatedEl && repoDate) {
       footerLastUpdatedEl.textContent = `Last updated ${formatMonthYear(repoDate)}`;
+    }
+
+    // Wait for all sheet-driven sections to finish rendering, then
+    // re-apply the current tab's visibility rules — this catches Research
+    // cards that were injected after the page's initial tab/card
+    // filtering already ran (e.g. person is already on the Research tab
+    // while the fetch is still in flight).
+    await sheetPromise;
+    if (!detailView || detailView.classList.contains('hidden')) {
+      navigateToTab(currentFilter);
     }
   })();
 });
