@@ -1574,7 +1574,7 @@ body.dark-mode .theme-toggle-btn {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
   gap: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 .footer-col-title {
@@ -1626,14 +1626,14 @@ body.dark-mode .theme-toggle-btn {
 .footer-divider {
   height: 1px;
   background-color: var(--card-border);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   flex-wrap: wrap;
   gap: 12px;
@@ -1641,8 +1641,8 @@ body.dark-mode .theme-toggle-btn {
 
 .footer-bottom .copyright,
 .footer-bottom .tagline {
-  font-size: 0.72rem;
-  opacity: 0.6;
+  font-size: 0.68rem;
+  opacity: 0.5;
 }
 
 @media (max-width: 868px) {
