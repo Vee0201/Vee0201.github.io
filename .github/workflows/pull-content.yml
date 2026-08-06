@@ -1,0 +1,38 @@
+name: Pull content from spreadsheet
+
+# Manual trigger ONLY — no schedule. This means the site's content only
+# updates when you click "Run workflow" below (Actions tab, on GitHub.com),
+# not automatically. That's the whole point: you control exactly when new
+# spreadsheet edits go live.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  pull-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pull sheet data
+        run: python3 scripts/pull_sheet_data.py
+
+      - name: Commit and push if content changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/content.json; then
+            echo "No content changes — nothing to commit."
+          else
+            git add data/content.json
+            git commit -m "Update site content from spreadsheet"
+            git push
+          fi
