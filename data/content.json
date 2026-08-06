@@ -1,8 +1,166 @@
 {
-  "research": [],
-  "researchFocus": [],
-  "projects": [],
-  "sideProjects": [],
-  "coursework": [],
-  "skills": []
+  "research": [
+    {
+      "ID": "research-1",
+      "Title": "Thermoacoustic Instability in Liquid Propellant Engines",
+      "LabOrg": "DHIO Research & Engineering Pvt. Ltd.",
+      "OneLineDescription": "Mesh-free CFD study of combustion dynamics and pressure oscillation mitigation.",
+      "Tags (separate with |)": "CFD | Combustion | Acoustics",
+      "ImageURL1": "https://raw.githubusercontent.com/username/repo/main/Assets/cfd-1.jpg",
+      "ImageURL2": "",
+      "ImageURL3": "",
+      "Overview": "Investigated thermoacoustic instabilities in liquid propellant rocket engines to identify mitigation strategies for pressure oscillations.",
+      "Methodology": "Ran high-fidelity, mesh-free CFD of complex flow with frequency-domain analysis to isolate dominant instability modes.",
+      "ResultsOutcomes": "Identified an acoustic coupling mechanism that informed a structural damping change, improving ignition stability.",
+      "LinkLabel": "Paper / Poster",
+      "LinkURL": "https://example.com/paper.pdf"
+    },
+    {
+      "ID": "Row 2 (orange) is an example — overwrite it, then add more rows below.",
+      "Title": "",
+      "LabOrg": "",
+      "OneLineDescription": "",
+      "Tags (separate with |)": "",
+      "ImageURL1": "",
+      "ImageURL2": "",
+      "ImageURL3": "",
+      "Overview": "",
+      "Methodology": "",
+      "ResultsOutcomes": "",
+      "LinkLabel": "",
+      "LinkURL": ""
+    }
+  ],
+  "researchFocus": [
+    {
+      "SummaryText": "I work on mechanical design",
+      "Tags (separate with |)": "Soft Robotics | Compliant Mechanisms | Actuation | Control"
+    },
+    {
+      "SummaryText": "Only one row needed — this is a single blurb, not a list. Just edit Row 2 directly.",
+      "Tags (separate with |)": ""
+    }
+  ],
+  "projects": [
+    {
+      "ID": "project-1",
+      "Title": "Autonomous Sample-Return Rover",
+      "TeamOrg": "BITS Pilani CRISS Robotics",
+      "OneLineDescription": "Six-DOF sample collection rover built for the International Rover Design Challenge.",
+      "Tags (separate with |)": "Robotics | ROS | Mechanical Design",
+      "BannerLabel": "PROJECT A",
+      "ImageURL1": "https://raw.githubusercontent.com/username/repo/main/Assets/rover-1.jpg",
+      "ImageURL2": "https://raw.githubusercontent.com/username/repo/main/Assets/rover-2.jpg",
+      "Overview": "Designed and built an autonomous rover for the ERC 2025 competition, focused on precision sample collection in simulated Martian terrain.",
+      "DesignImplementation": "Used ROS with OpenCV for autonomy, a custom 5-bar linkage for the collection arm, and a widefield imaging payload for spectral analysis.",
+      "Challenges": "Had to redesign the kinematic chain twice to meet the payload's precision tolerance while keeping the arm light enough for the drivetrain.",
+      "LinkLabel": "GitHub Repo",
+      "LinkURL": "https://github.com/username/rover-project"
+    },
+    {
+      "ID": "Row 2 (orange) is an example — overwrite it with your first real project, then add more rows below.",
+      "Title": "",
+      "TeamOrg": "",
+      "OneLineDescription": "",
+      "Tags (separate with |)": "",
+      "BannerLabel": "",
+      "ImageURL1": "",
+      "ImageURL2": "",
+      "Overview": "",
+      "DesignImplementation": "",
+      "Challenges": "",
+      "LinkLabel": "",
+      "LinkURL": ""
+    }
+  ],
+  "sideProjects": [
+    {
+      "ID": "side-1",
+      "Title": "Desk-Mounted CNC Plotter",
+      "SoloOrWeekendLabel": "Solo / Weekend Project",
+      "OneLineDescription": "A small pen-plotter built from scrap steppers to make technical drawings look hand-inked.",
+      "Tags (separate with |)": "Arduino | GRBL | CAD",
+      "BannerLabel": "TANGENT A",
+      "ImageURL1": "https://raw.githubusercontent.com/username/repo/main/Assets/plotter-1.jpg",
+      "ImageURL2": "",
+      "WhatItIs": "A 2-axis pen plotter built over a weekend using salvaged stepper motors and a GRBL controller, mostly to see if I could get G-code working from scratch.",
+      "WhatILearned": "First hands-on experience tuning stepper current limiting and learned to write basic G-code post-processors.",
+      "LinkLabel": "Project Writeup",
+      "LinkURL": "https://github.com/username/cnc-plotter"
+    },
+    {
+      "ID": "Row 2 (orange) is an example — overwrite it, then add more rows below.",
+      "Title": "",
+      "SoloOrWeekendLabel": "",
+      "OneLineDescription": "",
+      "Tags (separate with |)": "",
+      "BannerLabel": "",
+      "ImageURL1": "",
+      "ImageURL2": "",
+      "WhatItIs": "",
+      "WhatILearned": "",
+      "LinkLabel": "",
+      "LinkURL": ""
+    }
+  ],
+  "coursework": [
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Mechanics of Solids"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Advanced Mechanics of Solids"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Design of Machine Elements"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Mechanisms and Machines"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Robotics"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Computer Aided Design"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Vibration & Control"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Additive Manufacturing"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Digital Image Processing"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Multivariable Calculus (M1)"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Linear Algebra (M2)"
+    },
+    {
+      "Group (Core / Advanced-Graduate / Math & Stats)": "Core",
+      "CourseName": "Differential Equations (M3)"
+    }
+  ],
+  "skills": [
+    {
+      "Group (Software & Tools / Programming Languages / Lab & Hardware)": "Software & Tools",
+      "SkillName": "SolidWorks"
+    },
+    {
+      "Group (Software & Tools / Programming Languages / Lab & Hardware)": "One row per skill. 'Group' must match one of the three listed group names exactly.",
+      "SkillName": ""
+    }
+  ]
 }
