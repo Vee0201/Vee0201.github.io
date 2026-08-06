@@ -7,7 +7,8 @@
   --text-main: #475569;
   --text-heading: #0f172a;
   --text-muted: #64748b;
-  
+  --text-faint: #556479;
+
   --blueprint-blue: #1d4ed8;
   --blueprint-dark: #1e40af;
   --blueprint-bg: #eff6ff;
@@ -21,6 +22,18 @@
   --footer-bg: #e2e8f0;
   --grid-line: rgba(29, 64, 175, 0.06);
   --media-placeholder-bg: #e2e8f0;
+
+  /* Type scale — root font-size is 120% (1rem = 19.2px), so these rem
+     values land on the intended pixel sizes: H1 40px / H2 28px / H3 20px
+     / body 16px / label 12px. Applies to content headings/text; the hero
+     name display and interactive UI chrome (buttons, tabs, tiny CAD-style
+     annotations) are intentionally outside this scale — see comments at
+     each usage. */
+  --fs-h1: 2.083rem;
+  --fs-h2: 1.458rem;
+  --fs-h3: 1.042rem;
+  --fs-body: 0.833rem;
+  --fs-label: 0.625rem;
 }
 
 /* Dark mode — overrides the same custom properties so every component
@@ -37,6 +50,7 @@ html.dark-mode-pending {
   --text-main: #cbd5e1;
   --text-heading: #f8fafc;
   --text-muted: #94a3b8;
+  --text-faint: #94a3b8;
 
   --blueprint-blue: #60a5fa;
   --blueprint-dark: #93c5fd;
@@ -356,7 +370,7 @@ body.dark-mode .theme-toggle-btn {
 .data-loading-note {
   grid-column: 1 / -1;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   padding: 8px 0;
 }
 
@@ -476,14 +490,14 @@ body.dark-mode .theme-toggle-btn {
 
 .ribbon-title {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.9rem;
+  font-size: var(--fs-h1);
   color: var(--text-heading);
   font-weight: 600;
   margin-bottom: 24px;
 }
 
 .ribbon-text {
-  font-size: 1.05rem;
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--text-main);
   max-width: 700px;
@@ -503,7 +517,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .ribbon-list-label {
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 1.5px;
   color: var(--blueprint-blue);
@@ -511,7 +525,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .ribbon-list-text {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--text-main);
 }
@@ -539,14 +553,14 @@ body.dark-mode .theme-toggle-btn {
 
 .mini-card-title {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.05rem;
+  font-size: var(--fs-h3);
   color: var(--text-heading);
   font-weight: 600;
   margin: 8px 0;
 }
 
 .mini-card-description {
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--text-main);
 }
@@ -556,7 +570,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .hero-sub-header {
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 1.5px;
   color: var(--blueprint-blue);
@@ -565,6 +579,9 @@ body.dark-mode .theme-toggle-btn {
   margin-bottom: 12px;
 }
 
+/* Intentionally outside the H1-H3 type scale — this is the hero's
+   "display" name treatment, meant to read larger and bolder than any
+   content heading on the page. */
 .hero-title {
   font-family: 'Archivo', sans-serif;
   font-size: 4.25rem;
@@ -579,7 +596,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .hero-bio {
-  font-size: 1.05rem;
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--text-main);
   margin-bottom: 24px;
@@ -590,7 +607,7 @@ body.dark-mode .theme-toggle-btn {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 0.88rem;
+  font-size: var(--fs-body);
   color: var(--text-muted);
   font-weight: 500;
   margin-bottom: 32px;
@@ -727,7 +744,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .coursework-list li {
-  font-size: 0.88rem;
+  font-size: var(--fs-body);
   line-height: 1.4;
   color: var(--text-main);
   padding-left: 14px;
@@ -819,7 +836,7 @@ body.dark-mode .theme-toggle-btn {
 
 .timeline-role {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.15rem;
+  font-size: var(--fs-h2);
   color: var(--text-heading);
   font-weight: 600;
   margin-bottom: 4px;
@@ -840,7 +857,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .timeline-bullets li {
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--text-main);
   padding-left: 14px;
@@ -860,7 +877,7 @@ body.dark-mode .theme-toggle-btn {
 
 /* Experience: Leadership Highlight */
 .ribbon-subtext {
-  font-size: 0.92rem;
+  font-size: var(--fs-body);
   color: var(--text-main);
   margin-bottom: 24px;
 }
@@ -890,7 +907,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .leadership-copy p {
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--text-main);
   margin-bottom: 16px;
@@ -905,7 +922,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .leadership-bullets li {
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--text-main);
   padding-left: 14px;
@@ -1161,7 +1178,7 @@ body.dark-mode .theme-toggle-btn {
   max-width: 900px;
   width: 100%;
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   font-weight: 500;
   color: var(--text-main);
   cursor: pointer;
@@ -1173,7 +1190,7 @@ body.dark-mode .theme-toggle-btn {
 }
 
 .detail-eyebrow {
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 1.5px;
   color: var(--blueprint-blue);
@@ -1184,7 +1201,7 @@ body.dark-mode .theme-toggle-btn {
 
 .detail-title {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.9rem;
+  font-size: var(--fs-h1);
   color: var(--text-heading);
   font-weight: 600;
   margin-bottom: 24px;
@@ -1224,14 +1241,14 @@ body.dark-mode .theme-toggle-btn {
 
 .detail-section h3 {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.05rem;
+  font-size: var(--fs-h3);
   font-weight: 600;
   color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .detail-section p {
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
   line-height: 1.65;
   color: var(--text-main);
 }
@@ -1360,14 +1377,14 @@ body.dark-mode .theme-toggle-btn {
 
 .card-title {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.25rem;
+  font-size: var(--fs-h2);
   color: var(--text-heading);
   font-weight: 600;
   margin-bottom: 12px;
 }
 
 .card-description {
-  font-size: 0.88rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--text-main);
   margin-bottom: 24px;
@@ -1441,7 +1458,7 @@ body.dark-mode .theme-toggle-btn {
 
 .modal-content h2 {
   font-family: 'Archivo', sans-serif;
-  font-size: 1.5rem;
+  font-size: var(--fs-h2);
   color: var(--text-heading);
   margin-bottom: 24px;
 }
@@ -1641,8 +1658,8 @@ body.dark-mode .theme-toggle-btn {
 
 .footer-bottom .copyright,
 .footer-bottom .tagline {
-  font-size: 0.68rem;
-  opacity: 0.5;
+  font-size: var(--fs-label);
+  color: var(--text-faint);
 }
 
 @media (max-width: 868px) {
