@@ -1231,6 +1231,17 @@ body.dark-mode .theme-toggle-btn {
   margin-bottom: 32px;
 }
 
+.detail-folder-description {
+  margin: -8px 0 32px;
+  font-size: 1.05rem;
+  color: var(--text-secondary, #666);
+  max-width: 60ch;
+}
+
+.detail-folder-grid {
+  margin-top: 8px;
+}
+
 .detail-section {
   margin-bottom: 24px;
 }

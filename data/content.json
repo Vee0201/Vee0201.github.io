@@ -44,6 +44,7 @@
   "projects": [
     {
       "ID": "project-1",
+      "ParentProjectID": "",
       "Title": "Autonomous Sample-Return Rover",
       "TeamOrg": "BITS Pilani CRISS Robotics",
       "OneLineDescription": "Six-DOF sample collection rover built for the International Rover Design Challenge.",
@@ -59,6 +60,23 @@
     },
     {
       "ID": "Row 2 (orange) is an example — overwrite it with your first real project, then add more rows below.",
+      "ParentProjectID": "",
+      "Title": "",
+      "TeamOrg": "",
+      "OneLineDescription": "",
+      "Tags (separate with |)": "",
+      "BannerLabel": "",
+      "ImageURL1": "",
+      "ImageURL2": "",
+      "Overview": "",
+      "DesignImplementation": "",
+      "Challenges": "",
+      "LinkLabel": "",
+      "LinkURL": ""
+    },
+    {
+      "ID": "Example: to group projects into a folder, add a row here whose Title is the folder cover, then set ParentProjectID on the child rows below to this row's ID.",
+      "ParentProjectID": "",
       "Title": "",
       "TeamOrg": "",
       "OneLineDescription": "",

@@ -399,21 +399,25 @@ document.addEventListener('DOMContentLoaded', () => {
       container.innerHTML = '<p class="data-loading-note">No projects yet — add a row to the Projects sheet.</p>';
       return;
     }
-    container.innerHTML = records.map((r, i) => {
-      const id = `project-${i}`;
+
+    // Build a lookup from a record's sheet "ID" column to its generated
+    // detail-store id, so child projects can be linked to a parent "folder"
+    // project via a ParentProjectID column (matches the parent's ID column).
+    const idByRecordId = {};
+    records.forEach((r, i) => { idByRecordId[r['ID']] = `project-${i}`; });
+
+    // Group children by their parent's generated id.
+    const childrenByParent = {};
+    records.forEach((r, i) => {
+      const parentRecordId = r['ParentProjectID'];
+      if (parentRecordId && idByRecordId[parentRecordId]) {
+        const parentId = idByRecordId[parentRecordId];
+        (childrenByParent[parentId] = childrenByParent[parentId] || []).push(`project-${i}`);
+      }
+    });
+
+    function cardHtml(r, id) {
       const tagsHtml = buildTagsHtml(r['Tags (separate with |)']);
-      detailStore[id] = {
-        html: `
-          <span class="detail-eyebrow">${escapeHtml(r['TeamOrg'])}</span>
-          <h2 class="detail-title">${escapeHtml(r['Title'])}</h2>
-          <div class="detail-gallery">${buildGalleryHtml([r['ImageURL1'], r['ImageURL2']])}</div>
-          <div class="tags detail-tags">${tagsHtml}</div>
-          <div class="detail-section"><h3>Overview</h3><p>${escapeHtml(r['Overview'])}</p></div>
-          <div class="detail-section"><h3>Design &amp; Implementation</h3><p>${escapeHtml(r['DesignImplementation'])}</p></div>
-          <div class="detail-section"><h3>Challenges</h3><p>${escapeHtml(r['Challenges'])}</p></div>
-          ${buildLinkSectionHtml(r['LinkURL'], r['LinkLabel'])}
-        `
-      };
       return `
         <article class="card card-clickable" data-detail-id="${id}" tabindex="0" role="button" aria-haspopup="dialog">
           <div class="card-media text-banner">
@@ -427,7 +431,62 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </article>
       `;
-    }).join('');
+    }
+
+    const cardHtmlById = {};
+
+    records.forEach((r, i) => {
+      const id = `project-${i}`;
+      const tagsHtml = buildTagsHtml(r['Tags (separate with |)']);
+      cardHtmlById[id] = cardHtml(r, id);
+
+      const isFolder = !!childrenByParent[id];
+      if (isFolder) {
+        // Folder projects open a mini gallery of their sub-projects instead
+        // of a standard detail page. Each sub-project card still opens its
+        // own normal detail view when clicked.
+        detailStore[id] = {
+          html: `
+            <span class="detail-eyebrow">${escapeHtml(r['TeamOrg'])}</span>
+            <h2 class="detail-title">${escapeHtml(r['Title'])}</h2>
+            <p class="detail-folder-description">${escapeHtml(r['OneLineDescription'])}</p>
+            <div class="grid-container projects-grid detail-folder-grid">
+              ${childrenByParent[id].map(childId => '__CHILD__' + childId).join('')}
+            </div>
+          `
+        };
+      } else {
+        detailStore[id] = {
+          html: `
+            <span class="detail-eyebrow">${escapeHtml(r['TeamOrg'])}</span>
+            <h2 class="detail-title">${escapeHtml(r['Title'])}</h2>
+            <div class="detail-gallery">${buildGalleryHtml([r['ImageURL1'], r['ImageURL2']])}</div>
+            <div class="tags detail-tags">${tagsHtml}</div>
+            <div class="detail-section"><h3>Overview</h3><p>${escapeHtml(r['Overview'])}</p></div>
+            <div class="detail-section"><h3>Design &amp; Implementation</h3><p>${escapeHtml(r['DesignImplementation'])}</p></div>
+            <div class="detail-section"><h3>Challenges</h3><p>${escapeHtml(r['Challenges'])}</p></div>
+            ${buildLinkSectionHtml(r['LinkURL'], r['LinkLabel'])}
+          `
+        };
+      }
+    });
+
+    // Now that every card's HTML is known, splice child card markup into
+    // any folder detail views (done after the fact so child cards can be
+    // defined anywhere in the sheet, before or after their parent row).
+    Object.keys(detailStore).forEach(id => {
+      if (detailStore[id].html.includes('__CHILD__')) {
+        detailStore[id].html = detailStore[id].html.replace(/__CHILD__(project-\d+)/g, (_, childId) => cardHtmlById[childId] || '');
+      }
+    });
+
+    // Only top-level (non-child) projects show up in the main grid; child
+    // projects are only reachable by opening their parent folder.
+    container.innerHTML = records
+      .map((r, i) => ({ r, id: `project-${i}` }))
+      .filter(({ r }) => !r['ParentProjectID'] || !idByRecordId[r['ParentProjectID']])
+      .map(({ r, id }) => cardHtml(r, id))
+      .join('');
   }
 
   function renderSideProjectCards(records) {
