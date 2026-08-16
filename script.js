@@ -330,9 +330,56 @@ document.addEventListener('DOMContentLoaded', () => {
     return splitPipe(tagsStr).map(t => `<span class="pill">${escapeHtml(t)}</span>`).join('');
   }
 
+  // Turns a YouTube/Vimeo URL into an embeddable player URL. Returns null
+  // if the URL doesn't match a known video host.
+  function toVideoEmbedUrl(url) {
+    try {
+      const u = new URL(url);
+      const host = u.hostname.replace(/^www\./, '');
+
+      if (host === 'youtu.be') {
+        const id = u.pathname.slice(1);
+        return id ? `https://www.youtube.com/embed/${id}` : null;
+      }
+      if (host === 'youtube.com' || host === 'm.youtube.com') {
+        if (u.pathname === '/watch') {
+          const id = u.searchParams.get('v');
+          return id ? `https://www.youtube.com/embed/${id}` : null;
+        }
+        if (u.pathname.startsWith('/embed/')) return url;
+        if (u.pathname.startsWith('/shorts/')) {
+          const id = u.pathname.split('/')[2];
+          return id ? `https://www.youtube.com/embed/${id}` : null;
+        }
+      }
+      if (host === 'vimeo.com') {
+        const id = u.pathname.split('/').filter(Boolean)[0];
+        return id ? `https://player.vimeo.com/video/${id}` : null;
+      }
+      if (host === 'player.vimeo.com') return url;
+    } catch (e) {
+      return null;
+    }
+    return null;
+  }
+
+  // Direct video file links (e.g. an .mp4 hosted in the repo or elsewhere).
+  function isDirectVideoUrl(url) {
+    return /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
+  }
+
   function buildGalleryHtml(urls) {
     return urls.filter(Boolean)
-      .map((u, i) => `<img src="${escapeHtml(u)}" alt="Gallery image ${i + 1}">`)
+      .map((u, i) => {
+        const embedUrl = toVideoEmbedUrl(u);
+        if (embedUrl) {
+          return `<div class="gallery-video"><iframe src="${escapeHtml(embedUrl)}" title="Gallery video ${i + 1}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>`;
+        }
+        if (isDirectVideoUrl(u)) {
+          return `<video class="gallery-video-file" controls preload="metadata"><source src="${escapeHtml(u)}">Your browser doesn't support embedded video.</video>`;
+        }
+        return `<img src="${escapeHtml(u)}" alt="Gallery image ${i + 1}">`;
+      })
       .join('');
   }
 
