@@ -777,10 +777,14 @@ function initRubberBandSelection() {
   document.addEventListener('mousedown', (e) => {
     if (e.button !== 0) return; // left click only
     if (isEditableTarget(e.target)) return;
+    if (e.target.closest('a, button, input, textarea, select, [contenteditable]')) return;
     startX = e.pageX;
     startY = e.pageY;
     dragging = false;
     armed = true;
+    // Stop the browser's native text-selection drag from starting at all,
+    // so it never fights with our custom box.
+    e.preventDefault();
   });
 
   document.addEventListener('mousemove', (e) => {
