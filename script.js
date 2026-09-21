@@ -734,4 +734,82 @@ document.addEventListener('DOMContentLoaded', () => {
     await sheetPromise;
     reconcileVisibilityAfterDataLoad();
   })();
+
+  initRubberBandSelection();
 });
+
+// --- Easter egg: click-and-drag draws an orange "rubber band" selection
+// box instead of highlighting text. Purely visual/for fun — doesn't
+// select or affect any actual content. Skips text inputs, textareas,
+// and other editable/interactive elements so normal typing/selecting
+// still works where it should.
+function initRubberBandSelection() {
+  const THRESHOLD = 4; // px of movement before we treat it as a drag, not a click
+  let startX = 0, startY = 0;
+  let dragging = false;
+  let armed = false;
+  let box = null;
+
+  function isEditableTarget(el) {
+    if (!el) return false;
+    const tag = el.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+  }
+
+  function createBox() {
+    const el = document.createElement('div');
+    el.className = 'rubber-band-box';
+    document.body.appendChild(el);
+    return el;
+  }
+
+  function updateBox(x1, y1, x2, y2) {
+    const left = Math.min(x1, x2);
+    const top = Math.min(y1, y2);
+    const width = Math.abs(x2 - x1);
+    const height = Math.abs(y2 - y1);
+    box.style.left = `${left}px`;
+    box.style.top = `${top}px`;
+    box.style.width = `${width}px`;
+    box.style.height = `${height}px`;
+  }
+
+  document.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return; // left click only
+    if (isEditableTarget(e.target)) return;
+    startX = e.pageX;
+    startY = e.pageY;
+    dragging = false;
+    armed = true;
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!armed) return;
+    const dx = e.pageX - startX;
+    const dy = e.pageY - startY;
+    if (!dragging && Math.hypot(dx, dy) > THRESHOLD) {
+      dragging = true;
+      document.body.classList.add('rubber-band-active');
+      box = createBox();
+    }
+    if (dragging) {
+      updateBox(startX, startY, e.pageX, e.pageY);
+    }
+  });
+
+  function endDrag() {
+    armed = false;
+    if (dragging) {
+      dragging = false;
+      document.body.classList.remove('rubber-band-active');
+      if (box) {
+        box.remove();
+        box = null;
+      }
+    }
+  }
+
+  document.addEventListener('mouseup', endDrag);
+  document.addEventListener('mouseleave', endDrag);
+  window.addEventListener('blur', endDrag);
+}
