@@ -4,51 +4,490 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vidit Shah</title>
-  <meta name="description" content="Vidit Shah, mechanical engineering student at BITS Pilani. Projects and CV.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="site.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    // Applied before first paint to avoid a light-mode flash for users
+    // who previously chose dark mode. Mirrors the logic in script.js.
+    try {
+      if (localStorage.getItem('theme-preference') === 'dark') {
+        document.documentElement.classList.add('dark-mode-pending');
+      }
+    } catch (e) {}
+  </script>
 </head>
-<body data-page="home">
+<body>
+
+  <!-- Site Header (nav + divider, frozen together on scroll) -->
   <header class="site-header">
-    <div class="wrap">
-      <a class="site-name" href="index.html">Vidit Shah</a>
-      <nav class="site-nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="projects.html">Projects</a><a href="cv.html">CV</a><button class="btn" id="contact-open" type="button">Get in touch</button></nav>
+    <div class="nav-container">
+      <nav class="navbar" role="tablist" aria-label="Site sections">
+        <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
+        <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
+        <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
+        <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
+        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Coursework &amp; Skills</button>
+        <button class="nav-tab" id="cv-btn" type="button">CV</button>
+      </nav>
+      <button id="contact-btn" class="contact-tab">Get In Touch</button>
+      <button id="theme-toggle-btn" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18h6"/>
+          <path d="M10 21h4"/>
+          <path d="M12 3a6 6 0 0 0-6 6c0 2.14.94 3.36 2 4.5.53.57 1 1.13 1 2.5h6c0-1.37.47-1.93 1-2.5 1.06-1.14 2-2.36 2-4.5a6 6 0 0 0-6-6z"/>
+        </svg>
+      </button>
     </div>
+
+    <hr class="top-divider">
   </header>
 
-  <main>
-    <div class="wrap intro">
-      <div>
-        <h1>Vidit Shah</h1>
-        <p class="where">Mechanical engineering at BITS Pilani, class of 2027. Mumbai, India.</p>
-        <p class="bio">I get an itch to build things and occasionally break them. I'm currently learning about soft and tendon driven robotics, actuation systems and compliant mechanisms. I have an unexplainable obsession with Additive Manufacturing, Cycloidal gearboxes and complex, intricate mechanisms.</p>
+  <main class="main-content">
+    
+    <!-- Home Ribbons (Visible on Home Tab) -->
+    <section id="hero-section" class="ribbons-wrapper">
+
+      <!-- Ribbon 1: Name & Hero Shot -->
+      <div class="ribbon ribbon-a ribbon-hero">
+        <div class="ribbon-inner hero-ribbon-inner">
+          <div class="hero-text">
+            <span class="hero-sub-header">Mechanical & Robotics Engineering</span>
+            <h1 class="hero-title">Vidit Shah<span class="hero-title-accent">.</span></h1>
+            <p class="hero-bio">
+              I get an itch to build things and occasionally break them. I'm currently learning about soft and tendon driven robotics, actuation systems and compliant mechanisms. I have an unexplainable obsession with Additive Manufacturing, Cycloidal gearboxes and complex, intricate mechanisms.
+            </p>
+            <ul class="hero-meta">
+              <li>• B.E. Mechanical Engineering, BITS Pilani</li>
+              <li>• Class of 2027</li>
+              <li>• Mumbai, India</li>
+            </ul>
+            <div class="hero-actions">
+              <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
+              <button class="btn btn-outline" id="hero-cv-btn" type="button">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Download CV
+              </button>
+              <button class="btn btn-outline" id="hero-contact-btn" type="button">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Get In Touch
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-image-wrapper hero-dim">
+            <img src="assets/profile.jpg" alt="Profile Photo" class="hero-image">
+
+            <!-- ISO 129-style dimension callouts, shown on .hero-dim:hover.
+                 Decorative — update the three .dim-value numbers below if
+                 the photo's real size or corner radius ever changes. -->
+            <div class="dim-callouts" aria-hidden="true">
+
+              <!-- Overall width, dimensioned above the photo -->
+              <div class="dim dim-width">
+                <span class="dim-ext dim-ext-a"></span>
+                <span class="dim-ext dim-ext-b"></span>
+                <span class="dim-stroke"></span>
+                <span class="dim-arrow dim-arrow-a"></span>
+                <span class="dim-arrow dim-arrow-b"></span>
+                <span class="dim-value">96</span>
+              </div>
+
+              <!-- Overall height, dimensioned to the right of the photo -->
+              <div class="dim dim-height">
+                <span class="dim-ext dim-ext-a"></span>
+                <span class="dim-ext dim-ext-b"></span>
+                <span class="dim-stroke"></span>
+                <span class="dim-arrow dim-arrow-a"></span>
+                <span class="dim-arrow dim-arrow-b"></span>
+                <span class="dim-value">120</span>
+              </div>
+
+              <!-- Corner fillet radius, leadered from the bottom-left corner -->
+              <div class="dim dim-fillet">
+                <span class="dim-leader"></span>
+                <span class="dim-value">R16</span>
+              </div>
+
+            </div>
+
+            <div class="hero-badge">Vidit Shah</div>
+          </div>
+        </div>
       </div>
-      <img src="assets/profile.jpg" alt="Vidit Shah">
-    </div>
+
+      <!-- Ribbon 2: Current / Upcoming -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">RIGHT NOW</span>
+          <h2 class="ribbon-title">Current / Upcoming</h2>
+          <ul class="ribbon-list">
+            <li>
+              <span class="ribbon-list-label">[Status]</span>
+              <span class="ribbon-list-text">[Brief description of ongoing project, research, or upcoming milestone.]</span>
+            </li>
+            <li>
+              <span class="ribbon-list-label">[Status]</span>
+              <span class="ribbon-list-text">[Brief description of a second current activity or commitment.]</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Ribbon 3: Selected Work -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">HIGHLIGHTS</span>
+          <h2 class="ribbon-title">Selected Work</h2>
+          <div class="ribbon-card-row">
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[LAB / TEAM]</span>
+              <h3 class="mini-card-title">[Project Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
+            </div>
+          </div>
+          <button class="btn btn-outline ribbon-cta" data-nav-target="projects">See all projects &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Ribbon 4: Beyond the Lab -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">OFF THE CLOCK</span>
+          <h2 class="ribbon-title">Beyond the Lab</h2>
+          <p class="ribbon-text">
+            Outside of engineering, I.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- Research Summary (Visible only on Research Tab) — populated from
+         the ResearchFocus sheet via script.js -->
+    <section id="research-intro" class="section-intro hidden">
+      <div class="section-intro-inner">
+        <span class="ribbon-eyebrow">OVERVIEW</span>
+        <h2 class="ribbon-title">Research Focus</h2>
+        <p class="ribbon-text" id="research-focus-text">Loading research focus…</p>
+        <div class="tags section-intro-tags" id="research-focus-tags"></div>
+      </div>
+    </section>
+
+    <!-- Project Grid (Visible on Research, Skills) — Research cards and
+         Coursework/Skills lists are populated from Google Sheets via
+         script.js. Coursework/Skills card shells stay in the HTML since
+         their surrounding copy is hardcoded; only the grouped lists are
+         dynamic. -->
+    <section id="grid-section" class="grid-container hidden">
+
+      <!-- Research cards render here -->
+      <div id="research-cards-container" class="contents"></div>
+
+      <!-- Coursework Card -->
+      <article class="card card-wide" data-category="skills">
+        <div class="card-media text-banner flex-column">
+          <span class="banner-text">COURSEWORK</span>
+          <span class="banner-subtext">ACADEMIC PREPARATION</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">Department of Mechanical Engineering at BITS Pilani</span>
+          <h2 class="card-title">Relevant Coursework</h2>
+          <p class="card-description">
+            Achieved Highest Semester Grade (10/10) across all students in 6th semester, and the only student in the Mechanical Department to do so. 
+          </p>
+          <div class="coursework-groups" id="coursework-groups-container">
+            <p class="data-loading-note">Loading coursework…</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Skills Card -->
+      <article class="card card-wide" data-category="skills">
+        <div class="card-media text-banner flex-column">
+          <span class="banner-text">SKILLS</span>
+          <span class="banner-subtext">COMPETENCIES</span>
+        </div>
+        <div class="card-body">
+          <span class="sub-header">[TECHNICAL DOMAIN]</span>
+          <h2 class="card-title">Technical Skills</h2>
+          <p class="card-description">
+            [One line noting overall technical focus or standout tool/method.]
+          </p>
+          <div class="coursework-groups" id="skills-groups-container">
+            <p class="data-loading-note">Loading skills…</p>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Projects Section (Visible only on Projects Tab) — both card grids
+         are populated from Google Sheets via script.js. -->
+    <section id="projects-section" class="hidden">
+
+      <!-- Projects Subsection -->
+      <div class="section-intro">
+        <div class="section-intro-inner">
+          <span class="ribbon-eyebrow">MAIN BUILDS</span>
+          <h2 class="ribbon-title">Projects</h2>
+          <p class="ribbon-text">[One line describing your primary, most substantial engineering projects.]</p>
+        </div>
+      </div>
+      <div class="grid-container projects-grid" id="projects-cards-container">
+        <p class="data-loading-note">Loading projects…</p>
+      </div>
+
+      <!-- Side Projects & Tangents Subsection -->
+      <div class="section-intro projects-subsection-spacer">
+        <div class="section-intro-inner">
+          <span class="ribbon-eyebrow">FOR FUN</span>
+          <h2 class="ribbon-title">Side Projects &amp; Tangents</h2>
+          <p class="ribbon-text">[One line describing smaller builds, experiments, or things you made just to learn something.]</p>
+        </div>
+      </div>
+      <div class="grid-container projects-grid" id="side-projects-cards-container">
+        <p class="data-loading-note">Loading side projects…</p>
+      </div>
+
+    </section>
+    <!-- Experience Ribbons (Visible only on Experience Tab) -->
+    <section id="experience-section" class="ribbons-wrapper hidden">
+
+      <!-- Intro Ribbon -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">EXPERIENCE &amp; LEADERSHIP</span>
+          <h2 class="ribbon-title">The journey so far.</h2>
+          <p class="ribbon-text">
+            [A short paragraph tying together internships, leadership, and teaching — the thread that connects them.]
+          </p>
+        </div>
+      </div>
+
+      <!-- Professional Experience Timeline Ribbon -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">PROFESSIONAL EXPERIENCE</span>
+          <h2 class="ribbon-title">Where I have worked</h2>
+          <div class="timeline-card">
+          <ul class="timeline-list">
+              <li class="timeline-item">
+                <span class="timeline-date">[MONTH YEAR] to Present</span>
+                <h3 class="timeline-role">[Engineering Role Title]</h3>
+                <span class="timeline-org">[Company / Organization]</span>
+                <ul class="timeline-bullets">
+                  <li>[Responsibility or achievement, quantified where possible.]</li>
+                  <li>[Responsibility or achievement, quantified where possible.]</li>
+                </ul>
+              </li>
+              <li class="timeline-item">
+                <span class="timeline-date">[MONTH YEAR] to [MONTH YEAR]</span>
+                <h3 class="timeline-role">[Internship Title]</h3>
+                <span class="timeline-org">[Company / Organization]</span>
+                <ul class="timeline-bullets">
+                  <li>[Responsibility or achievement, quantified where possible.]</li>
+                  <li>[Responsibility or achievement, quantified where possible.]</li>
+                </ul>
+              </li>
+              <li class="timeline-item">
+                <span class="timeline-date">[MONTH YEAR] to [MONTH YEAR]</span>
+                <h3 class="timeline-role">[Internship Title]</h3>
+                <span class="timeline-org">[Company / Organization]</span>
+                <ul class="timeline-bullets">
+                  <li>[Responsibility or achievement, quantified where possible.]</li>
+                  <li>[Responsibility or achievement, quantified where possible.]</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          </div>
+        </div>
+
+      <!-- Technical Leadership Highlight Ribbon -->
+      <div class="ribbon ribbon-b">
+        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
+        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">TECHNICAL LEADERSHIP</span>
+          <h2 class="ribbon-title">Vice Captain & Lead Mechanical Engineer</h2>
+          <p class="ribbon-subtext">CRISS Robotics &middot; April 2023 to Present</p>
+          <div class="leadership-layout">
+            <div class="leadership-image-wrapper">
+              <img src="assets/profile.jpg" alt="Leadership role photo" class="leadership-image">
+            </div>
+            <div class="leadership-copy">
+              <p>[Intro paragraph on the scope and impact of the role — team size, budget, or scale.]</p>
+              <ul class="leadership-bullets">
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
+              </ul>
+              <div class="tags">
+                <span class="pill">Tag 1</span>
+                <span class="pill">Tag 2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teaching Ribbon -->
+      <div class="ribbon ribbon-a">
+        <div class="ribbon-inner">
+          <span class="ribbon-eyebrow">TEACHING</span>
+          <h2 class="ribbon-title">Passing it on</h2>
+          <div class="ribbon-card-row">
+            <div class="mini-card">
+              <span class="sub-header">[ORGANIZATION] &middot; [DATE RANGE]</span>
+              <h3 class="mini-card-title">[Teaching Role Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the teaching or mentorship role.]</p>
+            </div>
+            <div class="mini-card">
+              <span class="sub-header">[ORGANIZATION] &middot; [DATE RANGE]</span>
+              <h3 class="mini-card-title">[Teaching Role Title]</h3>
+              <p class="mini-card-description">[One or two lines describing the teaching or mentorship role.]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Detail View (full-page, opens on card click, populated from that card's <template>) -->
+    <section id="detail-view" class="detail-view hidden">
+      <button class="back-btn" id="detail-back-btn" type="button">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <div id="detail-view-content" class="detail-view-content"></div>
+    </section>
+
   </main>
 
-  <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title">
-    <div class="dialog-head">
-      <h2 id="contact-title">Get in touch</h2>
-      <button class="dialog-close" type="button">Close</button>
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" role="button" tabindex="0" aria-label="Close contact dialog">&times;</span>
+      <h2>Get In Touch</h2>
+      <div class="contact-links">
+        <a href="mailto:viditshah201@gmail.com" class="contact-item">
+          <span class="contact-label">Personal Email</span>
+          <span class="contact-value">viditshah201@gmail.com</span>
+        </a>
+        <a href="mailto:f20230434@pilani.bits-pilani.ac.in" class="contact-item">
+          <span class="contact-label">University Email</span>
+          <span class="contact-value">f20230434@pilani.bits-pilani.ac.in</span>
+        </a>
+        <a href="https://www.linkedin.com/in/viditshah201/" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/viditshah201</span>
+        </a>
+      </div>
     </div>
-    <div class="contact-list">
-        <div class="contact-item">
-          <a href="mailto:viditshah201@gmail.com"><span class="label">Personal email</span><span class="value">viditshah201@gmail.com</span></a>
-          <button class="copy-btn" type="button" data-copy="viditshah201@gmail.com" aria-label="Copy personal email">Copy</button>
-        </div>
-        <div class="contact-item">
-          <a href="mailto:f20230434@pilani.bits-pilani.ac.in"><span class="label">University email</span><span class="value">f20230434@pilani.bits-pilani.ac.in</span></a>
-          <button class="copy-btn" type="button" data-copy="f20230434@pilani.bits-pilani.ac.in" aria-label="Copy university email">Copy</button>
-        </div>
-        <div class="contact-item">
-          <a href="https://www.linkedin.com/in/viditshah201/" target="_blank" rel="noopener noreferrer"><span class="label">LinkedIn</span><span class="value">linkedin.com/in/viditshah201</span></a>
-          <button class="copy-btn" type="button" data-copy="https://www.linkedin.com/in/viditshah201/" aria-label="Copy linkedin">Copy</button>
-        </div>
+  </div>
+
+  <!-- CV Modal -->
+  <div id="cv-modal" class="modal">
+    <div class="modal-content cv-modal-content">
+      <span class="close-btn" role="button" tabindex="0" aria-label="Close CV dialog">&times;</span>
+      <h2>My CV</h2>
+      <div class="cv-tabs" role="tablist" aria-label="CV versions">
+        <button class="cv-tab" type="button" data-cv-src="assets/CV-1page.pdf" data-cv-name="ViditShah.pdf" data-cv-flavor="Concise overview" aria-selected="false">1-Page</button>
+        <button class="cv-tab active" type="button" data-cv-src="assets/CV-2page.pdf" data-cv-name="ViditShah.pdf" data-cv-flavor="Full detail" aria-selected="true">2-Page</button>
+        <span class="cv-flavor" id="cv-flavor">Full detail</span>
+      </div>
+      <div class="cv-viewer-wrapper">
+        <embed id="cv-embed" class="cv-embed" src="assets/CV-2page.pdf" type="application/pdf">
+      </div>
+      <div class="cv-footer-row">
+        <span class="cv-last-updated" id="cv-last-updated">• Last updated August 2026</span>
+        <a id="cv-download-link" href="assets/CV-2page.pdf" download="ViditShah.pdf" class="btn btn-outline cv-download-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download PDF
+        </a>
+      </div>
     </div>
-  </dialog>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <span class="footer-col-title">EXPLORE</span>
+          <div class="footer-links-grid">
+            <ul class="footer-links">
+              <li><a href="#" data-footer-filter="home">Home</a></li>
+              <li><a href="#" data-footer-filter="research">Research</a></li>
+              <li><a href="#" data-footer-filter="projects">Projects</a></li>
+            </ul>
+            <ul class="footer-links">
+              <li><a href="#" data-footer-filter="experience">Experience</a></li>
+              <li><a href="#" data-footer-filter="skills">Coursework &amp; Skills</a></li>
+              <li><button id="footer-cv-btn" class="footer-link-btn" type="button">CV</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col-title">CONNECT</span>
+          <ul class="footer-links">
+            <li><a href="mailto:viditshah201@gmail.com">Personal Email</a></li>
+            <li><a href="mailto:f20230434@pilani.bits-pilani.ac.in">University Email</a></li>
+            <li><a href="https://www.linkedin.com/in/viditshah201/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <span class="copyright">&copy; 2026 Vidit Shah</span>
+        <span class="tagline">Built with care · BITS Pilani</span>
+        <span class="tagline" id="footer-last-updated">Last updated August 2026</span>
+        <span class="footer-refresh">
+          <button id="refresh-content-btn" class="footer-refresh-btn" type="button" aria-label="Refresh content from spreadsheet" title="Refresh content from spreadsheet">
+            <svg class="footer-refresh-icon" id="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
+              <polyline points="21 3 21 9 15 9"/>
+            </svg>
+          </button>
+          <span id="refresh-status" class="refresh-status" aria-live="polite"></span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="back-to-top-btn" class="back-to-top-btn" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
