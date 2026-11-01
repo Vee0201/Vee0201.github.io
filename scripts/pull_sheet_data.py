@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Pulls Research, ResearchFocus, Projects, SideProjects, Coursework, and Skills
+Pulls the Projects tab
 from the Google Sheet (as published CSV) and writes them into a single static
 data/content.json file in the repo.
 
@@ -21,7 +21,7 @@ import urllib.request
 from pathlib import Path
 
 SHEET_ID = "18qeKeF1IQj3G9GKwxpjSoNg5a9C0PNUNtdYIhEOycC8"
-SHEETS = ["Research", "ResearchFocus", "Projects", "SideProjects", "Coursework", "Skills"]
+SHEETS = ["Projects"]
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "content.json"
 
 
