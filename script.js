@@ -31,25 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle between Hero, Grid, Projects, and Experience ribbon views
     if (targetFilter === 'home') {
       heroSection.classList.remove('hidden');
-      gridSection.classList.add('hidden');
+      gridSection?.classList.add('hidden');
       if (projectsSection) projectsSection.classList.add('hidden');
       if (experienceSection) experienceSection.classList.add('hidden');
       if (researchIntro) researchIntro.classList.add('hidden');
     } else if (targetFilter === 'experience') {
       heroSection.classList.add('hidden');
-      gridSection.classList.add('hidden');
+      gridSection?.classList.add('hidden');
       if (projectsSection) projectsSection.classList.add('hidden');
       if (experienceSection) experienceSection.classList.remove('hidden');
       if (researchIntro) researchIntro.classList.add('hidden');
     } else if (targetFilter === 'projects') {
       heroSection.classList.add('hidden');
-      gridSection.classList.add('hidden');
+      gridSection?.classList.add('hidden');
       if (projectsSection) projectsSection.classList.remove('hidden');
       if (experienceSection) experienceSection.classList.add('hidden');
       if (researchIntro) researchIntro.classList.add('hidden');
     } else {
       heroSection.classList.add('hidden');
-      gridSection.classList.remove('hidden');
+      gridSection?.classList.remove('hidden');
       if (projectsSection) projectsSection.classList.add('hidden');
       if (experienceSection) experienceSection.classList.add('hidden');
 
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!entry || !detailViewContent || !detailView) return;
 
     heroSection.classList.add('hidden');
-    gridSection.classList.add('hidden');
+    gridSection?.classList.add('hidden');
     if (projectsSection) projectsSection.classList.add('hidden');
     if (experienceSection) experienceSection.classList.add('hidden');
     if (researchIntro) researchIntro.classList.add('hidden');

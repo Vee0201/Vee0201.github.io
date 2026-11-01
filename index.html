@@ -28,10 +28,7 @@
     <div class="nav-container">
       <nav class="navbar" role="tablist" aria-label="Site sections">
         <button class="nav-tab active" data-filter="home" role="tab" aria-selected="true">Home</button>
-        <button class="nav-tab" data-filter="research" role="tab" aria-selected="false">Research</button>
         <button class="nav-tab" data-filter="projects" role="tab" aria-selected="false">Projects</button>
-        <button class="nav-tab" data-filter="experience" role="tab" aria-selected="false">Experience</button>
-        <button class="nav-tab" data-filter="skills" role="tab" aria-selected="false">Coursework &amp; Skills</button>
         <button class="nav-tab" id="cv-btn" type="button">CV</button>
       </nav>
       <button id="contact-btn" class="contact-tab">Get In Touch</button>
@@ -67,7 +64,7 @@
               <li>• Mumbai, India</li>
             </ul>
             <div class="hero-actions">
-              <button class="btn btn-solid" data-nav-target="research">View research &rarr;</button>
+              <button class="btn btn-solid" data-nav-target="projects">View projects &rarr;</button>
               <button class="btn btn-outline" id="hero-cv-btn" type="button">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                 Download CV
@@ -120,126 +117,10 @@
         </div>
       </div>
 
-      <!-- Ribbon 2: Current / Upcoming -->
-      <div class="ribbon ribbon-b">
-        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
-        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">RIGHT NOW</span>
-          <h2 class="ribbon-title">Current / Upcoming</h2>
-          <ul class="ribbon-list">
-            <li>
-              <span class="ribbon-list-label">[Status]</span>
-              <span class="ribbon-list-text">[Brief description of ongoing project, research, or upcoming milestone.]</span>
-            </li>
-            <li>
-              <span class="ribbon-list-label">[Status]</span>
-              <span class="ribbon-list-text">[Brief description of a second current activity or commitment.]</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Ribbon 3: Selected Work -->
-      <div class="ribbon ribbon-a">
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">HIGHLIGHTS</span>
-          <h2 class="ribbon-title">Selected Work</h2>
-          <div class="ribbon-card-row">
-            <div class="mini-card">
-              <span class="sub-header">[LAB / TEAM]</span>
-              <h3 class="mini-card-title">[Project Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
-            </div>
-            <div class="mini-card">
-              <span class="sub-header">[LAB / TEAM]</span>
-              <h3 class="mini-card-title">[Project Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
-            </div>
-            <div class="mini-card">
-              <span class="sub-header">[LAB / TEAM]</span>
-              <h3 class="mini-card-title">[Project Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the outcome or impact of this work.]</p>
-            </div>
-          </div>
-          <button class="btn btn-outline ribbon-cta" data-nav-target="projects">See all projects &rarr;</button>
-        </div>
-      </div>
-
-      <!-- Ribbon 4: Beyond the Lab -->
-      <div class="ribbon ribbon-b">
-        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
-        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">OFF THE CLOCK</span>
-          <h2 class="ribbon-title">Beyond the Lab</h2>
-          <p class="ribbon-text">
-            Outside of engineering, I.
-          </p>
-        </div>
-      </div>
 
     </section>
 
 
-    <!-- Research Summary (Visible only on Research Tab) — populated from
-         the ResearchFocus sheet via script.js -->
-    <section id="research-intro" class="section-intro hidden">
-      <div class="section-intro-inner">
-        <span class="ribbon-eyebrow">OVERVIEW</span>
-        <h2 class="ribbon-title">Research Focus</h2>
-        <p class="ribbon-text" id="research-focus-text">Loading research focus…</p>
-        <div class="tags section-intro-tags" id="research-focus-tags"></div>
-      </div>
-    </section>
-
-    <!-- Project Grid (Visible on Research, Skills) — Research cards and
-         Coursework/Skills lists are populated from Google Sheets via
-         script.js. Coursework/Skills card shells stay in the HTML since
-         their surrounding copy is hardcoded; only the grouped lists are
-         dynamic. -->
-    <section id="grid-section" class="grid-container hidden">
-
-      <!-- Research cards render here -->
-      <div id="research-cards-container" class="contents"></div>
-
-      <!-- Coursework Card -->
-      <article class="card card-wide" data-category="skills">
-        <div class="card-media text-banner flex-column">
-          <span class="banner-text">COURSEWORK</span>
-          <span class="banner-subtext">ACADEMIC PREPARATION</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">Department of Mechanical Engineering at BITS Pilani</span>
-          <h2 class="card-title">Relevant Coursework</h2>
-          <p class="card-description">
-            Achieved Highest Semester Grade (10/10) across all students in 6th semester, and the only student in the Mechanical Department to do so. 
-          </p>
-          <div class="coursework-groups" id="coursework-groups-container">
-            <p class="data-loading-note">Loading coursework…</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Skills Card -->
-      <article class="card card-wide" data-category="skills">
-        <div class="card-media text-banner flex-column">
-          <span class="banner-text">SKILLS</span>
-          <span class="banner-subtext">COMPETENCIES</span>
-        </div>
-        <div class="card-body">
-          <span class="sub-header">[TECHNICAL DOMAIN]</span>
-          <h2 class="card-title">Technical Skills</h2>
-          <p class="card-description">
-            [One line noting overall technical focus or standout tool/method.]
-          </p>
-          <div class="coursework-groups" id="skills-groups-container">
-            <p class="data-loading-note">Loading skills…</p>
-          </div>
-        </div>
-      </article>
-
-    </section>
 
     <!-- Projects Section (Visible only on Projects Tab) — both card grids
          are populated from Google Sheets via script.js. -->
@@ -267,111 +148,6 @@
       </div>
       <div class="grid-container projects-grid" id="side-projects-cards-container">
         <p class="data-loading-note">Loading side projects…</p>
-      </div>
-
-    </section>
-    <!-- Experience Ribbons (Visible only on Experience Tab) -->
-    <section id="experience-section" class="ribbons-wrapper hidden">
-
-      <!-- Intro Ribbon -->
-      <div class="ribbon ribbon-b">
-        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
-        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">EXPERIENCE &amp; LEADERSHIP</span>
-          <h2 class="ribbon-title">The journey so far.</h2>
-          <p class="ribbon-text">
-            [A short paragraph tying together internships, leadership, and teaching — the thread that connects them.]
-          </p>
-        </div>
-      </div>
-
-      <!-- Professional Experience Timeline Ribbon -->
-      <div class="ribbon ribbon-a">
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">PROFESSIONAL EXPERIENCE</span>
-          <h2 class="ribbon-title">Where I have worked</h2>
-          <div class="timeline-card">
-          <ul class="timeline-list">
-              <li class="timeline-item">
-                <span class="timeline-date">[MONTH YEAR] to Present</span>
-                <h3 class="timeline-role">[Engineering Role Title]</h3>
-                <span class="timeline-org">[Company / Organization]</span>
-                <ul class="timeline-bullets">
-                  <li>[Responsibility or achievement, quantified where possible.]</li>
-                  <li>[Responsibility or achievement, quantified where possible.]</li>
-                </ul>
-              </li>
-              <li class="timeline-item">
-                <span class="timeline-date">[MONTH YEAR] to [MONTH YEAR]</span>
-                <h3 class="timeline-role">[Internship Title]</h3>
-                <span class="timeline-org">[Company / Organization]</span>
-                <ul class="timeline-bullets">
-                  <li>[Responsibility or achievement, quantified where possible.]</li>
-                  <li>[Responsibility or achievement, quantified where possible.]</li>
-                </ul>
-              </li>
-              <li class="timeline-item">
-                <span class="timeline-date">[MONTH YEAR] to [MONTH YEAR]</span>
-                <h3 class="timeline-role">[Internship Title]</h3>
-                <span class="timeline-org">[Company / Organization]</span>
-                <ul class="timeline-bullets">
-                  <li>[Responsibility or achievement, quantified where possible.]</li>
-                  <li>[Responsibility or achievement, quantified where possible.]</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          </div>
-        </div>
-
-      <!-- Technical Leadership Highlight Ribbon -->
-      <div class="ribbon ribbon-b">
-        <span class="corner-mark corner-mark-tl" aria-hidden="true"></span>
-        <span class="corner-mark corner-mark-br" aria-hidden="true"></span>
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">TECHNICAL LEADERSHIP</span>
-          <h2 class="ribbon-title">Vice Captain & Lead Mechanical Engineer</h2>
-          <p class="ribbon-subtext">CRISS Robotics &middot; April 2023 to Present</p>
-          <div class="leadership-layout">
-            <div class="leadership-image-wrapper">
-              <img src="assets/profile.jpg" alt="Leadership role photo" class="leadership-image">
-            </div>
-            <div class="leadership-copy">
-              <p>[Intro paragraph on the scope and impact of the role — team size, budget, or scale.]</p>
-              <ul class="leadership-bullets">
-                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
-                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
-                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
-                <li><strong>[Category]:</strong> [Detail or outcome.]</li>
-              </ul>
-              <div class="tags">
-                <span class="pill">Tag 1</span>
-                <span class="pill">Tag 2</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Teaching Ribbon -->
-      <div class="ribbon ribbon-a">
-        <div class="ribbon-inner">
-          <span class="ribbon-eyebrow">TEACHING</span>
-          <h2 class="ribbon-title">Passing it on</h2>
-          <div class="ribbon-card-row">
-            <div class="mini-card">
-              <span class="sub-header">[ORGANIZATION] &middot; [DATE RANGE]</span>
-              <h3 class="mini-card-title">[Teaching Role Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the teaching or mentorship role.]</p>
-            </div>
-            <div class="mini-card">
-              <span class="sub-header">[ORGANIZATION] &middot; [DATE RANGE]</span>
-              <h3 class="mini-card-title">[Teaching Role Title]</h3>
-              <p class="mini-card-description">[One or two lines describing the teaching or mentorship role.]</p>
-            </div>
-          </div>
-        </div>
       </div>
 
     </section>
@@ -441,12 +217,7 @@
           <div class="footer-links-grid">
             <ul class="footer-links">
               <li><a href="#" data-footer-filter="home">Home</a></li>
-              <li><a href="#" data-footer-filter="research">Research</a></li>
               <li><a href="#" data-footer-filter="projects">Projects</a></li>
-            </ul>
-            <ul class="footer-links">
-              <li><a href="#" data-footer-filter="experience">Experience</a></li>
-              <li><a href="#" data-footer-filter="skills">Coursework &amp; Skills</a></li>
               <li><button id="footer-cv-btn" class="footer-link-btn" type="button">CV</button></li>
             </ul>
           </div>
